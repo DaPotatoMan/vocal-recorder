@@ -1,0 +1,20 @@
+{
+  "name": "@vocal-recorder/webapp",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host",
+    "build": "vue-tsc && vite build"
+  },
+  "dependencies": {
+    "@vitejs/plugin-basic-ssl": "^0.1.2",
+    "vocal-recorder": "workspace:*",
+    "vue": "^3.2.45"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^4.0.0",
+    "unocss": "^0.47.5",
+    "vite": "^4.0.0"
+  }
+}

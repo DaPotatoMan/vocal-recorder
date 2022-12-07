@@ -1,0 +1,21 @@
+{
+  "name": "vocal-recorder",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.ts",
+  "scripts": {
+    "build": "vite build",
+    "test": "vitest",
+    "coverage": "vitest run --coverage"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/audioworklet": "^0.0.35",
+    "standardized-audio-context-mock": "^9.6.8"
+  },
+  "dependencies": {
+    "lamejs": "github:zhuker/lamejs#582bbba6a12f981b984d8fb9e1874499fed85675"
+  }
+}
