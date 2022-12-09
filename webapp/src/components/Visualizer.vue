@@ -38,7 +38,7 @@ function setupVisualizer() {
   if (canvasCtx === null)
     throw new Error('canvasCtx was null')
 
-  const FFT_SIZE = 4096
+  const FFT_SIZE = 2048
   const audioCtx = props.processor.ctx
   const analyzer = audioCtx.createAnalyser()
 
@@ -85,5 +85,11 @@ defineExpose({ setupVisualizer })
 </script>
 
 <template>
-  <canvas ref="canvasRef" />
+  <canvas ref="canvasRef" class="canvas" />
 </template>
+
+<style scoped>
+.canvas {
+  @apply my-20 rounded-lg;
+}
+</style>

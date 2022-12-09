@@ -1,11 +1,17 @@
 <script setup lang="ts">
 import { Recorder, createRecorder } from 'vocal-recorder'
-import { shallowRef } from 'vue'
+import { shallowReactive, shallowRef } from 'vue'
 import Timer from './Timer.vue'
 import Visualizer from './Visualizer.vue'
 
 const state = shallowRef(Recorder.State.inactive)
-const audioResult = shallowRef<{ url: string; duration: number; size: number } | null>(null)
+const audio = shallowReactive({
+  loaded: false,
+  url: '',
+  duration: 0,
+  actualDuration: 0,
+  size: 0
+})
 
 const recorder = createRecorder({
   stream: {
@@ -20,29 +26,39 @@ const start = async () => {
   await recorder.init()
   recorder.start()
 
-  audioResult.value = null
+  audio.url = ''
+  audio.loaded = false
   state.value = recorder.state
 }
 
 const stop = async () => {
   const result = await recorder.stop()
 
-  audioResult.value = {
-    url: URL.createObjectURL(result.blob),
-    duration: +(result.duration / 1000).toFixed(1),
-    size: +(result.blob.size / (1024 * 1024)).toFixed(2)
-  }
+  audio.url = URL.createObjectURL(result.blob)
+  audio.duration = +(result.duration / 1000).toFixed(1)
+  audio.size = +(result.blob.size / (1024 * 1024)).toFixed(3)
+  audio.loaded = true
 
   state.value = recorder.state
+}
+
+function onAudioLoad(event: Event) {
+  const node = event.target as HTMLAudioElement
+  audio.actualDuration = node.duration
 }
 </script>
 
 <template>
-  <div v-if="state === Recorder.State.inactive && !!audioResult">
-    <audio :src="audioResult.url" controls />
+  <div v-if="state === Recorder.State.inactive && audio.loaded">
+    <audio :src="audio.url" controls @loadedmetadata="onAudioLoad" />
 
-    <h4>Recording duration: {{ audioResult.duration }}s</h4>
-    <h4>Recording size: {{ audioResult.size }}mb</h4>
+    <br>
+    <br>
+    <span>Audio actual duration: <b text="blue-500">{{ audio.actualDuration }}s</b></span>
+    <br>
+    <span>Audio estimated duration: <b text="blue-500">{{ audio.duration }}s</b></span>
+    <br>
+    <span>Audio size: <b text="blue-500">{{ audio.size }}mb</b></span>
   </div>
 
   <div v-else-if="state === Recorder.State.inactive">
@@ -51,7 +67,7 @@ const stop = async () => {
     </button>
   </div>
 
-  <div v-else-if="state === Recorder.State.recording">
+  <div v-else-if="state === Recorder.State.recording" class="flex flex-col items-center">
     <Timer />
     <Visualizer :processor="recorder.processor!" />
 

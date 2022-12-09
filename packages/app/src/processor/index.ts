@@ -3,7 +3,7 @@ import { AudioCTX, disposeStream, getStream } from '../utils'
 import { useWorker } from '../worker'
 import workletPath from './encoder-worklet?url'
 
-export function useEncoderNode(ctx: AudioContext, legacy = true) {
+export function useEncoderNode(ctx: AudioContext, legacy = false) {
   const workletNode = async () => {
     await ctx.audioWorklet.addModule(workletPath)
 
@@ -18,7 +18,6 @@ export function useEncoderNode(ctx: AudioContext, legacy = true) {
 
     const start = (pipe: (data: Float32Array) => any) => {
       encoder.port.onmessage = e => pipe(e.data)
-      // encoder.connect(ctx.destination)
     }
 
     return Object.assign(encoder, { start, dispose })
@@ -33,11 +32,7 @@ export function useEncoderNode(ctx: AudioContext, legacy = true) {
     }
 
     const start = (pipe: (data: Float32Array) => any) => {
-      encoder.onaudioprocess = (e) => {
-        console.log('Latency:', ctx.baseLatency, 'Output latency:', ctx.outputLatency)
-        pipe(e.inputBuffer.getChannelData(0))
-      }
-      // encoder.connect(ctx.destination)
+      encoder.onaudioprocess = e => pipe(e.inputBuffer.getChannelData(0))
     }
 
     return Object.assign(encoder, { start, dispose })
@@ -50,43 +45,28 @@ export async function useAudioProcessor(config: Recorder.Config = {}) {
   const worker = await useWorker({ shimURL: '' })
 
   const stream = await getStream(config.stream)
-  const [streamSettings] = stream.getAudioTracks().map((track) => {
-    return track.getSettings() as MediaTrackSettings & { channelCount?: number }
-  })
+  const sampleRate = stream.getAudioTracks()[0]?.getSettings().sampleRate ?? 44100
 
-  const ctx = new AudioCTX({
-    latencyHint: 'interactive',
-    sampleRate: streamSettings.sampleRate ?? 44100
-  })
-
+  const ctx = new AudioCTX({ sampleRate, latencyHint: 'interactive' })
   const sourceNode = ctx.createMediaStreamSource(stream)
+  const encoderNode = await useEncoderNode(ctx, false)
+  const gainNode = (ctx.createGain || ctx.createGainNode)?.call(ctx)
 
-  // Gain node for loudness control
-  const gainNode = ctx.createGain?.() || ctx.createGainNode?.()
+  // Connect nodes
   gainNode.gain.value = 1
   sourceNode.connect(gainNode)
-
-  // Create MP3 Encoder Node
-  const encoder = await useEncoderNode(ctx, false)
-  // gainNode.connect(encoder)
-  // encoder.connect(gainNode)
-  // gainNode.connect(ctx.destination)
-
-  sourceNode.connect(encoder)
-  encoder.connect(gainNode)
-  // gainNode.connect(ctx.destination)
+  gainNode.connect(encoderNode)
 
   let startTime = 0
 
   function start() {
-    console.log(ctx.sampleRate)
     worker.start(ctx.sampleRate)
-    encoder.start(worker.pipe)
+    encoderNode.start(worker.pipe)
     startTime = performance.now()
   }
 
   async function stop() {
-    encoder.dispose()
+    encoderNode.dispose()
     disposeStream(stream)
     ctx.close()
 

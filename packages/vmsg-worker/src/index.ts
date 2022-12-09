@@ -1,4 +1,4 @@
-import AudioWorker from './vmsg-worker?worker'
+import AudioWorker from './worker?worker'
 
 export function useWorker(options: any) {
   let promise: {

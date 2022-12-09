@@ -6,7 +6,7 @@ export default defineConfig({
 
   build: {
     lib: {
-      name: 'BAR',
+      name: 'VAR',
       fileName: 'index',
       formats: ['es', 'cjs', 'umd'],
       entry: resolve(__dirname, 'src/index.ts')

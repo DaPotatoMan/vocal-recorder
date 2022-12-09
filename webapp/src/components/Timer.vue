@@ -16,6 +16,6 @@ onUnmounted(() => clearTimeout(timerFn))
 
 <style scoped lang="postcss">
 .timer {
-  @apply font-bold text-7em;
+  @apply font-bold text-7em m-0;
 }
 </style>
