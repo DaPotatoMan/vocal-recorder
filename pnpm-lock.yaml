@@ -28,20 +28,26 @@ importers:
     specifiers:
       '@types/audioworklet': ^0.0.35
       standardized-audio-context-mock: ^9.6.8
+      typescript: ^4.9.4
       vmsg-worker: workspace:*
     dependencies:
       vmsg-worker: link:../vmsg-worker
     devDependencies:
       '@types/audioworklet': registry.npmjs.org/@types/audioworklet/0.0.35
       standardized-audio-context-mock: registry.npmjs.org/standardized-audio-context-mock/9.6.8
+      typescript: registry.npmjs.org/typescript/4.9.4
 
   packages/vmsg-worker:
-    specifiers: {}
+    specifiers:
+      typescript: ^4.9.4
+    devDependencies:
+      typescript: registry.npmjs.org/typescript/4.9.4
 
   webapp:
     specifiers:
       '@vitejs/plugin-basic-ssl': ^0.1.2
       '@vitejs/plugin-vue': ^4.0.0
+      typescript: ^4.9.4
       unocss: ^0.47.5
       vite: ^4.0.0
       vocal-recorder: workspace:*
@@ -52,6 +58,7 @@ importers:
       vue: registry.npmjs.org/vue/3.2.45
     devDependencies:
       '@vitejs/plugin-vue': registry.npmjs.org/@vitejs/plugin-vue/4.0.0_vite@4.0.0+vue@3.2.45
+      typescript: registry.npmjs.org/typescript/4.9.4
       unocss: registry.npmjs.org/unocss/0.47.5_vite@4.0.0
       vite: registry.npmjs.org/vite/4.0.0
 
