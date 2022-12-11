@@ -1,3 +1,4 @@
+import type { WorkerGetType } from './types'
 import AudioWorker from './worker?worker'
 
 export function useWorker(options: any) {
@@ -7,13 +8,15 @@ export function useWorker(options: any) {
   }
 
   const worker = new AudioWorker()
+  const post = (type: WorkerGetType, data?: any) => worker.postMessage({ type, data })
+
   const methods = {
-    start: (sampleRate: number) => worker.postMessage({ type: 'start', data: sampleRate }),
-    pipe: (data: Float32Array) => worker.postMessage({ type: 'data', data }),
+    start: (sampleRate: number) => post('start', sampleRate),
+    encode: (data: Float32Array) => post('data', data),
     stop() {
       return new Promise<Blob>((resolve, reject) => {
         promise = { resolve, reject }
-        worker.postMessage({ type: 'stop', data: null })
+        post('stop')
       })
     },
 
@@ -42,6 +45,6 @@ export function useWorker(options: any) {
       }
     }
 
-    worker.postMessage({ type: 'init', data: options })
+    post('init', options)
   })
 }

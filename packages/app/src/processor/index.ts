@@ -1,6 +1,6 @@
+import { useWorker } from 'vmsg-worker'
 import type { Recorder } from '../env-types'
 import { AudioCTX, disposeStream, getStream } from '../utils'
-import { useWorker } from '../worker'
 import workletPath from './encoder-worklet?url'
 
 export function useEncoderNode(ctx: AudioContext, legacy = false) {
@@ -61,7 +61,7 @@ export async function useAudioProcessor(config: Recorder.Config = {}) {
 
   function start() {
     worker.start(ctx.sampleRate)
-    encoderNode.start(worker.pipe)
+    encoderNode.start(worker.encode)
     startTime = performance.now()
   }
 

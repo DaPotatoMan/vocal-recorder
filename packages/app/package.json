@@ -16,6 +16,6 @@
     "standardized-audio-context-mock": "^9.6.8"
   },
   "dependencies": {
-    "lamejs": "github:zhuker/lamejs#582bbba6a12f981b984d8fb9e1874499fed85675"
+    "vmsg-worker": "workspace:*"
   }
 }

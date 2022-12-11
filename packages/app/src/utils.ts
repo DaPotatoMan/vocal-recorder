@@ -1,5 +1,3 @@
-/// <reference types="./env" />
-
 export class AudioCTX extends (window.AudioContext || window.webkitAudioContext) {
   constructor(options?: AudioContextOptions) {
     super(options)

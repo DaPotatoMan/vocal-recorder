@@ -27,13 +27,16 @@ importers:
   packages/app:
     specifiers:
       '@types/audioworklet': ^0.0.35
-      lamejs: github:zhuker/lamejs#582bbba6a12f981b984d8fb9e1874499fed85675
       standardized-audio-context-mock: ^9.6.8
+      vmsg-worker: workspace:*
     dependencies:
-      lamejs: github.com/zhuker/lamejs/582bbba6a12f981b984d8fb9e1874499fed85675
+      vmsg-worker: link:../vmsg-worker
     devDependencies:
       '@types/audioworklet': registry.npmjs.org/@types/audioworklet/0.0.35
       standardized-audio-context-mock: registry.npmjs.org/standardized-audio-context-mock/9.6.8
+
+  packages/vmsg-worker:
+    specifiers: {}
 
   webapp:
     specifiers:
@@ -53,14 +56,6 @@ importers:
       vite: registry.npmjs.org/vite/4.0.0
 
 packages:
-
-  github.com/zhuker/lamejs/582bbba6a12f981b984d8fb9e1874499fed85675:
-    resolution: {tarball: https://codeload.github.com/zhuker/lamejs/tar.gz/582bbba6a12f981b984d8fb9e1874499fed85675}
-    name: lamejs
-    version: 1.2.1
-    dependencies:
-      use-strict: registry.npmjs.org/use-strict/1.0.1
-    dev: false
 
   registry.npmjs.org/@ampproject/remapping/2.2.0:
     resolution: {integrity: sha512-qRmjj8nj9qmLTQXXmaR1cck3UXSRMPrbsLJAasZpF+t3riI71BXed5ebIOYwQntykeZuhjsdweEc9BxH5Jc26w==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/@ampproject/remapping/-/remapping-2.2.0.tgz}
@@ -4795,12 +4790,6 @@ packages:
     dependencies:
       punycode: registry.npmjs.org/punycode/2.1.1
     dev: true
-
-  registry.npmjs.org/use-strict/1.0.1:
-    resolution: {integrity: sha512-IeiWvvEXfW5ltKVMkxq6FvNf2LojMKvB2OCeja6+ct24S1XOmQw2dGr2JyndwACWAGJva9B7yPHwAmeA9QCqAQ==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/use-strict/-/use-strict-1.0.1.tgz}
-    name: use-strict
-    version: 1.0.1
-    dev: false
 
   registry.npmjs.org/util-deprecate/1.0.2:
     resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/util-deprecate/-/util-deprecate-1.0.2.tgz}
