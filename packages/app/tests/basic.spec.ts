@@ -1,7 +1,7 @@
-import { Recorder, createRecorder } from '../src'
-
 import './__mocks__/worker'
 import './__mocks__/audio'
+
+import { Recorder, createRecorder } from '../src'
 
 describe('recorder', () => {
   let recorder: ReturnType<typeof createRecorder>

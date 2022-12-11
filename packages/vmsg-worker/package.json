@@ -1,12 +1,9 @@
 {
   "name": "vmsg-worker",
   "version": "1.0.0",
-  "description": "",
   "main": "src/index.ts",
   "scripts": {
-    "build": "vite build",
-    "test": "vitest",
-    "coverage": "vitest run --coverage"
+    "build": "vite build"
   },
   "keywords": [],
   "author": "",

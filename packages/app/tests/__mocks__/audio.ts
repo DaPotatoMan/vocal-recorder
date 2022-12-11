@@ -1,13 +1,10 @@
-import { AudioNode, AudioWorkletNode, AudioContext as Ctx } from 'standardized-audio-context-mock'
+import { AudioNode, GainNode } from 'standardized-audio-context-mock'
 
 const MediaStream = vi.fn(() => ({
   active: true,
   id: 'random-id',
-  getTracks: () => []
-  // onactive: vi.fn(),
-  // onaddtrack: vi.fn(),
-  // oninactive: vi.fn(),
-  // onremovetrack: vi.fn(),
+  getTracks: () => [],
+  getAudioTracks: () => []
 }))
 
 const navigator = {
@@ -16,18 +13,37 @@ const navigator = {
   }
 }
 
-const AudioContext = vi.fn(() =>
-  Object.assign(new Ctx(), {
-    // @ts-expect-error ignore type issue
-    createScriptProcessor: () => new AudioNode({})
-  })
-)
+const AudioContext = vi.fn(() => ({
+  createGain: () => new GainNode({} as any),
+  createGainNode: () => new GainNode({} as any),
+  createScriptProcessor: () => new AudioNode({} as any),
+  createMediaStreamSource: () => new AudioNode({} as any),
+
+  close: () => { },
+
+  audioWorklet: {
+    addModule: () => { }
+  },
+
+  sampleRate: 48000
+}))
+
+class AudioWorkletNode {
+  constructor() { }
+  disconnect() { }
+
+  port = {
+    onmessage: null,
+    close() { },
+    postMessage() { }
+  }
+}
 
 vi.stubGlobal('MediaStream', MediaStream)
 vi.stubGlobal('AudioContext', AudioContext)
 vi.stubGlobal('AudioWorkletNode', AudioWorkletNode)
 
 vi.stubGlobal('navigator', navigator)
-vi.stubGlobal('window', { AudioContext, AudioWorkletNode, navigator })
+vi.stubGlobal('window', { AudioContext, navigator })
 
 export default { navigator, AudioContext, MediaStream }

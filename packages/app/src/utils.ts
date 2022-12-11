@@ -1,7 +1,5 @@
-export class AudioCTX extends (window.AudioContext || window.webkitAudioContext) {
-  constructor(options?: AudioContextOptions) {
-    super(options)
-  }
+export function getAudioCtx(options?: AudioContextOptions) {
+  return new (window.AudioContext || window.webkitAudioContext)(options)
 }
 
 export function getStream(options?: MediaTrackConstraints) {

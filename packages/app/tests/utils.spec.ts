@@ -1,5 +1,6 @@
-import { getStream } from '../src/utils'
+/* eslint-disable import/order */
 import mocks from './__mocks__/audio'
+import { getStream } from '../src/utils'
 
 describe('util: getStream', () => {
   afterEach(() => {
