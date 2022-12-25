@@ -52,26 +52,36 @@ export async function useAudioProcessor(config: Recorder.Config = {}) {
   const encoderNode = await useEncoderNode(ctx, false)
   const gainNode = (ctx.createGain || ctx.createGainNode)?.call(ctx)
 
-  // Connect nodes
-  gainNode.gain.value = 1
-  sourceNode.connect(gainNode)
-  gainNode.connect(encoderNode)
-
   let startTime = 0
 
   function start() {
+    // Connect nodes
+    gainNode.gain.value = 1
+    sourceNode.connect(gainNode)
+    gainNode.connect(encoderNode)
+
     worker.start(ctx.sampleRate)
     encoderNode.start(worker.encode)
     startTime = performance.now()
   }
 
-  async function stop() {
+  async function dispose() {
+    worker.dispose()
     encoderNode.dispose()
-    disposeStream(stream)
-    ctx.close()
+    gainNode.disconnect()
+    sourceNode.disconnect()
 
+    disposeStream(stream)
+
+    if (ctx.state !== 'closed')
+      await ctx.close()
+  }
+
+  async function stop() {
     const blob = await worker.stop()
     const duration = performance.now() - startTime
+
+    await dispose()
 
     return { blob, duration }
   }
@@ -79,6 +89,7 @@ export async function useAudioProcessor(config: Recorder.Config = {}) {
   return {
     start,
     stop,
+    dispose,
 
     get ctx() { return ctx },
     get gainNode() { return gainNode }

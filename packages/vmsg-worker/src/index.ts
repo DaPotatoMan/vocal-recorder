@@ -30,12 +30,12 @@ export function useWorker(options: any) {
 
       if (state === 'init') return resolve(methods)
       if (state === 'stop') {
-        worker.terminate()
+        methods.dispose()
         return promise.resolve(data)
       }
 
       if (state.endsWith('error')) {
-        worker.terminate()
+        methods.dispose()
 
         console.error('Worker error:', data)
         const error = new Error(data)

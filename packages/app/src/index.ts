@@ -1,20 +1,5 @@
 import { useAudioProcessor } from './processor'
 
-export namespace Recorder {
-  export type Config = Partial<{
-    stream: MediaTrackConstraints
-  }>
-
-  export enum State {
-    /** Recorder is disposed or not initialized */
-    inactive,
-    initialized,
-    recording
-  }
-
-  export type Processor = Awaited<ReturnType<typeof useAudioProcessor>>
-}
-
 export function createRecorder(config: Recorder.Config = {}) {
   const { State } = Recorder
 
@@ -41,12 +26,12 @@ export function createRecorder(config: Recorder.Config = {}) {
     if (!processor) throw new Error('Recorder not initialized!')
 
     state = State.inactive
-    return processor.stop()
+    return processor.stop().finally(dispose)
   }
 
-  function dispose() {
+  async function dispose() {
     if (state !== State.inactive)
-      processor?.stop()
+      await processor?.dispose()
 
     state = State.inactive
     processor = undefined
@@ -59,5 +44,32 @@ export function createRecorder(config: Recorder.Config = {}) {
     dispose,
     get state() { return state },
     get processor() { return processor }
+  }
+}
+
+export class Recorder {
+  static create(config: Recorder.Config = {}) {
+    return createRecorder(config)
+  }
+}
+
+export namespace Recorder {
+  export type Config = Partial<{
+    stream: MediaTrackConstraints
+  }>
+
+  export enum State {
+    /** Recorder is disposed or not initialized */
+    inactive,
+    initialized,
+    recording
+  }
+
+  export type Processor = Awaited<ReturnType<typeof useAudioProcessor>>
+  export type Instance = ReturnType<typeof Recorder.create>
+
+  export interface Result {
+    blob: Blob
+    duration: number
   }
 }

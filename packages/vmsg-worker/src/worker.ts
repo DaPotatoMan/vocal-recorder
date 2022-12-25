@@ -38,6 +38,9 @@ const vmsg = {
   },
 
   encode(data: ArrayLike<number>) {
+    // ? Skip null data
+    if (!data) return
+
     pcm_l.set(data)
     const value = FFI.vmsg_encode(ref, data.length)
 
