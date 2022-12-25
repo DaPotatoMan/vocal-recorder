@@ -8,7 +8,7 @@
     "test": "vitest",
     "coverage": "vitest run --coverage",
     "prepublish": "pnpm build",
-    "deploy": "pnpm bumpp --no-push && pnpm publish --tag alpha"
+    "deploy": "pnpm build && pnpm publish --tag alpha"
   },
   "keywords": [],
   "author": "",

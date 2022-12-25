@@ -4,7 +4,8 @@
   "description": "",
   "scripts": {
     "test": "pnpm run -r test",
-    "update": "pnpm up -r -L"
+    "update": "pnpm up -r -L",
+    "deploy": "pnpm bumpp && pnpm -F vocal-recorder run deploy"
   },
   "keywords": [],
   "author": "",
