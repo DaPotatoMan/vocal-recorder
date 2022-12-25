@@ -1,0 +1,12 @@
+{
+  "name": "vocal-recorder",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "module": "index.mjs",
+  "keywords": [],
+  "author": "",
+  "devDependencies": {
+    "vite-plugin-dts": "^1.7.1"
+  }
+}
