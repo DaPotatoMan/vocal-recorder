@@ -4,6 +4,14 @@
   "description": "",
   "main": "index.js",
   "module": "index.mjs",
+  "exports": {
+    ".": {
+      "import": "./index.mjs",
+      "require": "./index.js"
+    },
+    "./wasm": "./vmsg.wasm",
+    "./worklet": "./worklet.js"
+  },
   "keywords": [],
   "author": "",
   "devDependencies": {

@@ -1,9 +1,8 @@
 import { useWorker } from 'vmsg-worker'
-import type { Recorder } from '../env-types'
 import { disposeStream, getAudioCtx, getStream } from '../utils'
-import workletPath from './encoder-worklet?url'
+import type { Recorder } from '..'
 
-export function useEncoderNode(ctx: AudioContext, legacy = false) {
+export function useEncoderNode(ctx: AudioContext, workletPath: string, legacy = false) {
   const workletNode = async () => {
     await ctx.audioWorklet.addModule(workletPath)
 
@@ -41,15 +40,15 @@ export function useEncoderNode(ctx: AudioContext, legacy = false) {
   return legacy ? legacyNode() : workletNode()
 }
 
-export async function useAudioProcessor(config: Recorder.Config = {}) {
-  const worker = await useWorker({ shimURL: '' })
+export async function useAudioProcessor(config: Recorder.Config) {
+  const worker = await useWorker({ wasmURL: config.wasmPath })
 
   const stream = await getStream(config.stream)
   const sampleRate = stream.getAudioTracks()[0]?.getSettings().sampleRate ?? 44100
 
   const ctx = getAudioCtx({ sampleRate, latencyHint: 'interactive' })
   const sourceNode = ctx.createMediaStreamSource(stream)
-  const encoderNode = await useEncoderNode(ctx, false)
+  const encoderNode = await useEncoderNode(ctx, config.workletPath, false)
   const gainNode = (ctx.createGain || ctx.createGainNode)?.call(ctx)
 
   let startTime = 0

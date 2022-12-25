@@ -1,6 +1,6 @@
 import { useAudioProcessor } from './processor'
 
-export function createRecorder(config: Recorder.Config = {}) {
+export function createRecorder(config: Recorder.Config) {
   const { State } = Recorder
 
   let state = State.inactive
@@ -48,15 +48,17 @@ export function createRecorder(config: Recorder.Config = {}) {
 }
 
 export class Recorder {
-  static create(config: Recorder.Config = {}) {
+  static create(config: Recorder.Config) {
     return createRecorder(config)
   }
 }
 
 export namespace Recorder {
-  export type Config = Partial<{
-    stream: MediaTrackConstraints
-  }>
+  export interface Config {
+    stream?: MediaTrackConstraints
+    wasmPath?: string
+    workletPath: string
+  }
 
   export enum State {
     /** Recorder is disposed or not initialized */

@@ -1,5 +1,5 @@
 import type { WorkerGetType } from './types'
-import AudioWorker from './worker?worker'
+import AudioWorker from './worker?worker&inline'
 
 export function useWorker(options: any) {
   let promise: {

@@ -3,20 +3,20 @@
  */
 
 registerProcessor('mp3-encoder', class extends AudioWorkletProcessor {
-  #alive = true
+  alive = true
 
   constructor() {
     super()
 
     this.port.onmessage = (e) => {
-      if (e.data === 'stop') this.#alive = false
+      if (e.data === 'stop') this.alive = false
     }
   }
 
-  process(inputs: any) {
-    const samples: Float32Array = inputs[0][0]
+  process(inputs) {
+    const samples = inputs[0][0]
     this.port.postMessage(samples)
 
-    return this.#alive
+    return this.alive
   }
 })

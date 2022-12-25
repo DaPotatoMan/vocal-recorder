@@ -6,10 +6,13 @@ export interface WorkerMessage {
   data: any
 }
 
-
 export interface VmsgFFI {
   vmsg_init(sampleRate: number): number
   vmsg_encode(byteOffset: number, length: number): number
   vmsg_flush(byteOffset: number): number
   vmsg_free(byteOffset: number): void
 }
+
+export type VmsgInitOptions = Partial<{
+  wasmURL: string
+}>

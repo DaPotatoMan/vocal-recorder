@@ -1,6 +1,7 @@
-import wasmURL from './vmsg.wasm?url'
 import { fetchWASM, send, testSafariWebAssemblyBug } from './worker-utils'
-import type { VmsgFFI, WorkerMessage } from './types'
+import type { VmsgFFI, VmsgInitOptions, WorkerMessage } from './types'
+
+const wasmURL = 'https://cdn.jsdelivr.net/npm/vmsg@0.4.0/vmsg.wasm'
 
 // TODO(Kagami): Cache compiled module in IndexedDB? It works in FF
 // and Edge, see: https://github.com/mdn/webassembly-examples/issues/4
@@ -72,7 +73,7 @@ const vmsg = {
   }
 }
 
-async function init(data = {}) {
+async function init(data: VmsgInitOptions = {}) {
   if (self.WebAssembly && !testSafariWebAssemblyBug())
     // @ts-expect-error ignore
     delete self.WebAssembly
@@ -103,7 +104,7 @@ async function init(data = {}) {
   }
 
   try {
-    const wasm = await fetchWASM(wasmURL, { env })
+    const wasm = await fetchWASM(data.wasmURL || wasmURL, { env })
     FFI = wasm.instance.exports as any
 
     if (!FFI)
