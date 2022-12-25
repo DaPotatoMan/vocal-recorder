@@ -6,6 +6,7 @@ importers:
     specifiers:
       '@antfu/eslint-config': ^0.33.1
       '@types/node': ^18.11.12
+      bumpp: ^8.2.1
       eslint: ^8.29.0
       tsup: ^6.5.0
       tsx: ^3.12.1
@@ -16,6 +17,7 @@ importers:
     devDependencies:
       '@antfu/eslint-config': registry.npmjs.org/@antfu/eslint-config/0.33.1_ha6vam6werchizxrnqvarmz2zu
       '@types/node': registry.npmjs.org/@types/node/18.11.12
+      bumpp: registry.npmjs.org/bumpp/8.2.1
       eslint: registry.npmjs.org/eslint/8.29.0
       tsup: registry.npmjs.org/tsup/6.5.0_typescript@4.9.4
       tsx: registry.npmjs.org/tsx/3.12.1
@@ -675,6 +677,18 @@ packages:
     dependencies:
       '@jridgewell/resolve-uri': registry.npmjs.org/@jridgewell/resolve-uri/3.1.0
       '@jridgewell/sourcemap-codec': registry.npmjs.org/@jridgewell/sourcemap-codec/1.4.14
+    dev: true
+
+  registry.npmjs.org/@jsdevtools/ez-spawn/3.0.4:
+    resolution: {integrity: sha512-f5DRIOZf7wxogefH03RjMPMdBF7ADTWUMoOs9kaJo06EfwF+aFhMZMDZxHg/Xe12hptN9xoZjGso2fdjapBRIA==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/@jsdevtools/ez-spawn/-/ez-spawn-3.0.4.tgz}
+    name: '@jsdevtools/ez-spawn'
+    version: 3.0.4
+    engines: {node: '>=10'}
+    dependencies:
+      call-me-maybe: registry.npmjs.org/call-me-maybe/1.0.2
+      cross-spawn: registry.npmjs.org/cross-spawn/7.0.3
+      string-argv: registry.npmjs.org/string-argv/0.3.1
+      type-detect: registry.npmjs.org/type-detect/4.0.8
     dev: true
 
   registry.npmjs.org/@microsoft/api-extractor-model/7.25.3:
@@ -2034,6 +2048,21 @@ packages:
       semver: registry.npmjs.org/semver/7.3.8
     dev: true
 
+  registry.npmjs.org/bumpp/8.2.1:
+    resolution: {integrity: sha512-4tHKsWC2mqHQvdjZ4AXgVhS2xMsz8qQ4zYt87vGRXW5tqAjrYa/UJqy7s/dGYI2OIe9ghBdiFhKpyKEX9SXffg==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/bumpp/-/bumpp-8.2.1.tgz}
+    name: bumpp
+    version: 8.2.1
+    engines: {node: '>=10'}
+    hasBin: true
+    dependencies:
+      '@jsdevtools/ez-spawn': registry.npmjs.org/@jsdevtools/ez-spawn/3.0.4
+      cac: registry.npmjs.org/cac/6.7.14
+      fast-glob: registry.npmjs.org/fast-glob/3.2.12
+      kleur: registry.npmjs.org/kleur/4.1.5
+      prompts: registry.npmjs.org/prompts/2.4.2
+      semver: registry.npmjs.org/semver/7.3.8
+    dev: true
+
   registry.npmjs.org/bundle-require/3.1.2_esbuild@0.15.18:
     resolution: {integrity: sha512-Of6l6JBAxiyQ5axFxUM6dYeP/W7X2Sozeo/4EYB9sJhL+dqL7TKjg+shwxp6jlu/6ZSERfsYtIpSJ1/x3XkAEA==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/bundle-require/-/bundle-require-3.1.2.tgz}
     id: registry.npmjs.org/bundle-require/3.1.2
@@ -2087,6 +2116,12 @@ packages:
     dependencies:
       function-bind: registry.npmjs.org/function-bind/1.1.1
       get-intrinsic: registry.npmjs.org/get-intrinsic/1.1.3
+    dev: true
+
+  registry.npmjs.org/call-me-maybe/1.0.2:
+    resolution: {integrity: sha512-HpX65o1Hnr9HH25ojC1YGs7HCQLq0GCOibSaWER0eNpgJ/Z1MZv2mTc7+xh6WOPxbRVcmgbv4hGU+uSQ/2xFZQ==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/call-me-maybe/-/call-me-maybe-1.0.2.tgz}
+    name: call-me-maybe
+    version: 1.0.2
     dev: true
 
   registry.npmjs.org/callsites/3.1.0:
@@ -4582,6 +4617,20 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: true
 
+  registry.npmjs.org/kleur/3.0.3:
+    resolution: {integrity: sha512-eTIzlVOSUR+JxdDFepEYcBMtZ9Qqdef+rnzWdRZuMbOywu5tO2w2N7rqjoANZ5k9vywhL6Br1VRjUIgTQx4E8w==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/kleur/-/kleur-3.0.3.tgz}
+    name: kleur
+    version: 3.0.3
+    engines: {node: '>=6'}
+    dev: true
+
+  registry.npmjs.org/kleur/4.1.5:
+    resolution: {integrity: sha512-o+NO+8WrRiQEE4/7nwRJhN1HWpVmJm511pBHUxPLtp0BUISzlBplORYSmTclCnJvQq2tKu/sgl3xVpkc7ZWuQQ==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/kleur/-/kleur-4.1.5.tgz}
+    name: kleur
+    version: 4.1.5
+    engines: {node: '>=6'}
+    dev: true
+
   registry.npmjs.org/kolorist/1.6.0:
     resolution: {integrity: sha512-dLkz37Ab97HWMx9KTes3Tbi3D1ln9fCAy2zr2YVExJasDRPGRaKcoE4fycWNtnCAJfjFqe0cnY+f8KT2JePEXQ==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/kolorist/-/kolorist-1.6.0.tgz}
     name: kolorist
@@ -5440,6 +5489,16 @@ packages:
     version: 2.0.1
     dev: true
 
+  registry.npmjs.org/prompts/2.4.2:
+    resolution: {integrity: sha512-NxNv/kLguCA7p3jE8oL2aEBsrJWgAakBpgmgK6lpPWV+WuOmY6r2/zbAVnP+T8bQlA0nzHXSJSJW0Hq7ylaD2Q==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/prompts/-/prompts-2.4.2.tgz}
+    name: prompts
+    version: 2.4.2
+    engines: {node: '>= 6'}
+    dependencies:
+      kleur: registry.npmjs.org/kleur/3.0.3
+      sisteransi: registry.npmjs.org/sisteransi/1.0.5
+    dev: true
+
   registry.npmjs.org/prr/1.0.1:
     resolution: {integrity: sha512-yPw4Sng1gWghHQWj0B3ZggWUm4qVbPwPFcRG8KyxiU7J2OHFSoEHKS+EZ3fv5l1t9CyCiop6l/ZYeWbrgoQejw==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/prr/-/prr-1.0.1.tgz}
     name: prr
@@ -5842,6 +5901,12 @@ packages:
       '@polka/url': registry.npmjs.org/@polka/url/1.0.0-next.21
       mrmime: registry.npmjs.org/mrmime/1.0.1
       totalist: registry.npmjs.org/totalist/3.0.0
+    dev: true
+
+  registry.npmjs.org/sisteransi/1.0.5:
+    resolution: {integrity: sha512-bLGGlR1QxBcynn2d5YmDX4MGjlZvy2MRBDRNHLJ8VI6l6+9FUiyTFNJ0IveOSP0bcXgVDPRcfGqA0pjaqUpfVg==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/sisteransi/-/sisteransi-1.0.5.tgz}
+    name: sisteransi
+    version: 1.0.5
     dev: true
 
   registry.npmjs.org/slash/3.0.0:
