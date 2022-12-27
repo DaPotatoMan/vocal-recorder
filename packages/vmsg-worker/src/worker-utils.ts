@@ -3,6 +3,16 @@ import type { WorkerPostType } from './types'
 /** Wrapper for worker postMessage */
 export const send = (type: WorkerPostType, data?: any) => postMessage({ type, data })
 
+export async function fetchCache(url: string, type: string, init?: RequestInit) {
+  const cache = await caches.open(type)
+  const cachedResponse = await cache.match(url)
+
+  return cachedResponse || fetch(url, init).then((res) => {
+    cache.put(url, res.clone())
+    return res
+  })
+}
+
 export async function fetchWASM(url: string, imports: WebAssembly.Imports) {
   const fallback = () => {
     return new Promise<WebAssembly.WebAssemblyInstantiatedSource>((resolve, reject) => {
@@ -21,7 +31,7 @@ export async function fetchWASM(url: string, imports: WebAssembly.Imports) {
   }
 
   try {
-    const req = fetch(url, { credentials: 'same-origin' })
+    const req = fetchCache(url, 'wasm', { credentials: 'same-origin' })
     return WebAssembly.instantiateStreaming(req, imports)
   }
   catch (error: any) {
