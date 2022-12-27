@@ -7,7 +7,9 @@ import presetUno from '@unocss/preset-uno'
 import presetAttributify from '@unocss/preset-attributify'
 import transformerDirectives from '@unocss/transformer-directives'
 
-export default defineConfig({
+export default defineConfig(({ mode }) => ({
+  base: mode === 'production' ? '/vocal-recorder/' : '/',
+
   plugins: [
     vue(),
     // ssl(),
@@ -26,4 +28,4 @@ export default defineConfig({
   build: {
     assetsInlineLimit: 0
   }
-})
+}))
