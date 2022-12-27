@@ -1,4 +1,4 @@
-import { useAudioProcessor } from './processor'
+import type { useAudioProcessor } from './processor'
 
 export function createRecorder(config: Recorder.Config) {
   const { State } = Recorder
@@ -9,6 +9,10 @@ export function createRecorder(config: Recorder.Config) {
   async function init() {
     if (state === State.initialized || state === State.recording)
       return
+
+    const { useAudioProcessor } = config.legacy
+      ? await import('./processor/legacy')
+      : await import('./processor')
 
     processor = await useAudioProcessor(config)
     state = State.initialized
@@ -55,6 +59,9 @@ export class Recorder {
 
 export namespace Recorder {
   export interface Config {
+    /** When `true` the recorder will use native MediaRecorder and `will not encode to mp3` */
+    legacy?: boolean
+
     stream?: MediaTrackConstraints
     wasmPath?: string
     workletPath: string

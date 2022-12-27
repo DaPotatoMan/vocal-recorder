@@ -1,10 +1,16 @@
 <script setup lang="ts">
 import { Recorder, createRecorder } from 'vocal-recorder'
+import wasmPath from 'vocal-recorder/wasm?url'
+import workletPath from 'vocal-recorder/worklet?url'
+
 import { shallowReactive, shallowRef } from 'vue'
+
 import Timer from './Timer.vue'
 import Visualizer from './Visualizer.vue'
 
 const state = shallowRef(Recorder.State.inactive)
+const isLegacy = shallowRef(false)
+
 const audio = shallowReactive({
   loaded: false,
   url: '',
@@ -14,6 +20,13 @@ const audio = shallowReactive({
 })
 
 const recorder = createRecorder({
+  get legacy() {
+    return isLegacy.value
+  },
+
+  wasmPath,
+  workletPath,
+
   stream: {
     autoGainControl: false,
     echoCancellation: false,
@@ -65,6 +78,11 @@ function onAudioLoad(event: Event) {
     <button @click="start">
       Start recording
     </button>
+
+    <div>
+      <input v-model="isLegacy" type="checkbox">
+      Legacy
+    </div>
   </div>
 
   <div v-else-if="state === Recorder.State.recording" class="flex flex-col items-center">
