@@ -2,7 +2,7 @@ import type { Recorder } from '..'
 import { disposeStream, getAudioCtx, getStream } from '../utils'
 
 async function BlobBuilder() {
-  const fixer = MediaRecorder?.isTypeSupported('audio/webm')
+  const fixer = MediaRecorder.isTypeSupported?.('audio/webm')
     ? await import('fix-webm-duration').then(i => i.default)
     : undefined
 
@@ -67,7 +67,9 @@ export async function useAudioProcessor(config: Recorder.Config) {
     // ? Wait for final blob
     await new Promise(resolve => setTimeout(resolve, 500))
 
-    const [type] = recorder.mimeType.split(';')
+    const mimeType = recorder.mimeType || 'audio/mpeg'
+    const [type] = mimeType.split(';')
+
     const duration = performance.now() - startTime
     const blob = await toBlob(chunks, duration, type)
 

@@ -9,7 +9,7 @@ import Timer from './Timer.vue'
 import Visualizer from './Visualizer.vue'
 
 const state = shallowRef(Recorder.State.inactive)
-const isLegacy = shallowRef(false)
+const isLegacy = shallowRef(true)
 
 const audio = shallowReactive({
   loaded: false,
@@ -72,6 +72,10 @@ function onAudioLoad(event: Event) {
     <span>Audio estimated duration: <b text="blue-500">{{ audio.duration }}s</b></span>
     <br>
     <span>Audio size: <b text="blue-500">{{ audio.size }}mb</b></span>
+
+    <br>
+    <br>
+    <a :href="audio.url" download="recording.mp3">Download file</a>
   </div>
 
   <div v-else-if="state === Recorder.State.inactive">

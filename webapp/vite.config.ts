@@ -10,7 +10,7 @@ import transformerDirectives from '@unocss/transformer-directives'
 export default defineConfig({
   plugins: [
     vue(),
-    ssl(),
+    // ssl(),
     Unocss({
       presets: [
         presetUno(),
@@ -21,5 +21,9 @@ export default defineConfig({
         transformerDirectives()
       ]
     })
-  ]
+  ],
+
+  build: {
+    assetsInlineLimit: 0
+  }
 })
