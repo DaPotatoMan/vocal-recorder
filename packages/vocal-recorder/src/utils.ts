@@ -1,7 +1,3 @@
-export function getAudioCtx(options?: AudioContextOptions) {
-  return new (window.AudioContext || window.webkitAudioContext)(options)
-}
-
 export function getStream(options?: MediaTrackConstraints) {
   const ctx: any = navigator.mediaDevices || navigator || {}
   const getMedia: MediaDevices['getUserMedia'] = (ctx.getUserMedia || ctx.getUserMedia

@@ -10,7 +10,8 @@
   },
   "dependencies": {
     "@vitejs/plugin-basic-ssl": "^0.1.2",
-    "vocal-recorder": "workspace:*",
+    "pinia": "^2.0.36",
+    "vocal-recorder": "link:E:/Projects/npm/vocal-recorder/packages/vocal-recorder",
     "vue": "^3.2.45"
   },
   "devDependencies": {

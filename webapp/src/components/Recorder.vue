@@ -1,100 +1,78 @@
 <script setup lang="ts">
-import { Recorder, createRecorder } from 'vocal-recorder'
-import wasmPath from 'vocal-recorder/wasm?url'
-import workletPath from 'vocal-recorder/worklet?url'
+import { shallowRef } from 'vue'
+import { Recorder } from 'vocal-recorder'
 
-import { shallowReactive, shallowRef } from 'vue'
+const devices = shallowRef<MediaDeviceInfo[]>([])
+const peaks = shallowRef<number[]>([])
+const src = shallowRef('')
 
-import Timer from './Timer.vue'
-import Visualizer from './Visualizer.vue'
+const recorder = new Recorder()
+const stopped = shallowRef(false)
 
-const state = shallowRef(Recorder.State.inactive)
-const isLegacy = shallowRef(true)
+navigator.mediaDevices.enumerateDevices().then((list) => {
+  const inputs = list.reduce((map, entry) => {
+    if (entry.groupId in map === false && !!entry.deviceId)
+      map[entry.groupId] = entry
 
-const audio = shallowReactive({
-  loaded: false,
-  url: '',
-  duration: 0,
-  actualDuration: 0,
-  size: 0
+    return map
+  }, {} as Record<string, MediaDeviceInfo>)
+
+  devices.value = Object.values(inputs)
 })
 
-const recorder = createRecorder({
-  get legacy() {
-    return isLegacy.value
-  },
+function drawPeak() {
+  if (stopped.value) return
+  const peak = recorder.instance.peaks.getPeak()
+  const data = [...peaks.value, peak].slice(-264)
 
-  wasmPath,
-  workletPath,
+  peaks.value = data
 
-  stream: {
-    autoGainControl: false,
-    echoCancellation: false,
-    noiseSuppression: false,
-    latency: 0
-  }
-})
-
-const start = async () => {
-  await recorder.init()
-  recorder.start()
-
-  audio.url = ''
-  audio.loaded = false
-  state.value = recorder.state
+  requestAnimationFrame(drawPeak)
 }
 
-const stop = async () => {
-  const result = await recorder.stop()
+async function start() {
+  await recorder.start()
 
-  audio.url = URL.createObjectURL(result.blob)
-  audio.duration = +(result.duration / 1000).toFixed(1)
-  audio.size = +(result.blob.size / (1024 * 1024)).toFixed(3)
-  audio.loaded = true
-
-  state.value = recorder.state
+  stopped.value = false
+  peaks.value = []
+  drawPeak()
 }
 
-function onAudioLoad(event: Event) {
-  const node = event.target as HTMLAudioElement
-  audio.actualDuration = node.duration
+async function stop() {
+  const blob = await recorder.stop()
+
+  stopped.value = true
+  peaks.value = recorder.instance.peaks.peaks
+  src.value = URL.createObjectURL(blob)
+
+  console.log(blob, src.value)
 }
 </script>
 
 <template>
-  <div v-if="state === Recorder.State.inactive && audio.loaded">
-    <audio :src="audio.url" controls @loadedmetadata="onAudioLoad" />
+  <div flex flex-col items-center justify-center gap-5>
+    <div class="flex flex-col gap-5 mb-20">
+      <button v-for="(device, i) in devices" :key="i" @click="recorder.instance.switchDevice(device)">
+        Change device to {{ device.label }} {{ device.deviceId }}
+      </button>
+    </div>
 
-    <br>
-    <br>
-    <span>Audio actual duration: <b text="blue-500">{{ audio.actualDuration }}s</b></span>
-    <br>
-    <span>Audio estimated duration: <b text="blue-500">{{ audio.duration }}s</b></span>
-    <br>
-    <span>Audio size: <b text="blue-500">{{ audio.size }}mb</b></span>
+    <svg viewBox="0 0 300 100" class="chart" w-300px max-auto direction-rtl>
+      <g v-for="(y, x) in peaks" :key="x" fill="blue" :transform="`translate(${x}, 0)`">
+        <rect :height="(y || 1) * 2" :y="50 - (y || 1)" width="1" />
+      </g>
+    </svg>
 
-    <br>
-    <br>
-    <a :href="audio.url" download="recording.mp3">Download file</a>
-  </div>
+    <audio :src="src" controls />
 
-  <div v-else-if="state === Recorder.State.inactive">
-    <button @click="start">
-      Start recording
+    <input type="range" max="10" min="1" value="1" @change="recorder.instance.gainNode.gain.value = $event.target.value">
+
+    <button @click="start()">
+      start
     </button>
 
-    <div>
-      <input v-model="isLegacy" type="checkbox">
-      Legacy
-    </div>
-  </div>
-
-  <div v-else-if="state === Recorder.State.recording" class="flex flex-col items-center">
-    <Timer />
-    <Visualizer :processor="recorder.processor!" />
-
-    <button @click="stop">
-      Stop recording
+    <button @click="stop()">
+      stop
     </button>
   </div>
 </template>
