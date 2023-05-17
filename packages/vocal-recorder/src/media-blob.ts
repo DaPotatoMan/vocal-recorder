@@ -1,17 +1,30 @@
-export class AudioBlob extends Blob {
-  constructor(blobParts?: BlobPart[], private readonly options?: BlobPropertyBag & { duration: number }) {
-    super(blobParts, options)
-  }
+import type { Duration } from './utils'
 
-  get duration() {
-    return this.options?.duration || 0
+interface AudioBlobOptions extends BlobPropertyBag {
+  duration: Duration
+  peaks?: number[]
+}
+
+export class AudioBlob extends Blob {
+  readonly duration!: Duration
+  peaks: number[] = []
+
+  constructor(blobParts: BlobPart[], options: AudioBlobOptions) {
+    super(blobParts, options)
+
+    this.duration = options.duration
+    this.peaks = options.peaks ?? []
   }
 }
 
-export async function blobBuilder() {
-  const fixer = MediaRecorder.isTypeSupported?.('audio/webm')
-    ? await import('fix-webm-duration').then(i => i.default)
-    : undefined
+export function blobEncoder() {
+  let encoder: typeof import('fix-webm-duration').default | undefined
+
+  (async () => {
+    encoder = MediaRecorder.isTypeSupported?.('audio/webm')
+      ? await import('fix-webm-duration').then(i => i.default)
+      : undefined
+  })()
 
   return (chunks: BlobPart[], duration: number, type: string) => {
     const rawBlob = new Blob(chunks, { type })
@@ -22,6 +35,13 @@ export async function blobBuilder() {
     if (!type.endsWith('webm')) return rawBlob
 
     // Fix webm duration metadata
-    return new Promise<Blob>(resolve => fixer?.(rawBlob, duration, resolve) || rawBlob)
+    return new Promise<Blob>((resolve) => {
+      if (!encoder) {
+        console.warn('fix-webm-duration module not loaded')
+        return rawBlob
+      }
+
+      encoder(rawBlob, duration, resolve)
+    })
   }
 }

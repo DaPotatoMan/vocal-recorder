@@ -1,5 +1,5 @@
-import { AudioBlob } from './media-blob'
-import { disposeStream, getStream } from './utils'
+import { AudioBlob, blobEncoder } from './media-blob'
+import { Duration, disposeStream, getStream } from './utils'
 
 /**
  * Extend recorder mixin with features such as:
@@ -10,6 +10,7 @@ class RecorderExportsMixin extends MediaRecorder {
   duration = 0
   #starTime = 0
   #chunks: BlobPart[] = []
+  #encode = blobEncoder()
 
   constructor(stream: MediaStream, options?: MediaRecorderOptions) {
     super(stream, options)
@@ -25,13 +26,14 @@ class RecorderExportsMixin extends MediaRecorder {
   override stop() {
     return new Promise<AudioBlob>((resolve, reject) => {
       // Listen for final data
-      this.addEventListener('dataavailable', () => {
-        const blob = new AudioBlob(this.#chunks, {
+      this.addEventListener('dataavailable', async () => {
+        const blob = await this.#encode(this.#chunks, this.duration, this.mimeType)
+        const result = new AudioBlob([blob], {
           type: this.mimeType,
-          duration: this.duration
+          duration: new Duration(this.duration)
         })
 
-        resolve(blob)
+        resolve(result)
       })
 
       this.addEventListener('error', reject)
@@ -86,6 +88,8 @@ export class StreamRecorder extends RecorderExportsMixin {
 
   override async stop() {
     const blob = await super.stop()
+    blob.peaks = this.peaks.peaks
+
     this.dispose()
     return blob
   }
@@ -100,15 +104,15 @@ export class StreamRecorder extends RecorderExportsMixin {
     this.streamNode.connect(this.desination)
   }
 
-  async switchDevice(device: MediaDeviceInfo) {
+  async switchDevice(data: MediaDeviceInfo) {
     this.switchStream(
-      await getStream(device)
+      await getStream(data)
     )
   }
 }
 
 class RecorderPeaks {
-  interval = 1000
+  interval = 100
   peaks: number[] = []
   timer!: NodeJS.Timer
 
@@ -136,9 +140,13 @@ class RecorderPeaks {
   }
 
   start() {
+    const start = performance.now()
     this.timer = setInterval(() => {
       if (this.source.state === 'recording')
         this.peaks.push(this.getPeak())
+
+      const d = ((performance.now() - start) / 1000).toFixed(2)
+      console.log(`Peaks ${this.peaks.length} at ${d}s`)
     }, this.interval)
   }
 

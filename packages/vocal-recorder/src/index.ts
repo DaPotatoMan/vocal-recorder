@@ -1,6 +1,8 @@
 import { StreamRecorder } from './media-recorder'
 import { getStream } from './utils'
 
+export type { AudioBlob } from './media-blob'
+
 export class Recorder {
   instance!: StreamRecorder
 
@@ -26,6 +28,16 @@ export class Recorder {
 
     this.instance.start()
   }
+
+  async restart() {
+    if (this.instance)
+      await this.stop()
+
+    return this.start()
+  }
+
+  pause = () => this.instance.pause()
+  resume = () => this.instance.resume()
 
   stop() {
     return this.instance.stop()

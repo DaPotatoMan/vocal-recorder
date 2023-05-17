@@ -18,3 +18,17 @@ export function disposeStream(stream?: MediaStream) {
 
   return stream.active
 }
+
+export class Duration extends Number {
+  /** Value in milliseconds */
+  #value = Number(this)
+
+  /** Duration in milli seconds */
+  seconds = this.#value / 1000
+
+  /** Duration in minutes */
+  minutes = this.seconds / 60
+
+  /** Duration in hours */
+  hours = this.seconds / 3600
+}
