@@ -1,95 +1,29 @@
 <script setup lang="ts">
-import type { Recorder } from 'vocal-recorder'
-import { onMounted, ref } from 'vue'
+import { onBeforeUnmount, shallowRef } from 'vue'
+import { useRecorder } from '../store'
 
-const props = defineProps<{
-  processor: Recorder.Processor
-}>()
+const peaks = shallowRef<number[]>([])
+const { recorder } = useRecorder()
 
-const rafIter = (): AsyncIterableIterator<void> => {
-  let id: number
+let frame: number
 
-  const obj = {
-    async next() {
-      const promise = new Promise((resolve) => {
-        requestAnimationFrame(resolve)
-      })
-      await promise
-      return { value: undefined, done: false }
-    },
-    async return() {
-      cancelAnimationFrame(id)
-      return { value: undefined, done: true }
-    },
-    [Symbol.asyncIterator]() {
-      return this
-    }
-  }
+function drawPeak() {
+  const peak = recorder.instance.peaks.getPeak()
+  const data = [...peaks.value, peak].slice(-264)
 
-  return obj
+  peaks.value = data
+
+  frame = requestAnimationFrame(drawPeak)
 }
 
-const canvasRef = ref<HTMLCanvasElement>()
-
-function setupVisualizer() {
-  const canvas = canvasRef.value!
-  const canvasCtx = canvas.getContext('2d')
-
-  if (canvasCtx === null)
-    throw new Error('canvasCtx was null')
-
-  const FFT_SIZE = 2048
-  const audioCtx = props.processor.ctx
-  const analyzer = audioCtx.createAnalyser()
-
-  console.log(audioCtx)
-
-  analyzer.fftSize = FFT_SIZE
-  const analyzeResultArray = new Uint8Array(analyzer.fftSize);
-
-  (async () => {
-    const { height, width } = canvas
-    const gap = width / analyzeResultArray.length
-
-    for await (const _ of rafIter()) {
-      analyzer.getByteTimeDomainData(analyzeResultArray)
-
-      canvasCtx.fillStyle = 'black'
-      canvasCtx.fillRect(0, 0, width, height)
-
-      canvasCtx.beginPath()
-      canvasCtx.strokeStyle = 'green'
-      canvasCtx.lineWidth = 1
-      for (const [i, data] of analyzeResultArray.entries()) {
-        const x = gap * i
-        const y = height * (data / 256)
-
-        if (i === 0)
-          canvasCtx.moveTo(x, y)
-
-        else
-          canvasCtx.lineTo(x, y)
-      }
-      canvasCtx.lineTo(width, height / 2)
-      canvasCtx.stroke()
-    }
-  })()
-
-  props.processor.gainNode.connect(analyzer)
-
-  return analyzer
-}
-
-onMounted(setupVisualizer)
-defineExpose({ setupVisualizer })
+drawPeak()
+onBeforeUnmount(() => cancelAnimationFrame(frame))
 </script>
 
 <template>
-  <canvas ref="canvasRef" class="canvas" />
+  <svg viewBox="0 0 300 100" class="chart" w-300px max-auto direction-rtl>
+    <g v-for="(y, x) in peaks" :key="x" fill="blue" :transform="`translate(${x}, 0)`">
+      <rect :height="(y || 1) * 2" :y="50 - (y || 1)" width="1" />
+    </g>
+  </svg>
 </template>
-
-<style scoped>
-.canvas {
-  @apply my-20 rounded-lg;
-}
-</style>
