@@ -7,6 +7,9 @@ importers:
       '@antfu/eslint-config':
         specifier: ^0.33.1
         version: 0.33.1(eslint@8.29.0)(typescript@4.9.4)
+      '@antfu/utils':
+        specifier: ^0.7.2
+        version: 0.7.2
       '@types/node':
         specifier: ^18.11.12
         version: 18.11.12
@@ -191,6 +194,10 @@ packages:
 
   /@antfu/utils@0.5.2:
     resolution: {integrity: sha512-CQkeV+oJxUazwjlHD0/3ZD08QWKuGQkhnrKo3e6ly5pd48VUpXbb77q0xMU4+vc2CkJnDS02Eq/M9ugyX20XZA==}
+    dev: true
+
+  /@antfu/utils@0.7.2:
+    resolution: {integrity: sha512-vy9fM3pIxZmX07dL+VX1aZe7ynZ+YyB0jY+jE6r3hOK6GNY2t6W8rzpFC4tgpbXUYABkFQwgJq2XYXlxbXAI0g==}
     dev: true
 
   /@babel/code-frame@7.18.6:

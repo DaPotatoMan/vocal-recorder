@@ -32,7 +32,10 @@ export function blobEncoder() {
     if (chunks.length <= 0)
       throw new Error('There are no chunk data available')
 
-    if (!type.endsWith('webm')) return rawBlob
+    if (!type.includes('webm')) {
+      console.warn('File type is not webm. Encoding skipped.')
+      return rawBlob
+    }
 
     // Fix webm duration metadata
     return new Promise<Blob>((resolve) => {

@@ -2,6 +2,7 @@ import { StreamRecorder } from './media-recorder'
 import { getStream } from './utils'
 
 export type { AudioBlob } from './media-blob'
+export { getAveragePeaks } from './utils'
 
 export class Recorder {
   instance!: StreamRecorder

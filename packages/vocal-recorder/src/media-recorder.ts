@@ -1,5 +1,8 @@
+import { throttle } from '@antfu/utils'
 import { AudioBlob, blobEncoder } from './media-blob'
 import { Duration, disposeStream, getStream } from './utils'
+
+import workletUrl from './worker?url'
 
 /**
  * Extend recorder mixin with features such as:
@@ -26,7 +29,7 @@ class RecorderExportsMixin extends MediaRecorder {
   override stop() {
     return new Promise<AudioBlob>((resolve, reject) => {
       // Listen for final data
-      this.addEventListener('dataavailable', async () => {
+      this.addEventListener('stop', async () => {
         const blob = await this.#encode(this.#chunks, this.duration, this.mimeType)
         const result = new AudioBlob([blob], {
           type: this.mimeType,
@@ -53,10 +56,11 @@ export class StreamRecorder extends RecorderExportsMixin {
   readonly gainNode!: GainNode
   private streamNode!: MediaStreamAudioSourceNode
 
-  peaks!: RecorderPeaks
+  peaks!: Promise<number[]>
+  peakAnalyser!: RecorderPeaks
 
   constructor(stream: MediaStream, options?: MediaRecorderOptions) {
-    const context = new AudioContext()
+    const context = new AudioContext({ latencyHint: 'playback' })
     const desination = context.createMediaStreamDestination()
     const gainNode = context.createGain()
     const streamNode = context.createMediaStreamSource(stream)
@@ -74,7 +78,25 @@ export class StreamRecorder extends RecorderExportsMixin {
     this.gainNode = gainNode
     this.streamNode = streamNode
 
-    this.peaks = new RecorderPeaks(this)
+    // ! Analyser TODO: REMOVE
+    console.log(workletUrl)
+    context.audioWorklet.addModule(workletUrl)
+      .then(() => {
+        const worker = new AudioWorkletNode(context, 'peaks-analyser-processor')
+        gainNode.connect(worker)
+
+        // Events
+        this.addEventListener('start', () => worker.port.postMessage('start'))
+        this.addEventListener('stop', () => worker.port.postMessage('stop'))
+
+        this.peaks = new Promise<number[]>((resolve, _reject) => {
+          worker.port.onmessage = (e) => {
+            if (e.data.event === 'result') resolve(e.data.data)
+          }
+        })
+      })
+
+    this.peakAnalyser = new RecorderPeaks(this)
   }
 
   private dispose() {
@@ -88,7 +110,7 @@ export class StreamRecorder extends RecorderExportsMixin {
 
   override async stop() {
     const blob = await super.stop()
-    blob.peaks = this.peaks.peaks
+    blob.peaks = await this.peaks
 
     this.dispose()
     return blob
@@ -101,10 +123,10 @@ export class StreamRecorder extends RecorderExportsMixin {
 
     // Attach new stream to destination
     this.streamNode = this.context.createMediaStreamSource(stream)
-    this.streamNode.connect(this.desination)
+    this.streamNode.connect(this.gainNode)
   }
 
-  async switchDevice(data: MediaDeviceInfo) {
+  async switchDevice(data: Partial<MediaDeviceInfo>) {
     this.switchStream(
       await getStream(data)
     )
@@ -112,7 +134,7 @@ export class StreamRecorder extends RecorderExportsMixin {
 }
 
 class RecorderPeaks {
-  interval = 100
+  interval = 1000
   peaks: number[] = []
   timer!: NodeJS.Timer
 
@@ -126,7 +148,7 @@ class RecorderPeaks {
     const sourceNode = context.createMediaStreamSource(stream)
 
     const analyser = context.createAnalyser()
-    analyser.fftSize = 2048
+    analyser.fftSize = 64
     analyser.smoothingTimeConstant = 0.8
 
     sourceNode.connect(analyser)
@@ -135,19 +157,29 @@ class RecorderPeaks {
     this.analyser = analyser
 
     // Events
-    source.addEventListener('start', () => this.start())
-    source.addEventListener('stop', () => this.stop())
+    // source.addEventListener('start', () => this.start())
+    // source.addEventListener('stop', () => this.stop())
   }
 
   start() {
     const start = performance.now()
-    this.timer = setInterval(() => {
+
+    const get = throttle(this.interval, () => {
+      const tS = performance.now()
+
       if (this.source.state === 'recording')
         this.peaks.push(this.getPeak())
 
-      const d = ((performance.now() - start) / 1000).toFixed(2)
-      console.log(`Peaks ${this.peaks.length} at ${d}s`)
-    }, this.interval)
+      const now = performance.now()
+      const took = ((now - tS) / 1000).toFixed(2)
+      const d = ((now - start) / 1000).toFixed(2)
+
+      console.log(`Peaks ${this.peaks.length} at ${d}s - took: ${took}s, peak: ${this.peaks.at(-1)}`)
+
+      requestAnimationFrame(get)
+    })
+
+    get()
   }
 
   stop() {
