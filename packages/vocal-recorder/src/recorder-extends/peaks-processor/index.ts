@@ -1,6 +1,6 @@
 import type { StreamRecorder } from '../stream'
 import { disposeStream } from '../utils/media'
-import workletUrl from './worklet?url'
+import workletUrl from './worklet?worker&url'
 
 interface WorkerData {
   event: 'result'

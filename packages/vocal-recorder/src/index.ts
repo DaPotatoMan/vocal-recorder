@@ -2,7 +2,7 @@ import type { AudioBlob } from './recorder-extends/utils/audio-blob'
 import { StreamRecorder } from './recorder-extends/stream'
 import { getStream } from './recorder-extends/utils/media'
 
-export type * from './recorder-extends/utils/audio-blob'
+export type { AudioBlob } from './recorder-extends/utils/audio-blob'
 export * from './recorder-extends/peaks-processor/utils'
 export { RealtimePeaksProcessor } from './recorder-extends/peaks-processor'
 
