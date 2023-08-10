@@ -51,6 +51,12 @@ export class Recorder {
   }
 
   dispose() {
+    if (!this.instance)
+      return console.warn('Recorder.dispose(): instance is already disposed')
+
+    if (this.instance.state !== 'inactive') this.instance.stop()
+    else this.instance.dispose()
+
     this.instance = undefined as any
   }
 
