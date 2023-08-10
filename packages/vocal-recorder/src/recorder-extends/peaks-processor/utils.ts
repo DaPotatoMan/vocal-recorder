@@ -1,5 +1,8 @@
 export function getAveragePeaks(peaks: number[], samples = 64) {
-  const blockSize = Math.floor(peaks.length / samples) // the number of samples in each subdivision
+  // Normalize props
+  samples = Math.floor(samples)
+
+  const blockSize = Math.floor(peaks.length / samples)
   const filteredData = []
 
   for (let i = 0; i < samples; i++) {

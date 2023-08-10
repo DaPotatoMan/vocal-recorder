@@ -30,13 +30,15 @@ export class StreamRecorder extends RecorderExportsMixin {
     this.peaksAnalyser = new PeaksProcessor(this, gainNode)
   }
 
-  private dispose() {
+  dispose() {
     disposeStream(this.streamNode.mediaStream)
 
     this.streamNode.disconnect()
     this.gainNode.disconnect()
     this.desination.disconnect()
-    this.context.close()
+
+    if (this.context.state !== 'closed')
+      this.context.close()
   }
 
   override async stop() {
