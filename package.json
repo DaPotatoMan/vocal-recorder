@@ -1,6 +1,6 @@
 {
   "name": "@vocal-recorder/monorepo",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "",
   "scripts": {
     "test": "pnpm run -r test",
