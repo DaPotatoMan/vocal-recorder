@@ -1,5 +1,9 @@
 lockfileVersion: '6.0'
 
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
 importers:
 
   .:
@@ -56,7 +60,6 @@ importers:
       vite-plugin-dts:
         specifier: ^1.7.1
         version: 1.7.1(vite@4.0.0)
-    publishDirectory: dist
 
   webapp:
     dependencies:
@@ -68,7 +71,7 @@ importers:
         version: 2.0.36(typescript@4.9.4)(vue@3.2.45)
       vocal-recorder:
         specifier: link:E:/Projects/npm/vocal-recorder/packages/vocal-recorder
-        version: link:../packages/vocal-recorder
+        version: link:E:/Projects/npm/vocal-recorder/packages/vocal-recorder
       vue:
         specifier: ^3.2.45
         version: 3.2.45
