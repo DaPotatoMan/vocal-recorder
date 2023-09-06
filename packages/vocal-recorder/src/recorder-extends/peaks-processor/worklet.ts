@@ -5,6 +5,8 @@ class Analyser extends AudioWorkletProcessor {
   started = false
   peaks: number[] = []
 
+  pcmData: Float32Array[] = []
+
   constructor() {
     super()
 
@@ -25,9 +27,16 @@ class Analyser extends AudioWorkletProcessor {
 
     const input = inputs[0][0]
 
+    this.port.postMessage({
+      event: 'pcm-data',
+      data: input
+    })
+
     if (!input) throw new Error('Null input data was provided')
 
+    this.pcmData.push(input)
     this.resolvePeak(input)
+
     return this.alive
   }
 

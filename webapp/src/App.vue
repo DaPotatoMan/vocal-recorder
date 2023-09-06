@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import { shallowRef } from 'vue'
 import { useRecorder } from './store'
-import Visualizer from './components/Visualizer.vue'
-
 const devices = shallowRef<MediaDeviceInfo[]>([])
 const src = shallowRef('')
 const started = shallowRef(false)
@@ -44,10 +42,10 @@ async function stop() {
       </button>
     </div>
 
-    <Visualizer v-if="started" />
+    <!-- <Visualizer v-if="started" /> -->
 
     <audio :src="src" controls />
-    <input type="range" max="10" min="1" value="1" @change="recorder.instance.gainNode.gain.value = $event.target.value">
+    <input type="range" max="10" min="0" value="1" @change="recorder.instance.gainNode.gain.value = $event.target.value">
 
     <button @click="start()">
       start

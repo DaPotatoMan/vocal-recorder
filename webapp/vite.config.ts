@@ -27,5 +27,9 @@ export default defineConfig(({ mode }) => ({
 
   build: {
     assetsInlineLimit: 0
+  },
+
+  optimizeDeps: {
+    exclude: ['@shiguredo/rnnoise-wasm']
   }
 }))

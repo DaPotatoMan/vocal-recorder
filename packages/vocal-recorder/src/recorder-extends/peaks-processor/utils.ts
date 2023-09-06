@@ -5,13 +5,16 @@ export function getAveragePeaks(peaks: number[], samples = 64) {
   const blockSize = Math.floor(peaks.length / samples)
   const filteredData = []
 
+  let sum = 0
+
   for (let i = 0; i < samples; i++) {
     const blockStart = blockSize * i // the location of the first sample in the block
-    let sum = 0
+
     for (let j = 0; j < blockSize; j++)
-      sum = sum + Math.abs(peaks[blockStart + j]) // find the sum of all the samples in the block
+      sum += Math.abs(peaks[blockStart + j]) // find the sum of all the samples in the block
 
     filteredData.push(sum / blockSize) // divide the sum by the block size to get the average
+    sum = 0
   }
 
   // Normalizes the audio data to make a cleaner illustration
