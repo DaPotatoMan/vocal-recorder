@@ -11,9 +11,9 @@ export function getStream(options?: MediaTrackConstraints) {
 export function disposeStream(stream?: MediaStream) {
   if (!stream) return false
 
-  stream.getTracks().forEach((track) => {
-    track.stop()
-    stream.removeTrack(track)
+  stream.getTracks().forEach((entry) => {
+    entry.stop()
+    stream.removeTrack(entry)
   })
 
   return stream.active

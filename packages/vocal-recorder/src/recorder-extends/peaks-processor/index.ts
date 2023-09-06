@@ -1,10 +1,55 @@
+import { createEncoder } from 'wasm-media-encoders'
+import wasm from 'wasm-media-encoders/wasm/mp3?url'
+
 import type { StreamRecorder } from '../stream'
 import { disposeStream } from '../utils/media'
-import workletUrl from './worklet?worker&url'
+import workletUrl from './worklet-mp3?worker&url'
 
 interface WorkerData {
-  event: 'result'
+  event: 'result' | 'pcm-data'
   data: any
+}
+
+async function startEncode() {
+  const encoder = await createEncoder('audio/mpeg', wasm)
+  encoder.configure({ sampleRate: 48000, channels: 1, vbrQuality: 2 })
+
+  let outBuffer = new Uint8Array(1024 * 1024)
+  let offset = 0
+
+  function appendData(mp3Data: Uint8Array) {
+    if (mp3Data.length + offset > outBuffer.length) {
+      console.log('RESIZING')
+      const newBuffer = new Uint8Array(mp3Data.length + offset)
+      newBuffer.set(outBuffer)
+      outBuffer = newBuffer
+    }
+
+    outBuffer.set(mp3Data, offset)
+    offset += mp3Data.length
+  }
+
+  const encode = (data: Float32Array) => {
+    // console.log('got data:', data)
+    appendData(
+      encoder.encode([data])
+    )
+  }
+
+  const stop = () => {
+    appendData(encoder.finalize())
+    const finalBuffer = new Uint8Array(outBuffer.buffer, 0, offset)
+
+    const blob = new Blob([finalBuffer], { type: 'audio/mpeg' })
+
+    console.timeEnd('Encoding audio data')
+
+    const audio = document.body.appendChild(document.createElement('audio'))
+    audio.src = URL.createObjectURL(blob)
+    audio.controls = true
+  }
+
+  return { encode, stop }
 }
 
 export class PeaksProcessor {
@@ -16,14 +61,23 @@ export class PeaksProcessor {
       .then(() => this.register())
   }
 
-  register() {
+  async register() {
     const { recorder } = this
 
-    const worker = new AudioWorkletNode(recorder.context, 'peaks-analyser-processor')
+    const encoder = await startEncode()
+    const worker = new AudioWorkletNode(recorder.context, 'peaks-analyser-processor', {
+      numberOfInputs: 1,
+      numberOfOutputs: 1
+    })
+
     this.source.connect(worker)
+    worker.connect(recorder.desination)
 
     // Events
-    recorder.on('start', () => worker.port.postMessage('start'))
+    recorder.on('start', () => {
+      worker.port.postMessage('start')
+    })
+
     recorder.on('stop', () => worker.port.postMessage('stop'))
 
     // Listen worker events
@@ -31,7 +85,14 @@ export class PeaksProcessor {
       worker.port.onmessage = (e: MessageEvent<WorkerData>) => {
         const { event, data } = e.data
 
-        if (event === 'result') resolve(data)
+        if (event === 'pcm-data')
+          encoder.encode(data)
+
+        if (event === 'result') {
+          worker.disconnect()
+          encoder.stop()
+          resolve(data)
+        }
       }
     })
   }
