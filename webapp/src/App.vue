@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useRecorder } from '@vocal/core'
+import { useRecorder } from 'vocal-recorder'
 import { ref } from 'vue'
 
 const recorder = useRecorder()
