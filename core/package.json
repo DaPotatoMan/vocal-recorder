@@ -15,8 +15,8 @@
     "deploy": "pnpm publish --tag alpha --no-git-checks"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "Fahadul Islam",
+  "license": "LGPL-3.0-or-later",
   "devDependencies": {
     "@types/audioworklet": "^0.0.50",
     "standardized-audio-context-mock": "^9.6.28",
