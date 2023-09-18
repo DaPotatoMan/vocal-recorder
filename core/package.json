@@ -12,9 +12,6 @@
     }
   },
   "scripts": {
-    "build": "vite build",
-    "test": "vitest",
-    "coverage": "vitest run --coverage",
     "deploy": "pnpm publish --tag alpha --no-git-checks"
   },
   "keywords": [],
