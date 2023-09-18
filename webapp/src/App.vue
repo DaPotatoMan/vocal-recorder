@@ -1,58 +1,36 @@
 <script setup lang="ts">
-import { shallowRef } from 'vue'
-import { useRecorder } from './store'
-const devices = shallowRef<MediaDeviceInfo[]>([])
-const src = shallowRef('')
-const started = shallowRef(false)
+import { useRecorder } from '@vocal/core'
+import { ref } from 'vue'
 
-const { recorder } = useRecorder()
-console.log(recorder)
-
-navigator.mediaDevices.enumerateDevices().then((list) => {
-  const inputs = list.reduce((map, entry) => {
-    if (entry.groupId in map === false && !!entry.deviceId)
-      map[entry.groupId] = entry
-
-    return map
-  }, {} as Record<string, MediaDeviceInfo>)
-
-  devices.value = Object.values(inputs)
-})
-
-async function start() {
-  await recorder.start()
-  started.value = true
-}
+const recorder = useRecorder()
+const audioList = ref<string[]>([])
 
 async function stop() {
-  started.value = false
-
-  const blob = await recorder.stop()
-  src.value = URL.createObjectURL(blob)
-
-  console.log(blob, src.value)
+  const result = await recorder.stop()
+  audioList.value.push(URL.createObjectURL(result.blob))
 }
+
+const init = () => recorder.init()
+const start = () => recorder.start()
 </script>
 
 <template>
-  <div flex flex-col items-center justify-center gap-5>
-    <div class="flex flex-col gap-5 mb-20">
-      <button v-for="(device, i) in devices" :key="i" @click="recorder.instance.switchDevice(device)">
-        Change device to {{ device.label }} {{ device.deviceId }}
-      </button>
-    </div>
-
-    <!-- <Visualizer v-if="started" /> -->
-
-    <audio :src="src" controls />
-    <input type="range" max="10" min="0" value="1" @change="recorder.instance.gainNode.gain.value = $event.target.value">
-
-    <button @click="start()">
-      start
+  <div>
+    <button @click="init">
+      init
     </button>
-
-    <button @click="stop()">
-      stop
+    <button @click="recorder.start">
+      Start / Resume
     </button>
+    <button @click="recorder.pause">
+      Pause
+    </button>
+    <button @click="stop">
+      Stop
+    </button>
+  </div>
+
+  <div class="grid gap-4 bg-black p-4 rounded-xl w-min m-auto">
+    <audio v-for="url in audioList" :key="url" :src="url" controls />
   </div>
 </template>
