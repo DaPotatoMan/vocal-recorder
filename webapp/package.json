@@ -12,7 +12,6 @@
     "@vitejs/plugin-basic-ssl": "^0.1.2",
     "pinia": "^2.0.36",
     "vocal-recorder": "workspace:*",
-    "@vocal/core": "workspace:*",
     "vue": "^3.2.45"
   },
   "devDependencies": {
