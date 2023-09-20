@@ -113,7 +113,13 @@ export function useRecorder() {
     emitter.emit('pause')
   }
 
+  async function dispose() {
+    await nodes.dispose()
+    streamNode.dispose()
+  }
+
   async function stop() {
+    await dispose()
     emitter.emit('stop')
 
     const payload = await nodes.processor.result
@@ -124,15 +130,7 @@ export function useRecorder() {
     )
 
     emitter.emit('result', result)
-    console.log(result)
-    dispose()
-
     return result
-  }
-
-  async function dispose() {
-    await nodes.dispose()
-    streamNode.dispose()
   }
 
   async function restart() {

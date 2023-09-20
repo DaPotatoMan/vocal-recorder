@@ -34,6 +34,7 @@ export function useProcessor(emitter: EventBus, context: AudioContext, sourceNod
 
       if (event === 'result') {
         worker.disconnect()
+        worker.port.close()
 
         result.resolve({
           peaks: data,
