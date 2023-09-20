@@ -12,8 +12,8 @@ function getContextNodes(emitter: EventBus) {
     context.suspend()
     gainNode.connect(desination)
 
-    function dispose() {
-      if (context.state !== 'closed') context.close()
+    async function dispose() {
+      if (context.state !== 'closed') await context.close()
       desination.disconnect()
       gainNode.disconnect()
     }
@@ -130,9 +130,14 @@ export function useRecorder() {
     return result
   }
 
-  function dispose() {
-    nodes.dispose()
+  async function dispose() {
+    await nodes.dispose()
     streamNode.dispose()
+  }
+
+  async function restart() {
+    await dispose()
+    await start()
   }
 
   function switchStream(stream: MediaStream) {
@@ -150,6 +155,7 @@ export function useRecorder() {
     pause,
     stop,
     dispose,
+    restart,
     switchStream,
     switchDevice,
     events: emitter,
