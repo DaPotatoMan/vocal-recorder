@@ -48,8 +48,8 @@ importers:
         specifier: ^2022.2.0
         version: 2022.2.0
       '@toots/shine.js':
-        specifier: ^1.0.3
-        version: 1.0.3
+        specifier: workspace:*
+        version: link:../shine-js
       mitt:
         specifier: ^3.0.1
         version: 3.0.1
@@ -66,6 +66,8 @@ importers:
       typescript:
         specifier: ^5.2.2
         version: 5.2.2
+
+  shine-js: {}
 
   webapp:
     dependencies:
@@ -836,10 +838,6 @@ packages:
   /@sinonjs/text-encoding@0.7.2:
     resolution: {integrity: sha512-sXXKG+uL9IrKqViTtao2Ws6dy0znu9sOaP1di/jKGW1M6VssO8vlpXCQcpZ+jisQ1tTFAC5Jo/EOzFbggBagFQ==}
     dev: true
-
-  /@toots/shine.js@1.0.3:
-    resolution: {integrity: sha512-zP2A64gZ2WUMEW6uy9TlHxsEG+U77+4UDm4LUlnk1JoNbNcn0bfj1OdoZfggBCem5Cmf9FRe+Z3LAIXpexdUCQ==}
-    dev: false
 
   /@types/audioworklet@0.0.50:
     resolution: {integrity: sha512-Wic6k+tczhJZz4yq2ianEowIF/xH10wI9ac8sBDh27Jvs+WIvXIeM+nWPPRITFwSKuLZKlvVjfLiNmUjfy4koA==}

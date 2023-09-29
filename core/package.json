@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "@shiguredo/rnnoise-wasm": "^2022.2.0",
-    "@toots/shine.js": "^1.0.3",
+    "@toots/shine.js": "workspace:*",
     "mitt": "^3.0.1",
     "wasm-media-encoders": "^0.6.4"
   }
