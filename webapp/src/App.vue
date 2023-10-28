@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useRecorder } from 'vocal-recorder'
 import { ref } from 'vue'
+import Demo from './Demo.vue'
 
 const recorder = useRecorder()
 const audioList = ref<string[]>([])
@@ -33,4 +34,11 @@ const start = () => recorder.start()
   <div class="grid gap-4 bg-black p-4 rounded-xl w-min m-auto">
     <audio v-for="url in audioList" :key="url" :src="url" controls />
   </div>
+
+  <br>
+  <br>
+
+  <Suspense>
+    <Demo />
+  </Suspense>
 </template>

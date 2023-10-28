@@ -2,10 +2,10 @@ import { createEncoder } from 'wasm-media-encoders/esnext'
 import wasm from 'wasm-media-encoders/wasm/mp3?url'
 import { Logger } from '../../shared'
 
-export async function useMP3Encoder(context: AudioContext) {
+export async function useLameEncoder(sampleRate = 44100) {
   const encoder = await createEncoder('audio/mpeg', wasm)
   const config = Object.freeze({
-    sampleRate: context.sampleRate,
+    sampleRate,
     channels: 1,
     vbrQuality: 0
   })
@@ -51,5 +51,5 @@ export async function useMP3Encoder(context: AudioContext) {
     return blob
   }
 
-  return Object.freeze({ config, encode, stop })
+  return { config, encode, stop }
 }

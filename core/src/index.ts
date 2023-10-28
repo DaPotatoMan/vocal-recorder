@@ -4,7 +4,7 @@ import { type EventBus, Logger, StreamUtil, getAudioContext, useEvents } from '.
 
 function getContextNodes(emitter: EventBus) {
   function build() {
-    const context = getAudioContext({ latencyHint: 'playback' })
+    const context = getAudioContext({ latencyHint: 'playback', sampleRate: 44100 })
     const desination = context.createMediaStreamDestination()
     const gainNode = context.createGain()
     const processor = useProcessor(emitter, context, gainNode, desination)
@@ -169,3 +169,4 @@ export function useRecorder() {
 }
 
 export * from './processor/factories'
+export * from './test'

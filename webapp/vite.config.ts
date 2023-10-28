@@ -29,7 +29,14 @@ export default defineConfig(({ mode }) => ({
     assetsInlineLimit: 0
   },
 
+  server: {
+    headers: {
+      'Cross-Origin-Opener-Policy': 'same-origin',
+      'Cross-Origin-Embedder-Policy': 'require-corp'
+    }
+  },
+
   optimizeDeps: {
-    exclude: ['@shiguredo/rnnoise-wasm']
+    exclude: ['@shiguredo/rnnoise-wasm', '@ffmpeg/ffmpeg', '@ffmpeg/util']
   }
 }))
