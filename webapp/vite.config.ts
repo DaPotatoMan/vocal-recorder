@@ -10,7 +10,7 @@ export default defineConfig(({ mode }) => ({
 
   plugins: [
     vue(),
-    // ssl(),
+    ssl(),
     Unocss({
       presets: [
         presetUno(),

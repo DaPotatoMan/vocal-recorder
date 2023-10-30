@@ -1,12 +1,8 @@
-import { MediaRecorder, register } from 'extendable-media-recorder'
-import { connect } from 'extendable-media-recorder-wav-encoder'
-
+import { MediaRecorder } from 'extendable-media-recorder'
 import { type Encoder, useEncoder } from '../encoder/core'
 import { DeferredPromise, type EventBus, StreamUtil } from '../../shared'
 
 const log = console.debug.bind('[Recorder]')
-
-const WAV_ENCODER_CONNECTED = connect().then(register)
 
 export class Recorder extends MediaRecorder {
   #promise = new DeferredPromise<Blob>()
@@ -20,6 +16,9 @@ export class Recorder extends MediaRecorder {
   }
 
   async #encodeChunk(chunk: Blob) {
+    // Skip empty chunks
+    if (chunk.size === 0) return log('skipped 0 byte chunk')
+
     log(`encoding chunk -> ${chunk.size}`)
 
     this.#chunks.push(chunk)
@@ -29,15 +28,15 @@ export class Recorder extends MediaRecorder {
   }
 
   static async create(stream: MediaStream, config: Encoder.Config, emitter: EventBus) {
-    await WAV_ENCODER_CONNECTED // Wait for WAV encoder plugin to be registered
-
     const encoder = await useEncoder(config)
     return new Recorder(stream, config, encoder, emitter)
   }
 
   constructor(private stream: MediaStream, private config: Encoder.Config, private encoder: Encoder, emitter: EventBus) {
+    log('config', config)
+
     super(stream, {
-      mimeType: 'audio/wav',
+      mimeType: config.sourceMimeType,
       audioBitsPerSecond: config.audioBitsPerSecond
     })
 

@@ -1,6 +1,4 @@
-import { getAudioBuffer, getBlobAudioBuffer } from '../../shared'
-import { useShineEncoder } from './shine'
-import { getWavBytes } from './wav'
+import { useEncoder as useWebmEncoder } from './webm'
 
 export interface Encoder {
   encode(blob: Blob, hasHeaders: boolean): void
@@ -18,34 +16,46 @@ export namespace Encoder {
     get audioBitsPerSecond() {
       return this.bitRate * 1000
     }
+
+    /** Recording mimeType */
+    get sourceMimeType() {
+      const types = {
+        opusWEBM: 'audio/webm;codecs=opus',
+        mp3: 'audio/mp4'
+      } as const
+
+      const check = MediaRecorder.isTypeSupported
+
+      try {
+        if (check(types.opusWEBM)) return types.opusWEBM
+        if (check(types.mp3)) return types.mp3
+      }
+      catch {}
+    }
   }
 }
 
-export async function useEncoder(config: Encoder.Config): Promise<Encoder> {
-  const encoder = await useShineEncoder()
+export function useBaseEncoder() {
+  console.log('[Recorder]', 'using base encoder')
 
-  /** Takes a WAV blob, appends proper WAV header and returns AudioBuffer for that WAV Blob */
-  async function getWAVBuffer(blob: Blob) {
-    const buffer = await blob.arrayBuffer()
-    const wavBytes = await getWavBytes(buffer, {
-      isFloat: false,
-      numChannels: config.channels,
-      sampleRate: config.sampleRate
-    })
+  const chunks: Blob[] = []
 
-    return getAudioBuffer(wavBytes.buffer)
+  return {
+    encode(blob: Blob) {
+      chunks.push(blob)
+    },
+
+    stop: () => new Blob(chunks, { type: chunks[0].type })
+  }
+}
+
+export async function useEncoder(config: Encoder.Config) {
+  try {
+    const webmMimeType = 'audio/webm;codecs=opus'
+    if (MediaRecorder.isTypeSupported(webmMimeType)) return useWebmEncoder(config)
   }
 
-  async function encode(blob: Blob, hasHeaders = false) {
-    const buffer = hasHeaders ? await getBlobAudioBuffer(blob) : await getWAVBuffer(blob)
-    const data = buffer.getChannelData(0)
+  catch {}
 
-    encoder.encode(data)
-  }
-
-  function stop() {
-    return encoder.stop()
-  }
-
-  return { encode, stop }
+  return useBaseEncoder()
 }

@@ -2,11 +2,12 @@ import { Buffer } from 'buffer'
 import { OpusDecoder } from 'opus-decoder'
 import { Decoder as WebmDecoder } from 'ts-ebml'
 import { useShineEncoder } from './shine'
+import type { Encoder } from './core'
 
 window.Buffer = Buffer
 
-export async function useEncoder() {
-  const shine = await useShineEncoder()
+export async function useEncoder(config: Encoder.Config) {
+  const shine = await useShineEncoder(config)
   const webmDecoder = new WebmDecoder()
   const decoder = new OpusDecoder({
     channels: 1,
