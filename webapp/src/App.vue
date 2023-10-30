@@ -40,7 +40,10 @@ async function stop() {
         No recordings made yet.
       </p>
 
-      <audio v-for="url in audioList" :key="url" :src="url" controls class="w-full" />
+      <div v-for="url in audioList" :key="url" class="gap-3 flex items-center">
+        <audio :src="url" controls class="w-full" />
+        <a :href="url" download="file.mp3">Download</a>
+      </div>
     </div>
   </section>
 </template>
