@@ -20,7 +20,10 @@ export function useRecorder() {
   const config = new Encoder.Config(48000, 128, 1)
 
   async function init(stream?: MediaStream) {
-    stream ??= await StreamUtil.get()
+    stream ??= await StreamUtil.get({
+      sampleRate: config.sampleRate,
+      channelCount: config.channels
+    })
 
     // ! Update sample rate
     config.sampleRate = StreamUtil.getSettings(stream).sampleRate || config.sampleRate

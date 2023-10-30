@@ -6,12 +6,14 @@ export interface Encoder {
 }
 
 export namespace Encoder {
+  type BitRate = 8 | 16 | 24 | 32 | 40 | 48 | 64 | 80 | 96 | 112 | 128 | 160 | 192 | 224 | 256 | 320
+
   export class Config {
     constructor(
       public sampleRate = 48000,
-      public bitRate = 128,
-      public channels = 1
-    ) {}
+      public bitRate: BitRate = 128,
+      public channels: 1 | 2 = 1
+    ) { }
 
     get audioBitsPerSecond() {
       return this.bitRate * 1000
@@ -30,7 +32,7 @@ export namespace Encoder {
         if (check(types.opusWEBM)) return types.opusWEBM
         if (check(types.mp3)) return types.mp3
       }
-      catch {}
+      catch { }
     }
   }
 }
@@ -55,7 +57,7 @@ export async function useEncoder(config: Encoder.Config) {
     if (MediaRecorder.isTypeSupported(webmMimeType)) return useWebmEncoder(config)
   }
 
-  catch {}
+  catch { }
 
   return useBaseEncoder()
 }

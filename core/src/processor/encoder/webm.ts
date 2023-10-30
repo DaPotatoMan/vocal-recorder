@@ -1,15 +1,16 @@
 import { Buffer } from 'buffer'
 import { OpusDecoder } from 'opus-decoder'
 import { Decoder as WebmDecoder } from 'ts-ebml'
-import { useShineEncoder } from './shine'
 import type { Encoder } from './core'
+import { useLameEncoder } from './lame'
 
 window.Buffer = Buffer
 
 export async function useEncoder(config: Encoder.Config) {
-  const shine = await useShineEncoder(config)
+  const shine = await useLameEncoder(config)
   const webmDecoder = new WebmDecoder()
   const decoder = new OpusDecoder({
+    sampleRate: config.sampleRate,
     channels: 1,
     streamCount: 1,
     coupledStreamCount: 0,
