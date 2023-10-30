@@ -35,7 +35,7 @@ export function useRecorder() {
     init,
 
     // Proxy
-    start: () => recorder.start(2000),
+    start: () => recorder.start(5000),
     stop: () => recorder.stop(),
     pause: () => recorder.pause(),
     resume: () => recorder.resume(),

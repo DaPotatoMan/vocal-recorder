@@ -1,44 +1,46 @@
 <script setup lang="ts">
+import { reactive, ref } from 'vue'
 import { useRecorder } from 'vocal-recorder'
-import { ref } from 'vue'
-import Demo from './Demo.vue'
 
 const recorder = useRecorder()
 const audioList = ref<string[]>([])
 
-async function stop() {
-  const result = await recorder.stop()
-  audioList.value.push(URL.createObjectURL(result.blob))
+const state = reactive(recorder.state)
+
+recorder.events.on('*', () => Object.assign(state, recorder.state))
+
+async function start() {
+  await recorder.init()
+  recorder.start()
 }
 
-const init = () => recorder.init()
-const start = () => recorder.start()
+async function stop() {
+  const result = await recorder.stop()
+  audioList.value.push(URL.createObjectURL(result))
+}
 </script>
 
 <template>
-  <div>
-    <button @click="init">
-      init
-    </button>
-    <button @click="recorder.start">
-      Start / Resume
-    </button>
-    <button @click="recorder.pause">
-      Pause
-    </button>
-    <button @click="stop">
-      Stop
-    </button>
+  <div class="mb-20 px-4 py-2 w-max mx-auto bg-black text-white/70 text-xl rounded-xl">
+    Status <b text="red-5">{{ state.current }}</b>
   </div>
 
-  <div class="grid gap-4 bg-black p-4 rounded-xl w-min m-auto">
-    <audio v-for="url in audioList" :key="url" :src="url" controls />
-  </div>
+  <section class="grid gap-12 md:grid-cols-2">
+    <div class="h-min gap-3 flex flex-center flex-shrink-0 flex-0 justify-center">
+      <button @click="start">
+        start
+      </button>
+      <button @click="stop">
+        stop
+      </button>
+    </div>
 
-  <br>
-  <br>
+    <div class="w-300px max-w-80vw grid gap-4 bg-black p-4 rounded-xl text-center">
+      <p v-if="audioList.length === 0">
+        No recordings made yet.
+      </p>
 
-  <Suspense>
-    <Demo />
-  </Suspense>
+      <audio v-for="url in audioList" :key="url" :src="url" controls class="w-full" />
+    </div>
+  </section>
 </template>
