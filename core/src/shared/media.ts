@@ -12,6 +12,10 @@ export class StreamUtil {
     return new MediaStream(stream)
   }
 
+  static getSettings(stream: MediaStream) {
+    return stream.getAudioTracks()[0].getSettings()
+  }
+
   static isValid(stream: MediaStream) {
     const tracks = stream.getAudioTracks()
     return stream.active && tracks.length > 0 && tracks.some(track => track.enabled)
@@ -34,4 +38,22 @@ export function getAudioContext(options?: AudioContextOptions) {
   if (!Ref) throw new RecorderError('NO_AUDIO_CONTEXT')
 
   return new Ref(options)
+}
+
+export async function getAudioBuffer(buffer: ArrayBuffer, config: OfflineAudioContextOptions = {
+  numberOfChannels: 1,
+  sampleRate: 48000,
+  length: 48000
+}) {
+  try {
+    return new OfflineAudioContext(config).decodeAudioData(buffer)
+  }
+  catch {
+    return getAudioContext({ sampleRate: config.sampleRate }).decodeAudioData(buffer)
+  }
+}
+
+// Converts the Blob data to AudioBuffer
+export async function getBlobAudioBuffer(blob: Blob) {
+  return getAudioBuffer(await blob.arrayBuffer())
 }

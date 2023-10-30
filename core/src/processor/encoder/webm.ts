@@ -1,7 +1,7 @@
 import { Buffer } from 'buffer'
 import { OpusDecoder } from 'opus-decoder'
 import { Decoder as WebmDecoder } from 'ts-ebml'
-import { useShineEncoder } from './encoder'
+import { useShineEncoder } from './shine'
 
 window.Buffer = Buffer
 

@@ -1,16 +1,18 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { useExRecorder } from 'vocal-recorder'
+import { reactive, ref } from 'vue'
+import { useRecorder } from 'vocal-recorder'
 
-const recorder = useExRecorder()
+const recorder = useRecorder()
 const audioList = ref<string[]>([])
+
+// const state = reactive(recorder.state)
+
+// recorder.events.on('*', () => Object.assign(state, recorder.state))
 
 async function stop() {
   const result = await recorder.stop()
   audioList.value.push(URL.createObjectURL(result))
 }
-
-await recorder.install()
 </script>
 
 <template>
