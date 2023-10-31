@@ -25,7 +25,7 @@ async function stop() {
     Status <b text="red-5">{{ state.current }}</b>
   </div>
 
-  <section class="grid gap-12 md:grid-cols-2">
+  <section class="w-85vw max-w-screen-xl grid gap-12 md:grid-cols-2">
     <div class="h-min gap-3 flex flex-center flex-shrink-0 flex-0 justify-center">
       <button @click="start">
         start
@@ -35,7 +35,7 @@ async function stop() {
       </button>
     </div>
 
-    <div class="w-300px max-w-80vw grid gap-4 bg-black p-4 rounded-xl text-center">
+    <div class="grid gap-4 bg-black p-4 rounded-xl text-center">
       <p v-if="audioList.length === 0">
         No recordings made yet.
       </p>

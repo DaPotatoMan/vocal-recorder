@@ -1,6 +1,6 @@
 import { Shine, StereoMode } from '@toots/shine.js'
-import { Logger } from '../../shared'
-import { Encoder } from './core'
+import { Encoder } from '../types'
+import { Logger, useExpandedBuffer } from '../../shared'
 
 export async function useShineEncoder(config = new Encoder.Config()) {
   await Shine.initialized
@@ -13,27 +13,23 @@ export async function useShineEncoder(config = new Encoder.Config()) {
     stereoMode: StereoMode.MONO
   })
 
-  let chunks: Uint8Array[] = []
+  const chunks = useExpandedBuffer(Uint8Array)
   let isDone = false
 
   function encode(data: Float32Array) {
     if (isDone) return
 
-    chunks.push(
-      shine.encode([data])
-    )
+    chunks.append(shine.encode([data]))
   }
 
   function stop() {
     isDone = true
-    chunks.push(shine.close())
-    const blob = new Blob(chunks, { type: 'audio/mpeg' })
+    chunks.append(shine.close())
 
-    // Flush
-    chunks = []
+    const blob = new Blob([chunks.getBuffer()], { type: 'audio/mpeg' })
 
     return blob
   }
 
-  return Object.freeze({ encode, stop })
+  return { encode, stop }
 }

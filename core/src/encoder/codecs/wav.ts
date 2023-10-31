@@ -1,6 +1,6 @@
 import { getAudioBuffer, getBlobAudioBuffer } from '../../shared'
-import type { Encoder } from './core'
-import { useShineEncoder } from './shine'
+import type { Encoder } from '../types'
+import { useShineEncoder } from './mp3.shine'
 
 interface Options {
   isFloat: boolean // floating point or 16-bit integer

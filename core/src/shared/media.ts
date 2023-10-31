@@ -18,7 +18,7 @@ export class StreamUtil {
 
   static isValid(stream: MediaStream) {
     const tracks = stream.getAudioTracks()
-    return stream.active && tracks.length > 0 && tracks.some(track => track.enabled)
+    return stream.active && tracks.length > 0 && tracks.some(e => e.enabled)
   }
 
   static dispose(stream: MediaStream) {

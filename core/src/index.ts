@@ -1,50 +1,63 @@
-import type { TRecordingState } from 'extendable-media-recorder'
-import { StreamUtil, useEvents } from './shared'
-import { Encoder } from './processor/encoder/core'
-import { Recorder } from './processor/factories/media-recorder'
+import { RecorderError, StreamUtil, useEvents } from './shared'
+import { Recorder } from './factories/media-recorder'
+import { Encoder } from './encoder'
 
-function getRecordingState(state: TRecordingState = 'inactive') {
-  return {
-    current: state,
+export * from './factories'
 
-    paused: state === 'paused',
-    inactive: state === 'inactive',
-    recording: state === 'recording'
+export class AudioRecorder {
+  events = useEvents()
+  config = new Encoder.Config(48000, 128, 1)
+
+  #recorder?: Recorder
+
+  get #instance() {
+    if (this.#recorder) return this.#recorder
+    throw new RecorderError('NOT_INIT')
   }
-}
 
-export function useRecorder() {
-  const emitter = useEvents()
-  let recorder: Recorder
+  get state() {
+    const state = this.#recorder?.state ?? 'inactive'
 
-  const config = new Encoder.Config(48000, 128, 1)
+    return {
+      current: state,
+      paused: state === 'paused',
+      inactive: state === 'inactive',
+      recording: state === 'recording'
+    }
+  }
 
-  async function init(stream?: MediaStream) {
-    stream ??= await StreamUtil.get({
+  get stream() {
+    return this.#recorder?.stream
+  }
+
+  async init(streamConstraints?: Exclude<MediaTrackConstraints, 'sampleRate' | 'channelCount'>) {
+    const { config } = this
+
+    // Dispose active recorder
+    this.dispose()
+
+    const stream = await StreamUtil.get({
+      ...streamConstraints,
       sampleRate: config.sampleRate,
       channelCount: config.channels
     })
 
-    // ! Update sample rate
-    config.sampleRate = StreamUtil.getSettings(stream).sampleRate || config.sampleRate
+    config.update(stream)
 
-    recorder?.stop() // Dispose previous
-    recorder = await Recorder.create(stream, config, emitter)
+    this.#recorder = await Recorder.create(stream, config, this.events)
   }
 
-  return {
-    events: emitter,
+  dispose() {
+    const ref = this.#recorder
 
-    init,
-
-    // Proxy
-    start: () => recorder.start(5000),
-    stop: () => recorder.stop(),
-    pause: () => recorder.pause(),
-    resume: () => recorder.resume(),
-
-    get state() {
-      return getRecordingState(recorder?.state)
-    }
+    if (!ref) return
+    ref.stop()
+    ref.encoder.dispose()
   }
+
+  // Proxy
+  start() { this.#instance.start() }
+  pause() { this.#instance.pause() }
+  resume() { this.#instance.resume() }
+  stop() { return this.#instance.stop() }
 }

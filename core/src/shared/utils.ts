@@ -32,3 +32,27 @@ export class DeferredPromise<T> extends Promise<T> {
     this.reject(error)
   }
 }
+
+export function useExpandedBuffer<T extends Uint8ArrayConstructor | Float32ArrayConstructor>(Ref: T, initialSize = 1024 * 1024) {
+  let outBuffer = new Ref(initialSize)
+  let offset = 0
+
+  function append(data: InstanceType<T>) {
+    if (data.length + offset > outBuffer.length) {
+      console.debug('(useExpandedBuffer) resizing buffer size')
+
+      const newBuffer = new Ref(data.length + offset)
+      newBuffer.set(outBuffer)
+      outBuffer = newBuffer
+    }
+
+    outBuffer.set(data, offset)
+    offset += data.length
+  }
+
+  function getBuffer() {
+    return new Ref(outBuffer.buffer, 0, offset) as InstanceType<T>
+  }
+
+  return { append, getBuffer }
+}

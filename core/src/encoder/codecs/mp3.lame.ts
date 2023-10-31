@@ -1,7 +1,7 @@
 import { createEncoder } from 'wasm-media-encoders/esnext'
 import wasm from 'wasm-media-encoders/wasm/mp3?url'
 import { Logger } from '../../shared'
-import type { Encoder } from './core'
+import type { Encoder } from '../types'
 
 export async function useLameEncoder(config: Encoder.Config) {
   const encoder = await createEncoder('audio/mpeg', wasm)

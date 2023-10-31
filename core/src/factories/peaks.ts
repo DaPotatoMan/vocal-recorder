@@ -72,6 +72,29 @@ function getArrayAverage(source: number[], samples = 64) {
   return filteredData.map(n => n * multiplier * 100)
 }
 
+export function getAudioPeaks(source: Float32Array, totalBars: number) {
+  const samples = totalBars // Number of samples we want to have in our final data set
+  const blockSize = Math.floor(source.length / samples) // the number of samples in each subdivision
+  const filteredData = []
+
+  for (let i = 0; i < samples; i++) {
+    const blockStart = blockSize * i // the location of the first sample in the block
+    let sum = 0
+    for (let j = 0; j < blockSize; j++)
+      sum = sum + Math.abs(source[blockStart + j]) // find the sum of all the samples in the block
+
+    filteredData.push(sum / blockSize) // divide the sum by the block size to get the average
+  }
+
+  // Normalizes the audio data to make a cleaner illustration
+  const multiplier = Math.max(...filteredData) ** -1
+  return filteredData.map(n => n * multiplier)
+}
+
+export function getAudioBufferPeaks(audioBuffer: AudioBuffer, totalBars: number) {
+  return getAudioPeaks(audioBuffer.getChannelData(0), totalBars)
+}
+
 export class AudioPeaks extends Array {
   constructor(source: number[], public readonly samples = 100, public readonly rangeMin = 0, public readonly rangeMax = 100) {
     source ||= []

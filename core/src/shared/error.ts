@@ -1,8 +1,8 @@
 const Errors = {
-  NO_AUDIO_CONTEXT: 'AudioContext is not available in global context',
-  NO_GETUSERMEDIA: 'getUserMedia is not available in global context',
+  NOT_INIT: 'Recorder has not been initialized. Call init() method first',
 
-  NOT_INIT: 'Recorder has not been initialized'
+  NO_AUDIO_CONTEXT: 'AudioContext is not available in global context',
+  NO_GETUSERMEDIA: 'getUserMedia is not available in global context'
 }
 
 export class RecorderError extends Error {
