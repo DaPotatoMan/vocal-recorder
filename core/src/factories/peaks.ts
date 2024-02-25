@@ -1,3 +1,5 @@
+import { getAudioBuffer } from '../shared'
+
 function expandArray(source: number[], newSize: number): number[] {
   const originalSize = source.length
   const step = (originalSize - 1) / (newSize - 1) // Calculate the step size
@@ -89,6 +91,15 @@ export function getAudioPeaks(source: Float32Array, totalBars: number) {
   // Normalizes the audio data to make a cleaner illustration
   const multiplier = Math.max(...filteredData) ** -1
   return filteredData.map(n => n * multiplier)
+}
+
+export async function getAudioInfo(blob: Blob) {
+  const buffer = await getAudioBuffer(await blob.arrayBuffer())
+
+  return {
+    duration: buffer.duration,
+    peaks: getAudioBufferPeaks(buffer, 100)
+  }
 }
 
 export function getAudioBufferPeaks(audioBuffer: AudioBuffer, totalBars: number) {
