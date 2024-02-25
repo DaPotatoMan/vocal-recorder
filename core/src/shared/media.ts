@@ -41,17 +41,21 @@ export function getAudioContext(options?: AudioContextOptions) {
   return new Ref(options)
 }
 
-export async function getAudioBuffer(buffer: ArrayBuffer, config: OfflineAudioContextOptions = {
-  numberOfChannels: 1,
-  sampleRate: 48000,
-  length: 48000
-}) {
+export function getOfflineAudioContext(options: OfflineAudioContextOptions) {
   try {
-    return new OfflineAudioContext(config).decodeAudioData(buffer)
+    return new OfflineAudioContext(options)
   }
   catch {
-    return getAudioContext({ sampleRate: config.sampleRate }).decodeAudioData(buffer)
+    return new AudioContext(options)
   }
+}
+
+export async function getAudioBuffer(buffer: ArrayBuffer, config: OfflineAudioContextOptions = {
+  numberOfChannels: 1,
+  sampleRate: 44100,
+  length: 44100
+}) {
+  return getOfflineAudioContext(config).decodeAudioData(buffer)
 }
 
 // Converts the Blob data to AudioBuffer
