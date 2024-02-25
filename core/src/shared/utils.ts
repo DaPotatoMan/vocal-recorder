@@ -33,6 +33,13 @@ export class DeferredPromise<T> extends Promise<T> {
   }
 }
 
+export function getGlobalThis() {
+  try {
+    return globalThis
+  }
+  catch (e) { return window }
+}
+
 export function useExpandedBuffer<T extends Uint8ArrayConstructor | Float32ArrayConstructor>(Ref: T, initialSize = 1024 * 1024) {
   let outBuffer = new Ref(initialSize)
   let offset = 0

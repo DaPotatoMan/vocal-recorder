@@ -1,4 +1,5 @@
 import { RecorderError } from './error'
+import { getGlobalThis } from './utils'
 
 export class StreamUtil {
   static async get(options?: MediaTrackConstraints) {
@@ -32,7 +33,7 @@ export class StreamUtil {
 }
 
 export function getAudioContext(options?: AudioContextOptions) {
-  const ctx = globalThis
+  const ctx = getGlobalThis()
   const Ref = ctx.AudioContext || ctx.webkitAudioContext
 
   if (!Ref) throw new RecorderError('NO_AUDIO_CONTEXT')
