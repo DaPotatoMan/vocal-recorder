@@ -12,7 +12,7 @@
   },
   "scripts": {
     "build": "rimraf dist && parcel build",
-    "deploy": "pnpm publish --tag alpha --no-git-checks"
+    "deploy": "pnpm build && pnpm publish --tag alpha --no-git-checks"
   },
   "keywords": [],
   "author": "Fahadul Islam",
