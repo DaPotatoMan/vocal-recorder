@@ -1,5 +1,5 @@
 import type { AudioCodec } from '../encoder'
-import { AudioPeaks } from './peaks'
+import { AudioPeaks, getAudioInfo } from './peaks'
 
 export { AudioPeaks }
 
@@ -38,6 +38,19 @@ export class AudioBlob extends Blob {
    */
   static fromRaw(blob: Blob, duration: number, peaksArgs: ConstructorParameters<typeof AudioPeaks>, codec: AudioCodec) {
     return new AudioBlob(blob, new Duration(duration), new AudioPeaks(...peaksArgs), codec)
+  }
+
+  /** Create AudioBlob from {@link File} */
+  static async fromFile(file: Blob) {
+    const { peaks, duration } = await getAudioInfo(file)
+    const extension = file.type.split('.').at(-1)
+    const codec = {
+      extension,
+      name: extension,
+      mimeType: file.type
+    }
+
+    return AudioBlob.fromRaw(file, duration, [peaks], codec as any)
   }
 }
 
