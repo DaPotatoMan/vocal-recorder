@@ -2,6 +2,7 @@ import type { AudioCodec } from '../encoder'
 import { AudioPeaks, getAudioInfo } from './peaks'
 
 export { AudioPeaks }
+export { prefetchCodecs } from './media-recorder'
 
 export class Duration extends Number {
   constructor(ms: number) { super(ms) }
