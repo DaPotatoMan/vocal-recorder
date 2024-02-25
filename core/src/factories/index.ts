@@ -12,6 +12,9 @@ export class Duration extends Number {
 }
 
 export class AudioBlob extends Blob {
+  /** UID of AudioBlob instance. Automatically set on init */
+  id = crypto.randomUUID()
+
   constructor(
     public blob: Blob,
     public duration: Duration,
@@ -24,6 +27,7 @@ export class AudioBlob extends Blob {
 
   toSerialized() {
     return {
+      id: this.id,
       blob: this.blob,
       duration: this.duration.valueOf(),
       peaks: Array.from<number>(this.peaks),
