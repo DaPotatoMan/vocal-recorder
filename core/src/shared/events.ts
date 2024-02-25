@@ -1,6 +1,6 @@
 import mitt from 'mitt'
 import type { Emitter, EventHandlerMap, EventType, Handler } from 'mitt'
-import type { AudioBlob } from '../processor/factories'
+import type { AudioBlob } from '../factories'
 
 export type Events = {} & {
   init: void
