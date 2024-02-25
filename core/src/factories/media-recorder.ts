@@ -23,7 +23,7 @@ export class Recorder extends MediaRecorder {
     return new Recorder(stream, config, emitter, await useEncoder(config))
   }
 
-  constructor(private stream: MediaStream, private config: Encoder.Config, emitter: EventBus, public encoder: Encoder) {
+  constructor(stream: MediaStream, private config: Encoder.Config, emitter: EventBus, public encoder: Encoder) {
     log('config', config)
 
     super(stream, {
