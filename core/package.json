@@ -9,6 +9,10 @@
     ".": {
       "import": "./src/index.ts",
       "types": "./src/index.ts"
+    },
+    "./peaks": {
+      "import": "./src/factories/peaks.ts",
+      "types": "./src/factories/peaks.ts"
     }
   },
   "scripts": {
