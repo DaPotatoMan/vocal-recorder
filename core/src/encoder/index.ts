@@ -1,5 +1,5 @@
+import { isWEBMSupported } from '../shared'
 import type { Encoder } from './types'
-
 export * from './types'
 
 export async function useEncoder(config: Encoder.Config) {
@@ -13,4 +13,24 @@ export async function useEncoder(config: Encoder.Config) {
   }
 
   return await import('./codecs/base').then(e => e.useBaseEncoder(config))
+}
+
+export async function prefetchEncoder() {
+  try {
+    const isMP3 = isWEBMSupported()
+    const label = `Prefetched ${isMP3 ? 'mp3' : 'base'} codec`
+
+    console.time(label)
+    await isMP3
+      ? import('../encoder/codecs/mp3')
+      : import('../encoder/codecs/base')
+
+    console.timeEnd(label)
+    return true
+  }
+  catch (error) {
+    console.error(error)
+  }
+
+  return false
 }

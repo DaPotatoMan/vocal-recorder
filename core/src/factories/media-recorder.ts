@@ -15,26 +15,6 @@ const MediaRecorder = getGlobalThis().MediaRecorder || class {
   }
 }
 
-export async function prefetchCodecs() {
-  try {
-    const isMP3 = MediaRecorder.isTypeSupported && MediaRecorder.isTypeSupported('audio/webm')
-    const label = `Prefetched ${isMP3 ? 'mp3' : 'base'} codec`
-
-    console.time(label)
-    await isMP3
-      ? import('../encoder/codecs/mp3')
-      : import('../encoder/codecs/base')
-
-    console.timeEnd(label)
-    return true
-  }
-  catch (error) {
-    log(error)
-  }
-
-  return false
-}
-
 export class Recorder extends MediaRecorder {
   #result = new DeferredPromise<AudioBlob>()
 

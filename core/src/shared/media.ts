@@ -62,3 +62,16 @@ export async function getAudioBuffer(buffer: ArrayBuffer, config: OfflineAudioCo
 export async function getBlobAudioBuffer(blob: Blob) {
   return getAudioBuffer(await blob.arrayBuffer())
 }
+
+export function isWEBMSupported() {
+  try {
+    const { MediaRecorder } = getGlobalThis()
+
+    return MediaRecorder
+      ? MediaRecorder.isTypeSupported('audio/webm')
+      : false
+  }
+  catch (error) {
+    return false
+  }
+}

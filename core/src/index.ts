@@ -3,6 +3,7 @@ import { Recorder } from './factories/media-recorder'
 import { Encoder } from './encoder'
 
 export * from './factories'
+export { prefetchEncoder } from './encoder'
 
 export class AudioRecorder {
   events = useEvents()
