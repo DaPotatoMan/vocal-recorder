@@ -1,4 +1,4 @@
-import { AudioBlob } from '../../factories'
+import { AudioBlob } from '../../factories/models'
 import { getAudioPeaks } from '../../factories/peaks'
 import { useExpandedBuffer } from '../../shared'
 import { Codecs, type Encoder, Worker as Message } from '../types'

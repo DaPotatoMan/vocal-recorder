@@ -1,5 +1,4 @@
-import type { SerializedAudioBlob } from '../../factories'
-import { AudioBlob } from '../../factories'
+import { AudioBlob, type SerializedAudioBlob } from '../../factories/models'
 import { DeferredPromise } from '../../shared'
 import { type Encoder, Worker as Message } from '../types'
 
