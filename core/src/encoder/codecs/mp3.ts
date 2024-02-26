@@ -1,15 +1,12 @@
 import { AudioBlob, type SerializedAudioBlob } from '../../factories/models'
 import { DeferredPromise } from '../../shared'
 import { type Encoder, Worker as Message } from '../types'
+import EncoderWorker from './mp3.worker?worker'
 
 export function useMP3Encoder() {
   const ready = new DeferredPromise<boolean>()
   const result = new DeferredPromise<AudioBlob>()
-
-  const worker = new Worker(new URL('./mp3.worker.ts', import.meta.url), {
-    type: 'module',
-    name: 'mp3-worker'
-  })
+  const worker = new EncoderWorker()
 
   function send<T extends Message.Event>(type: T, data?: Message.Data[T]) {
     worker.postMessage({ type, data })
