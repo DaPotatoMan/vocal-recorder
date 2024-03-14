@@ -4,6 +4,7 @@ import { Encoder } from './encoder'
 
 export * from './factories'
 export { prefetchEncoder } from './encoder'
+export type { RecorderEvent } from './shared'
 
 export class AudioRecorder {
   events = useEvents()

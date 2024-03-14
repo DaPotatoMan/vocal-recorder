@@ -27,5 +27,6 @@ export function useMitt<Events extends Record<EventType, unknown>>(all?: EventHa
   return inst as unknown as ExtendedEmitter<Events>
 }
 
+export type RecorderEvent = keyof Events
 export type EventBus = ExtendedEmitter<Events>
 export const useEvents = () => useMitt<Events>()
