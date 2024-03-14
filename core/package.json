@@ -17,6 +17,7 @@
     "tsup build": "tsup",
     "vite build": "vite build",
     "build": "rimraf dist && parcel build",
+    "link": "pnpm link --global",
     "deploy": "pnpm publish --tag alpha --no-git-checks"
   },
   "keywords": [],
