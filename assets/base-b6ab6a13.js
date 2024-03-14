@@ -1,0 +1,1 @@
+import{g as a,A as c}from"./models-6a6c34c7.js";import{g as f}from"./index-f6dcef4a.js";function d(s){let o=[];function t(){o=[]}async function r(){const e=new Blob(o,{type:o[0].type}),n=await f(e),u=await a(n,100);return t(),c.fromRaw(e,n.duration*1e3,[u,100],s.sourceCodec)}return{encode(e){o.push(e)},stop:r,dispose:t}}export{d as useBaseEncoder};
