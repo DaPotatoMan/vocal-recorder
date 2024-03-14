@@ -1,3 +1,4 @@
+import { nanoid } from 'nanoid'
 import type { AudioCodec } from '../encoder'
 import { AudioPeaks, getAudioInfo } from './peaks'
 
@@ -10,7 +11,7 @@ export class Duration extends Number {
 
 export class AudioBlob extends Blob {
   /** UID of AudioBlob instance. Automatically set on init */
-  id = crypto.randomUUID()
+  id = nanoid()
 
   constructor(
     public blob: Blob,
