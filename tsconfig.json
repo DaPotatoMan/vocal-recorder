@@ -7,6 +7,9 @@
     "module": "ESNext",
     "moduleResolution": "Node",
     "resolveJsonModule": true,
+    "types": [
+      "vitest/globals"
+    ],
     "strict": true,
     "declaration": true,
     "outDir": "dist",
