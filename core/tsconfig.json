@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "strict": true,
-    "target": "ESNext",
+    "target": "es2018",
     "module": "ESNext",
     "jsx": "preserve",
     "moduleResolution": "Node",
@@ -11,8 +11,9 @@
     "isolatedModules": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "noEmit": true
+    "declaration": true,
+    "outDir": "dist"
   },
-  "include": ["./**/*.ts"],
+  "include": ["src"],
   "exclude": ["node_modules"]
 }
