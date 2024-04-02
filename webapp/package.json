@@ -9,7 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@vitejs/plugin-basic-ssl": "^0.1.2",
+    "@vitejs/plugin-basic-ssl": "^1.1.0",
     "pinia": "^2.1.7",
     "vocal-recorder": "workspace:*",
     "vue": "^3.4.21"
