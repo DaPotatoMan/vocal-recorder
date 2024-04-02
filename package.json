@@ -1,25 +1,52 @@
 {
-  "name": "@vocal-recorder/monorepo",
-  "version": "1.0.2",
-  "description": "",
-  "scripts": {
-    "test": "pnpm run -r test",
-    "update": "pnpm up -r -L",
-    "deploy": "pnpm bumpp && pnpm -F vocal-recorder run deploy"
+  "name": "vocal-recorder",
+  "type": "module",
+  "version": "1.2.0",
+  "description": "MP3 audio recorder for the web",
+  "author": "Fahadul Islam @dapotatoman",
+  "license": "MIT",
+  "repository": "dapotatoman/vocal-recorder",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.umd.cjs"
+    }
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "main": "./dist/index.umd.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "dev": "vite build --watch",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "prepack": "vite build",
+    "release": "npm run lint && npm run test && npm run prepack && changelogen --release && npm publish && git push --follow-tags"
+  },
+  "dependencies": {
+    "@shiguredo/rnnoise-wasm": "^2022.2.0",
+    "@toots/shine.js": "^1.0.3",
+    "extendable-media-recorder": "^9.1.13",
+    "mitt": "^3.0.1",
+    "nanoid": "^5.0.6",
+    "opus-decoder": "^0.7.3",
+    "ts-ebml": "^2.0.2",
+    "wasm-media-encoders": "^0.6.4"
+  },
   "devDependencies": {
-    "@antfu/eslint-config": "^0.33.1",
-    "@types/node": "^18.11.12",
-    "bumpp": "^8.2.1",
-    "eslint": "^8.29.0",
-    "tsup": "^6.5.0",
-    "tsx": "^3.12.1",
-    "typescript": "^4.9.4",
-    "vite": "^4.0.0",
-    "vitest": "^0.25.6",
-    "vue-tsc": "^1.0.12"
+    "@antfu/eslint-config": "^2.12.1",
+    "@antfu/utils": "^0.7.7",
+    "@types/node": "^20.12.2",
+    "changelogen": "^0.5.5",
+    "eslint": "^8.57.0",
+    "typescript": "^5.4.3",
+    "vite": "^5.2.7",
+    "vite-plugin-dts": "^3.8.1",
+    "vitest": "^1.4.0"
   }
 }

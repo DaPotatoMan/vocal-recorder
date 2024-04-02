@@ -1,22 +1,21 @@
 {
   "name": "@vocal-recorder/webapp",
-  "private": true,
-  "version": "0.0.0",
   "type": "module",
+  "version": "0.0.0",
+  "private": true,
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --host",
     "build": "vite build",
     "preview": "vite preview"
   },
   "dependencies": {
     "@vitejs/plugin-basic-ssl": "^0.1.2",
+    "pinia": "^2.1.7",
     "vocal-recorder": "workspace:*",
-    "vue": "^3.2.45"
+    "vue": "^3.4.21"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue": "^4.0.0",
-    "typescript": "^4.9.4",
-    "unocss": "^0.47.5",
-    "vite": "^4.0.0"
+    "@vitejs/plugin-vue": "^5.0.4",
+    "unocss": "^0.47.5"
   }
 }
