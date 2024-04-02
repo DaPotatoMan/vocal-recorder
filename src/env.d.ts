@@ -1,7 +1,7 @@
 /// <reference types="vite/client" />
 
 declare module globalThis {
-  var webkitAudioContext: typeof AudioContext
+  const webkitAudioContext: typeof AudioContext
 }
 
 declare module 'wasm-media-encoders/esnext' {

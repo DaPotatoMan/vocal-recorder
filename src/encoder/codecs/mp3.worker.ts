@@ -57,7 +57,8 @@ export async function useEncoder(config: Encoder.Config) {
     }
 
     // Get result
-    if (type === Message.Event.STOP) stop()
+    if (type === Message.Event.STOP)
+      stop()
   }
 
   // Send Ready Event

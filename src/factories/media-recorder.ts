@@ -19,7 +19,8 @@ export class Recorder extends MediaRecorder {
   #result = new DeferredPromise<AudioBlob>()
 
   async #encodeChunk(chunk: Blob) {
-    if (chunk.size === 0) return log('0 byte chunk skipped')
+    if (chunk.size === 0)
+      return log('0 byte chunk skipped')
 
     log(`encoding chunk -> ${chunk.size}`)
 

@@ -30,7 +30,8 @@ export async function useLameEncoder(config: Encoder.Config) {
   }
 
   function encode(data: Float32Array) {
-    if (isDone) return
+    if (isDone)
+      return
 
     appendData(
       encoder.encode([data])

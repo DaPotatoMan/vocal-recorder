@@ -2,7 +2,7 @@ import mitt from 'mitt'
 import type { Emitter, EventHandlerMap, EventType, Handler } from 'mitt'
 import type { AudioBlob } from '../factories'
 
-export type Events = {} & {
+export type Events = object & {
   init: void
   start: void
   stop: void
@@ -12,7 +12,7 @@ export type Events = {} & {
 }
 
 export type ExtendedEmitter<T extends Record<EventType, unknown>> = Emitter<T> & {
-  once<Key extends keyof T>(type: Key, handler: Handler<T[Key]>): void
+  once: <Key extends keyof T>(type: Key, handler: Handler<T[Key]>) => void
 }
 
 export function useMitt<Events extends Record<EventType, unknown>>(all?: EventHandlerMap<Events>) {

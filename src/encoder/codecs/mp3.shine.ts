@@ -17,7 +17,8 @@ export async function useShineEncoder(config = new Encoder.Config()) {
   let isDone = false
 
   function encode(data: Float32Array) {
-    if (isDone) return
+    if (isDone)
+      return
 
     chunks.append(shine.encode([data]))
   }

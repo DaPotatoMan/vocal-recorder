@@ -1,5 +1,6 @@
 import { isWEBMSupported } from '../shared'
 import type { Encoder } from './types'
+
 export * from './types'
 
 export async function useEncoder(config: Encoder.Config) {

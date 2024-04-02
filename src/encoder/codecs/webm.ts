@@ -1,7 +1,9 @@
-import { Buffer } from 'buffer'
+import { Buffer } from 'node:buffer'
 import { OpusDecoder } from 'opus-decoder'
 import { Decoder as WebmDecoder } from 'ts-ebml'
 
+// TODO: check
+// eslint-disable-next-line node/prefer-global/buffer
 globalThis.Buffer = Buffer
 
 /** Convert WEBM (OPUS audio) to audio buffer */

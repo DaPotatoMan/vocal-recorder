@@ -34,9 +34,9 @@ export type AudioCodecType = keyof typeof Codecs
 export type AudioCodec = typeof Codecs[AudioCodecType]
 
 export interface Encoder {
-  encode(blob: Blob): void
-  stop(): Promise<AudioBlob> | AudioBlob
-  dispose(): void
+  encode: (blob: Blob) => void
+  stop: () => Promise<AudioBlob> | AudioBlob
+  dispose: () => void
 }
 
 export namespace Encoder {
@@ -66,6 +66,7 @@ export namespace Encoder {
 }
 
 export namespace Worker {
+  // eslint-disable-next-line no-restricted-syntax
   export const enum Event {
     INIT = 'init',
     STOP = 'stop',
@@ -81,7 +82,7 @@ export namespace Worker {
   }
 
   export interface Data {
-    [Event.INIT]: Encoder.Config & {}
+    [Event.INIT]: Encoder.Config & object
     [Event.STOP]: void
     [Event.ENCODE]: Blob
 

@@ -2,20 +2,20 @@
   "name": "vocal-recorder",
   "type": "module",
   "version": "1.1.5",
+  "description": "MP3 audio recorder for the web",
   "author": "Fahadul Islam @dapotatoman",
   "license": "MIT",
   "repository": "dapotatoman/vocal-recorder",
-  "description": "MP3 audio recorder for the web",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.umd.cjs"
+    }
+  },
   "main": "./dist/index.umd.cjs",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
-  "exports": {
-    ".": {
-      "import": "./dist/index.js",
-      "require": "./dist/index.umd.cjs",
-      "types": "./dist/index.d.ts"
-    }
-  },
   "files": [
     "dist"
   ],
@@ -28,16 +28,6 @@
     "test:watch": "vitest",
     "release": "npm run lint && npm run test && npm run prepack && changelogen --release && npm publish && git push --follow-tags"
   },
-  "devDependencies": {
-    "@antfu/eslint-config": "^2.12.1",
-    "@antfu/utils": "^0.7.7",
-    "@types/node": "^20.12.2",
-    "eslint": "^8.57.0",
-    "typescript": "^5.4.3",
-    "vite": "^5.2.7",
-    "vite-plugin-dts": "^3.8.1",
-    "vitest": "^1.4.0"
-  },
   "dependencies": {
     "@shiguredo/rnnoise-wasm": "^2022.2.0",
     "@toots/shine.js": "^1.0.3",
@@ -47,5 +37,15 @@
     "opus-decoder": "^0.7.3",
     "ts-ebml": "^2.0.2",
     "wasm-media-encoders": "^0.6.4"
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "^2.12.1",
+    "@antfu/utils": "^0.7.7",
+    "@types/node": "^20.12.2",
+    "eslint": "^8.57.0",
+    "typescript": "^5.4.3",
+    "vite": "^5.2.7",
+    "vite-plugin-dts": "^3.8.1",
+    "vitest": "^1.4.0"
   }
 }

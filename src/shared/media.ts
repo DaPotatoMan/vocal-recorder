@@ -7,7 +7,8 @@ export class StreamUtil {
     const getMedia: MediaDevices['getUserMedia'] = (ctx.getUserMedia || ctx.getUserMedia
       || ctx.webkitGetUserMedia || ctx.mozGetUserMedia || ctx.msGetUserMedia)
 
-    if (!getMedia) throw new RecorderError('NO_GETUSERMEDIA')
+    if (!getMedia)
+      throw new RecorderError('NO_GETUSERMEDIA')
 
     const stream = await getMedia.call(ctx, { audio: options || true, video: false })
     return new MediaStream(stream)
@@ -36,7 +37,8 @@ export function getAudioContext(options?: AudioContextOptions) {
   const ctx = getGlobalThis()
   const Ref = ctx.AudioContext || ctx.webkitAudioContext
 
-  if (!Ref) throw new RecorderError('NO_AUDIO_CONTEXT')
+  if (!Ref)
+    throw new RecorderError('NO_AUDIO_CONTEXT')
 
   return new Ref(options)
 }

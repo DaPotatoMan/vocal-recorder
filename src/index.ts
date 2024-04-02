@@ -13,7 +13,8 @@ export class AudioRecorder {
   #recorder?: Recorder
 
   get #instance() {
-    if (this.#recorder) return this.#recorder
+    if (this.#recorder)
+      return this.#recorder
     throw new RecorderError('NOT_INIT')
   }
 
@@ -52,7 +53,8 @@ export class AudioRecorder {
   dispose() {
     const ref = this.#recorder
 
-    if (!ref) return
+    if (!ref)
+      return
     ref.stop()
     ref.encoder.dispose()
   }

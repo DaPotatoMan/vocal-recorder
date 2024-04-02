@@ -7,7 +7,8 @@ export function useMP3Encoder() {
   const result = new DeferredPromise<AudioBlob>()
 
   const worker = new Worker(
-    new URL('./mp3.worker.ts', import.meta.url), {
+    new URL('./mp3.worker.ts', import.meta.url),
+    {
       name: 'mp3-encoder',
       type: 'module'
     }
@@ -38,7 +39,8 @@ export function useMP3Encoder() {
   worker.onmessage = (event: MessageEvent<Message.EventMap>) => {
     const { type, data } = event.data
 
-    if (type === Message.Event.READY) ready.resolve(true)
+    if (type === Message.Event.READY)
+      ready.resolve(true)
 
     if (type === Message.Event.RESULT) {
       dispose()

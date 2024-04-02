@@ -37,6 +37,7 @@ export class AudioBlob extends Blob {
   getFilename = (name: string) => `${name}.${this.codec.extension}` as const
 
   /**
+   * @param blob Audio blob
    * @param duration in milliseconds
    */
   static fromRaw(blob: Blob, duration: number, peaksArgs: ConstructorParameters<typeof AudioPeaks>, codec: AudioCodec) {
