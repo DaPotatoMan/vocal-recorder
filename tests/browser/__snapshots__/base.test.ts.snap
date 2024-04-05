@@ -1,0 +1,58 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`can record > can record 1`] = `
+Config {
+  "bitRate": 128,
+  "channels": 1,
+  "sampleRate": 48000,
+  "sourceCodec": {
+    "extension": "webm",
+    "mimeType": "audio/webm;codecs=opus",
+    "name": "opus",
+  },
+}
+`;
+
+exports[`can record > can record 2`] = `
+{
+  "current": "inactive",
+  "inactive": true,
+  "paused": false,
+  "recording": false,
+}
+`;
+
+exports[`can record > can record 3`] = `
+{
+  "current": "recording",
+  "inactive": false,
+  "paused": false,
+  "recording": true,
+}
+`;
+
+exports[`can record > can record 4`] = `
+{
+  "current": "inactive",
+  "inactive": true,
+  "paused": false,
+  "recording": false,
+}
+`;
+
+exports[`can record > can record 5`] = `
+{
+  "extension": "mp3",
+  "mimeType": "audio/mpeg",
+  "name": "mp3",
+}
+`;
+
+exports[`can record > class inits properly 1`] = `
+{
+  "current": "inactive",
+  "inactive": true,
+  "paused": false,
+  "recording": false,
+}
+`;
