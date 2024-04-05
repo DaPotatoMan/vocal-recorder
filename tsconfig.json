@@ -8,6 +8,7 @@
     "moduleResolution": "Node",
     "resolveJsonModule": true,
     "types": [
+      "vite/client",
       "vitest/globals"
     ],
     "strict": true,
@@ -17,6 +18,6 @@
     "isolatedModules": true,
     "skipLibCheck": true
   },
-  "include": ["src"],
+  "include": ["src/**/*.ts", "tests/**/*.ts"],
   "exclude": ["node_modules"]
 }

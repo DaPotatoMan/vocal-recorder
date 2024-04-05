@@ -1,5 +1,3 @@
-/// <reference types="vite/client" />
-
 declare module globalThis {
   const webkitAudioContext: typeof AudioContext
 }
