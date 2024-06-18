@@ -1,6 +1,32 @@
 # Changelog
 
 
+## v1.3.0
+
+[compare changes](https://github.com/dapotatoman/vocal-recorder/compare/v1.2.0...v1.3.0)
+
+### 🚀 Enhancements
+
+- Add workflow for webapp deployment ([5922633](https://github.com/dapotatoman/vocal-recorder/commit/5922633))
+- Add tests for recorder ([19efe4b](https://github.com/dapotatoman/vocal-recorder/commit/19efe4b))
+
+### 🩹 Fixes
+
+- **deps:** Package vulnerabilities ([efd5e75](https://github.com/dapotatoman/vocal-recorder/commit/efd5e75))
+- Improve `AudioBlob.fromFile` codec parsing feat: Add `getBlobCodec` util ([b539aac](https://github.com/dapotatoman/vocal-recorder/commit/b539aac))
+
+### 🏡 Chore
+
+- Add postinstall script ([7d3a436](https://github.com/dapotatoman/vocal-recorder/commit/7d3a436))
+- Upgrade deps ([8c0273c](https://github.com/dapotatoman/vocal-recorder/commit/8c0273c))
+- Update tsconfig ([185270f](https://github.com/dapotatoman/vocal-recorder/commit/185270f))
+- Update pnpm version ([d321789](https://github.com/dapotatoman/vocal-recorder/commit/d321789))
+
+### ❤️ Contributors
+
+- Fahad ([@DaPotatoMan](http://github.com/DaPotatoMan))
+- Dapotatoman <iam.fahadul@gmail.com>
+
 ## v1.2.0
 
 [compare changes](https://github.com/dapotatoman/vocal-recorder/compare/v1.0.2...v1.2.0)
