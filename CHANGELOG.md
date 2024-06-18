@@ -1,6 +1,19 @@
 # Changelog
 
 
+## v1.3.1
+
+[compare changes](https://github.com/dapotatoman/vocal-recorder/compare/v1.3.0...v1.3.1)
+
+### 🏡 Chore
+
+- Update package.json ([bb76e5f](https://github.com/dapotatoman/vocal-recorder/commit/bb76e5f))
+- Update package.json ([9377b14](https://github.com/dapotatoman/vocal-recorder/commit/9377b14))
+
+### ❤️ Contributors
+
+- Fahad ([@DaPotatoMan](http://github.com/DaPotatoMan))
+
 ## v1.3.0
 
 [compare changes](https://github.com/dapotatoman/vocal-recorder/compare/v1.2.0...v1.3.0)
