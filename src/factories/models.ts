@@ -1,5 +1,5 @@
 import { nanoid } from 'nanoid'
-import type { AudioCodec } from '../encoder'
+import { type AudioCodec, getBlobCodec } from '../encoder'
 import { AudioPeaks, getAudioInfo } from './peaks'
 
 export class Duration extends Number {
@@ -44,15 +44,10 @@ export class AudioBlob extends Blob {
     return new AudioBlob(blob, new Duration(duration), new AudioPeaks(...peaksArgs), codec)
   }
 
-  /** Create AudioBlob from {@link File} */
+  /** Create AudioBlob from {@link Blob} */
   static async fromFile(file: Blob) {
     const { peaks, duration } = await getAudioInfo(file)
-    const extension = file.type.split('.').at(-1)
-    const codec = {
-      extension,
-      name: extension,
-      mimeType: file.type
-    }
+    const codec = getBlobCodec(file)
 
     return AudioBlob.fromRaw(file, duration, [peaks], codec as any)
   }

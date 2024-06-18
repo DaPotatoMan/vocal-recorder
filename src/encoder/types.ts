@@ -33,6 +33,11 @@ export const Codecs = {
 export type AudioCodecType = keyof typeof Codecs
 export type AudioCodec = typeof Codecs[AudioCodecType]
 
+/** Returns codec for given blob */
+export function getBlobCodec(blob: Blob) {
+  return Object.values(Codecs).find(codec => blob.type.includes(codec.mimeType))
+}
+
 export interface Encoder {
   encode: (blob: Blob) => void
   stop: () => Promise<AudioBlob> | AudioBlob
