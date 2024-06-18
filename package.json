@@ -41,17 +41,17 @@
     "wasm-media-encoders": "^0.6.4"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^2.12.1",
-    "@antfu/utils": "^0.7.7",
-    "@types/node": "^20.12.4",
-    "@vitest/browser": "^1.4.0",
+    "@antfu/eslint-config": "^2.21.1",
+    "@antfu/utils": "^0.7.8",
+    "@types/node": "^20.14.5",
+    "@vitest/browser": "^1.6.0",
     "changelogen": "^0.5.5",
-    "eslint": "^8.57.0",
-    "playwright": "^1.43.0",
-    "typescript": "^5.4.4",
-    "vite": "^5.2.8",
-    "vite-plugin-dts": "^3.8.1",
-    "vitest": "^1.4.0"
+    "eslint": "^9.5.0",
+    "playwright": "^1.44.1",
+    "typescript": "^5.4.5",
+    "vite": "^5.3.1",
+    "vite-plugin-dts": "^3.9.1",
+    "vitest": "^1.6.0"
   },
   "pnpm": {
     "overrides": {
