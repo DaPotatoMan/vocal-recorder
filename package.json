@@ -36,7 +36,7 @@
     "mitt": "^3.0.1",
     "nanoid": "^5.0.6",
     "opus-decoder": "^0.7.3",
-    "ts-ebml": "^2.0.2",
+    "ts-ebml": "^3.0.1",
     "wasm-media-encoders": "^0.6.4"
   },
   "devDependencies": {
