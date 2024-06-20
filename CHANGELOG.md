@@ -1,6 +1,22 @@
 # Changelog
 
 
+## v1.3.2
+
+[compare changes](https://github.com/dapotatoman/vocal-recorder/compare/v1.3.1...v1.3.2)
+
+### 🩹 Fixes
+
+- Build types using source structure ([89ac1ee](https://github.com/dapotatoman/vocal-recorder/commit/89ac1ee))
+
+### 🏡 Chore
+
+- Upgrade deps ([de7fe08](https://github.com/dapotatoman/vocal-recorder/commit/de7fe08))
+
+### ❤️ Contributors
+
+- Fahad ([@DaPotatoMan](http://github.com/DaPotatoMan))
+
 ## v1.3.1
 
 [compare changes](https://github.com/dapotatoman/vocal-recorder/compare/v1.3.0...v1.3.1)
