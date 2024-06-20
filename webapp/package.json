@@ -12,10 +12,10 @@
     "@vitejs/plugin-basic-ssl": "^1.1.0",
     "pinia": "^2.1.7",
     "vocal-recorder": "workspace:*",
-    "vue": "^3.4.21"
+    "vue": "^3.4.29"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.0.5",
-    "unocss": "^0.47.5"
+    "unocss": "^0.61.0"
   }
 }
