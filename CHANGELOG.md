@@ -1,6 +1,24 @@
 # Changelog
 
 
+## v1.3.3
+
+[compare changes](https://github.com/dapotatoman/vocal-recorder/compare/v1.3.2...v1.3.3)
+
+### 🩹 Fixes
+
+- Improve `getBlobCodec` ([7156b43](https://github.com/dapotatoman/vocal-recorder/commit/7156b43))
+- Lint issues ([b2a4479](https://github.com/dapotatoman/vocal-recorder/commit/b2a4479))
+
+### 🏡 Chore
+
+- Update deps ([cb03f87](https://github.com/dapotatoman/vocal-recorder/commit/cb03f87))
+- Update Codecs order ([bd719bd](https://github.com/dapotatoman/vocal-recorder/commit/bd719bd))
+
+### ❤️ Contributors
+
+- Fahad ([@DaPotatoMan](http://github.com/DaPotatoMan))
+
 ## v1.3.2
 
 [compare changes](https://github.com/dapotatoman/vocal-recorder/compare/v1.3.1...v1.3.2)
