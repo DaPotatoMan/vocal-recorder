@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { reactive, ref } from 'vue'
-import { AudioRecorder } from 'vocal-recorder'
+import { AudioRecorder } from '../../src'
 
 const recorder = new AudioRecorder()
 const audioList = ref<string[]>([])

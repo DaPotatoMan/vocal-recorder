@@ -79,9 +79,6 @@ importers:
       pinia:
         specifier: ^2.2.0
         version: 2.2.0(typescript@5.5.4)(vue@3.4.35(typescript@5.5.4))
-      vocal-recorder:
-        specifier: workspace:*
-        version: link:..
       vue:
         specifier: ^3.4.35
         version: 3.4.35(typescript@5.5.4)
