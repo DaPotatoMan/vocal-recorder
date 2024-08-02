@@ -37,7 +37,10 @@ export function getGlobalThis() {
   try {
     return globalThis
   }
-  catch (e) { return window }
+  catch (error) {
+    console.error(error)
+    return window
+  }
 }
 
 export function useExpandedBuffer<T extends Uint8ArrayConstructor | Float32ArrayConstructor>(Ref: T, initialSize = 1024 * 1024) {

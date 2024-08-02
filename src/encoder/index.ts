@@ -22,6 +22,8 @@ export async function prefetchEncoder() {
     const label = `Prefetched ${isMP3 ? 'mp3' : 'base'} codec`
 
     console.time(label)
+
+    // eslint-disable-next-line ts/no-unused-expressions
     await isMP3
       ? import('../encoder/codecs/mp3')
       : import('../encoder/codecs/base')

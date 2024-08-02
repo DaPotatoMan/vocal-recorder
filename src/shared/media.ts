@@ -74,6 +74,7 @@ export function isWEBMSupported() {
       : false
   }
   catch (error) {
+    console.error(error)
     return false
   }
 }
