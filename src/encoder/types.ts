@@ -34,8 +34,20 @@ export type AudioCodecType = keyof typeof Codecs
 export type AudioCodec = typeof Codecs[AudioCodecType]
 
 /** Returns codec for given blob */
-export function getBlobCodec(blob: Blob) {
-  return Object.values(Codecs).find(codec => blob.type.includes(codec.mimeType))
+export function getBlobCodec(blob: Blob | File) {
+  for (const key in Codecs) {
+    const codec = Codecs[key as keyof typeof Codecs]
+
+    // Match mimetype
+    if (blob.type.includes(codec.mimeType))
+      return codec
+
+    // Match extension if no mimetype is found
+    if (!blob.type && blob instanceof File && blob.name.endsWith(codec.extension))
+      return codec
+  }
+
+  return Codecs.unknown
 }
 
 export interface Encoder {

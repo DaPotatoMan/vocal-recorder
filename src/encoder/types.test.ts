@@ -41,4 +41,28 @@ describe('getBlobCodec', () => {
       }
     `)
   })
+
+  it('can return fallback codec', () => {
+    const codec = getBlobCodec(new Blob())
+
+    expect(codec).toMatchInlineSnapshot(`
+      {
+        "extension": "webm",
+        "mimeType": "audio/webm",
+        "name": "unknown-webm",
+      }
+    `)
+  })
+
+  it('can return correct type for files with only extension', () => {
+    const codec = getBlobCodec(new File([], 'audio.m4a'))
+
+    expect(codec).toMatchInlineSnapshot(`
+      {
+        "extension": "m4a",
+        "mimeType": "audio/mp4",
+        "name": "mp4a",
+      }
+    `)
+  })
 })
