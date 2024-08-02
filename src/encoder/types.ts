@@ -8,18 +8,18 @@ export const Codecs = {
     extension: 'mp3'
   },
 
-  /** `MP4A` encoded audio in `m4a` container */
-  mp4a: {
-    name: 'mp4a',
-    mimeType: 'audio/mp4',
-    extension: 'm4a'
-  },
-
   /** `OPUS` encoded audio in `webm` container */
   opus: {
     name: 'opus',
     mimeType: 'audio/webm;codecs=opus',
     extension: 'webm'
+  },
+
+  /** `MP4A` encoded audio in `m4a` container */
+  mp4a: {
+    name: 'mp4a',
+    mimeType: 'audio/mp4',
+    extension: 'm4a'
   },
 
   /** `unknown` encoded audio in `webm` container */
