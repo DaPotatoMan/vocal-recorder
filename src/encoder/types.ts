@@ -75,8 +75,7 @@ export namespace Encoder {
     }
 
     /** Codec used by MediaRecorder for recording blob chunks */
-    readonly sourceCodec = Object
-      .values(Codecs)
+    readonly sourceCodec = [Codecs.mp3, Codecs.opus, Codecs.mp4a]
       .find(codec => globalThis?.MediaRecorder?.isTypeSupported(codec.mimeType)) // MediaRecorder.isTypeSupported is not supported in older Safari
       ?? Codecs.unknown
   }
