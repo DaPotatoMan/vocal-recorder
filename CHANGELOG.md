@@ -1,6 +1,19 @@
 # Changelog
 
 
+## v1.3.4
+
+[compare changes](https://github.com/dapotatoman/vocal-recorder/compare/v1.3.3...v1.3.4)
+
+### 🩹 Fixes
+
+- Docs webpage build issue ([66374b2](https://github.com/dapotatoman/vocal-recorder/commit/66374b2))
+- Encoder.Config not using opus codec when supported ([db91349](https://github.com/dapotatoman/vocal-recorder/commit/db91349))
+
+### ❤️ Contributors
+
+- Fahad ([@DaPotatoMan](http://github.com/DaPotatoMan))
+
 ## v1.3.3
 
 [compare changes](https://github.com/dapotatoman/vocal-recorder/compare/v1.3.2...v1.3.3)
