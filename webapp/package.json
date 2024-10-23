@@ -10,11 +10,11 @@
   },
   "dependencies": {
     "@vitejs/plugin-basic-ssl": "^1.1.0",
-    "pinia": "^2.2.0",
-    "vue": "^3.4.35"
+    "pinia": "^2.2.4",
+    "vue": "^3.5.12"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue": "^5.1.2",
-    "unocss": "^0.61.0"
+    "@vitejs/plugin-vue": "^5.1.4",
+    "unocss": "^0.63.6"
   }
 }
