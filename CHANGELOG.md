@@ -1,6 +1,19 @@
 # Changelog
 
 
+## v1.3.5
+
+[compare changes](https://github.com/dapotatoman/vocal-recorder/compare/v1.3.4...v1.3.5)
+
+### 🩹 Fixes
+
+- `getOfflineAudioContext()` breaks in safari 14 due to not using `webkitAudioContext` ([4f83214](https://github.com/dapotatoman/vocal-recorder/commit/4f83214))
+- Lint issues ([908efbc](https://github.com/dapotatoman/vocal-recorder/commit/908efbc))
+
+### ❤️ Contributors
+
+- Fahad ([@DaPotatoMan](http://github.com/DaPotatoMan))
+
 ## v1.3.4
 
 [compare changes](https://github.com/dapotatoman/vocal-recorder/compare/v1.3.3...v1.3.4)
