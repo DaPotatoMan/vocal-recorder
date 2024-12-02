@@ -43,14 +43,14 @@
     "@antfu/eslint-config": "^2.24.1",
     "@antfu/utils": "^0.7.10",
     "@types/node": "^22.1.0",
-    "@vitest/browser": "^1.6.0",
+    "@vitest/browser": "^2.1.8",
     "changelogen": "^0.5.5",
     "eslint": "^9.8.0",
     "playwright": "^1.45.3",
     "typescript": "^5.5.4",
     "vite": "^5.4.3",
     "vite-plugin-dts": "^4.1.0",
-    "vitest": "^1.6.0"
+    "vitest": "^2.1.8"
   },
   "pnpm": {
     "overrides": {
