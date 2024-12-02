@@ -35,7 +35,7 @@ export class StreamUtil {
 
 export function getAudioContext(options?: AudioContextOptions) {
   const ctx = getGlobalThis()
-  const Ref = ctx.AudioContext || ctx.webkitAudioContext
+  const Ref = ctx.AudioContext || (ctx as any).webkitAudioContext
 
   if (!Ref)
     throw new RecorderError('NO_AUDIO_CONTEXT')
@@ -48,7 +48,7 @@ export function getOfflineAudioContext(options: OfflineAudioContextOptions) {
     return new OfflineAudioContext(options)
   }
   catch {
-    return new AudioContext(options)
+    return getAudioContext(options)
   }
 }
 
