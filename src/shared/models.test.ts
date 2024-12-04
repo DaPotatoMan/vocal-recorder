@@ -5,12 +5,7 @@ describe('class: AudioBlob', () => {
   const result = new AudioBlob(
     new Blob(),
     new Duration(0),
-    new AudioPeaks([]),
-    {
-      name: 'mp3',
-      extension: 'mp3',
-      mimeType: 'audio/mpeg'
-    }
+    new AudioPeaks([])
   )
 
   const serialized = result.toSerialized()

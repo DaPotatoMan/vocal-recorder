@@ -1,4 +1,5 @@
-export * from './error'
-export * from './events'
+export * from './core'
 export * from './media'
 export * from './utils'
+export * from './models'
+export * from './peaks'

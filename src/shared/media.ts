@@ -1,4 +1,4 @@
-import { RecorderError } from './error'
+import { RecorderError } from './core'
 import { getGlobalThis } from './utils'
 
 export class StreamUtil {
@@ -33,48 +33,37 @@ export class StreamUtil {
   }
 }
 
-export function getAudioContext(options?: AudioContextOptions) {
-  const ctx = getGlobalThis()
-  const Ref = ctx.AudioContext || (ctx as any).webkitAudioContext
-
-  if (!Ref)
-    throw new RecorderError('NO_AUDIO_CONTEXT')
-
-  return new Ref(options)
-}
-
 export function getOfflineAudioContext(options: OfflineAudioContextOptions) {
   try {
-    return new OfflineAudioContext(options)
+    const ctx = getGlobalThis()
+    const Ref = ctx.OfflineAudioContext || ctx.AudioContext || (ctx as any).webkitAudioContext
+    return new Ref(options)
   }
-  catch {
-    return getAudioContext(options)
+  catch (error) {
+    throw new RecorderError('NO_AUDIO_CONTEXT', error)
   }
 }
 
-export async function getAudioBuffer(buffer: ArrayBuffer, config: OfflineAudioContextOptions = {
+/** Converts Blob to ArrayBuffer */
+export function blobToBuffer(blob: Blob): Promise<ArrayBuffer> {
+  if (blob.arrayBuffer)
+    return blob.arrayBuffer()
+
+  return new Promise<ArrayBuffer>((resolve, reject) => {
+    const reader = new FileReader()
+
+    reader.onload = () => resolve(reader.result as ArrayBuffer)
+    reader.onerror = reject
+    reader.readAsArrayBuffer(blob)
+  })
+}
+
+/** Converts Blob or ArrayBuffer to AudioBuffer using a OfflineAudioContext if supported */
+export async function getAudioBuffer(buffer: Blob | ArrayBuffer, config: OfflineAudioContextOptions = {
   numberOfChannels: 1,
   sampleRate: 44100,
   length: 44100
-}) {
-  return getOfflineAudioContext(config).decodeAudioData(buffer)
-}
-
-// Converts the Blob data to AudioBuffer
-export async function getBlobAudioBuffer(blob: Blob) {
-  return getAudioBuffer(await blob.arrayBuffer())
-}
-
-export function isWEBMSupported() {
-  try {
-    const { MediaRecorder } = getGlobalThis()
-
-    return MediaRecorder
-      ? MediaRecorder.isTypeSupported('audio/webm')
-      : false
-  }
-  catch (error) {
-    console.error(error)
-    return false
-  }
+}): Promise<AudioBuffer> {
+  const input = buffer instanceof Blob ? await blobToBuffer(buffer) : buffer
+  return getOfflineAudioContext(config).decodeAudioData(input)
 }

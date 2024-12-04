@@ -1,20 +1,18 @@
-import { RecorderError, StreamUtil, useEvents } from './shared'
-import { Recorder } from './factories/media-recorder'
+import { Events, RecorderError, StreamUtil } from './shared'
 import { Encoder } from './encoder'
 
-export * from './factories'
-export { prefetchEncoder } from './encoder'
-export type { RecorderEvent } from './shared'
+export * from './shared'
 
 export class AudioRecorder {
-  events = useEvents()
-  config = new Encoder.Config(48000, 128, 1)
+  events = Events.use()
 
-  #recorder?: Recorder
+  #recorder?: MediaRecorder
+  #encoder?: Encoder
 
   get #instance() {
     if (this.#recorder)
       return this.#recorder
+
     throw new RecorderError('NOT_INIT')
   }
 
@@ -34,34 +32,62 @@ export class AudioRecorder {
   }
 
   async init(streamConstraints?: Exclude<MediaTrackConstraints, 'sampleRate' | 'channelCount'>) {
-    const { config } = this
-
     // Dispose active recorder
     this.dispose()
 
-    const stream = await StreamUtil.get({
-      ...streamConstraints,
-      sampleRate: config.sampleRate,
-      channelCount: config.channels
-    })
+    const stream = await StreamUtil.get(streamConstraints)
+    this.#recorder = this.#createRecorder(stream)
+    this.#encoder = new Encoder(this.#recorder)
 
-    config.update(stream)
+    await this.#encoder.ready
+    this.events.emit('init')
+  }
 
-    this.#recorder = await Recorder.create(stream, config, this.events)
+  #createRecorder(stream: MediaStream) {
+    const recorder = new MediaRecorder(stream)
+    const eventKeys = ['start', 'stop', 'pause', 'resume', 'error'] as const
+
+    // Delegate recorder events
+    eventKeys.forEach(key =>
+      recorder.addEventListener(key, (event) => {
+        // Dispose stream when recorder stops
+        if (key === 'stop') {
+          StreamUtil.dispose(stream)
+        }
+
+        this.events.emit(key, event instanceof ErrorEvent ? event.error : event)
+      })
+    )
+
+    return recorder
   }
 
   dispose() {
-    const ref = this.#recorder
+    if (this.#recorder) {
+      if (this.#recorder.state !== 'inactive')
+        this.#recorder.stop()
 
-    if (!ref)
-      return
-    ref.stop()
-    ref.encoder.dispose()
+      this.#recorder = undefined
+    }
+
+    if (this.#encoder) {
+      this.#encoder.dispose()
+      this.#encoder = undefined
+    }
   }
 
   // Proxy
-  start() { this.#instance.start() }
+  start() { this.#instance.start(3500) }
   pause() { this.#instance.pause() }
   resume() { this.#instance.resume() }
-  stop() { return this.#instance.stop() }
+
+  async stop() {
+    const result = await this.#encoder?.stop()
+
+    if (!result)
+      throw new RecorderError('NO_RESULT')
+
+    this.events.emit('result', result)
+    return result
+  }
 }

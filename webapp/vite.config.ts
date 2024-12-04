@@ -1,16 +1,22 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import ssl from '@vitejs/plugin-basic-ssl'
+import legacy from '@vitejs/plugin-legacy'
 
 import { presetAttributify, presetIcons, presetUno, transformerDirectives } from 'unocss'
 import Unocss from 'unocss/vite'
 
 export default defineConfig(({ mode }) => ({
-  base: mode === 'production' ? '/vocal-recorder/' : '/',
+  // base: mode === 'production' ? './' : '/',
 
   plugins: [
+    legacy({
+      targets: ['Chrome 63'],
+      modernPolyfills: true
+    }),
+
     vue(),
-    ssl(),
+    ssl() as any,
     Unocss({
       presets: [
         presetUno(),
@@ -33,6 +39,10 @@ export default defineConfig(({ mode }) => ({
       'Cross-Origin-Opener-Policy': 'same-origin',
       'Cross-Origin-Embedder-Policy': 'require-corp'
     }
+  },
+
+  preview: {
+    port: 5173
   },
 
   optimizeDeps: {
