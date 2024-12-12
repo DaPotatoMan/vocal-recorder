@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`can record > can record 1`] = `
+exports[`class: AudioRecorder > can record 1`] = `
 {
   "current": "inactive",
   "inactive": true,
@@ -9,7 +9,7 @@ exports[`can record > can record 1`] = `
 }
 `;
 
-exports[`can record > can record 2`] = `
+exports[`class: AudioRecorder > can record 2`] = `
 {
   "current": "recording",
   "inactive": false,
@@ -18,7 +18,25 @@ exports[`can record > can record 2`] = `
 }
 `;
 
-exports[`can record > can record 3`] = `
+exports[`class: AudioRecorder > can record 3`] = `
+{
+  "current": "paused",
+  "inactive": false,
+  "paused": true,
+  "recording": false,
+}
+`;
+
+exports[`class: AudioRecorder > can record 4`] = `
+{
+  "current": "recording",
+  "inactive": false,
+  "paused": false,
+  "recording": true,
+}
+`;
+
+exports[`class: AudioRecorder > can record 5`] = `
 {
   "current": "inactive",
   "inactive": true,

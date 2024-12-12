@@ -11,15 +11,22 @@ export default defineWorkspace([
   {
     test: {
       globals: true,
-      include: ['src/**/*.test.ts']
+      include: ['src/**/*.test.ts'],
+      exclude: ['src/**/*.browser.test.ts']
     }
   },
 
   // Browser tests
   {
+    resolve: {
+      alias: {
+        '~': __dirname
+      }
+    },
+
     test: {
       globals: true,
-      include: ['tests/browser/**/*.test.ts'],
+      include: ['src/**/*.browser.test.ts', 'tests/browser/**/*.test.ts'],
 
       browser: {
         enabled: true,
