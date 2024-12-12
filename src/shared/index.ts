@@ -1,5 +1,5 @@
 export * from './core'
 export * from './media'
-export * from './utils'
 export * from './models'
 export * from './peaks'
+export * from './utils'

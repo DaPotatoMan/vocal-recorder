@@ -1,6 +1,6 @@
+import audioUrl from '~/tests/assets/audio-sample.mp3?url'
 import { getAudioBuffer } from './media'
 import { getAudioBufferPeaks, getAudioInfo } from './peaks'
-import audioUrl from '~/tests/assets/audio-sample.mp3?url'
 
 describe('audio peaks utilities', async () => {
   const audioBlob = await fetch(audioUrl).then(res => res.blob())

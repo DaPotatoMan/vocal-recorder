@@ -1,5 +1,5 @@
-import mitt from 'mitt'
 import type { AudioBlob } from './models'
+import mitt from 'mitt'
 
 export class RecorderError extends Error {
   // Recorder related

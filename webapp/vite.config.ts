@@ -1,13 +1,13 @@
-import { defineConfig } from 'vite'
-import vue from '@vitejs/plugin-vue'
 import ssl from '@vitejs/plugin-basic-ssl'
 import legacy from '@vitejs/plugin-legacy'
-
+import vue from '@vitejs/plugin-vue'
 import { presetAttributify, presetIcons, presetUno, transformerDirectives } from 'unocss'
+
 import Unocss from 'unocss/vite'
+import { defineConfig } from 'vite'
 
 export default defineConfig(({ mode }) => ({
-  // base: mode === 'production' ? './' : '/',
+  base: mode === 'production' ? './' : '/',
 
   plugins: [
     legacy({

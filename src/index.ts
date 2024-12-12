@@ -1,5 +1,5 @@
-import { Events, RecorderError, StreamUtil } from './shared'
 import { Encoder } from './encoder'
+import { Events, RecorderError, StreamUtil } from './shared'
 
 export * from './shared'
 

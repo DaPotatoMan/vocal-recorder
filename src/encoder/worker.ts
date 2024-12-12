@@ -1,6 +1,6 @@
-import { RecorderError, blobToBuffer, getGlobalThis } from '../shared'
-import { ShineEncoder } from './worker.shine'
+import { blobToBuffer, getGlobalThis, RecorderError } from '../shared'
 import { Encoder } from './index'
+import { ShineEncoder } from './worker.shine'
 
 const encoder = new ShineEncoder()
 const worker = Encoder.createEmitter(getGlobalThis())

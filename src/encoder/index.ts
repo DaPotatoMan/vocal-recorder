@@ -1,5 +1,5 @@
 import mitt from 'mitt'
-import { AudioBlob, DeferredPromise, StreamUtil, getAudioBuffer, useAsyncQueue } from '../shared'
+import { AudioBlob, DeferredPromise, getAudioBuffer, StreamUtil, useAsyncQueue } from '../shared'
 
 export class Encoder {
   result = new DeferredPromise<AudioBlob>()

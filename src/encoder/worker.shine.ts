@@ -1,5 +1,5 @@
-import { Shine, StereoMode } from '@toots/shine.js'
 import type { Encoder } from '.'
+import { Shine, StereoMode } from '@toots/shine.js'
 
 function useExpandedBuffer<T extends Uint8ArrayConstructor | Float32ArrayConstructor>(Ref: T, initialSize = 1024 * 1024) {
   let outBuffer = new Ref(initialSize)

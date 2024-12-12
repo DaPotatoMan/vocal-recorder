@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'vitest'
-import { RecorderError } from '..'
-
-import { StreamUtil, blobToBuffer, getAudioBuffer, getOfflineAudioContext } from './media'
 import audioUrl from '~/tests/assets/audio-sample.mp3?url'
+
+import { RecorderError } from '..'
+import { blobToBuffer, getAudioBuffer, getOfflineAudioContext, StreamUtil } from './media'
 
 describe('class: StreamUtil', () => {
   let stream: MediaStream
