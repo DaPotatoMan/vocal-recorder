@@ -24,10 +24,9 @@
     "dev": "vite build --watch",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "test": "vitest run",
-    "test:watch": "vitest",
+    "test": "vitest",
     "prepack": "vite build",
-    "release": "npm run lint && npm run test && npm run prepack && changelogen --release --patch && npm publish && git push --follow-tags"
+    "release": "npm run lint && npm run test -- --run && npm run prepack && changelogen --release --patch && npm publish && git push --follow-tags"
   },
   "dependencies": {
     "@shiguredo/rnnoise-wasm": "^2022.2.0",
