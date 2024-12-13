@@ -61,9 +61,14 @@ export function blobToBuffer(blob: Blob): Promise<ArrayBuffer> {
 /** Converts Blob or ArrayBuffer to AudioBuffer using a OfflineAudioContext if supported */
 export async function getAudioBuffer(buffer: Blob | ArrayBuffer, config: OfflineAudioContextOptions = {
   numberOfChannels: 1,
-  sampleRate: 44100,
-  length: 44100
+  sampleRate: 48000,
+  length: 48000
 }): Promise<AudioBuffer> {
-  const input = buffer instanceof Blob ? await blobToBuffer(buffer) : buffer
+  const input = buffer instanceof Blob
+    ? await blobToBuffer(buffer)
+
+    // Clone buffer to prevent mutation
+    : buffer.slice(0)
+
   return getOfflineAudioContext(config).decodeAudioData(input)
 }

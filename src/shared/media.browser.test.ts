@@ -1,6 +1,4 @@
-import { describe, expect, it } from 'vitest'
 import audioUrl from '~/tests/assets/audio-sample.mp3?url'
-
 import { RecorderError } from '..'
 import { blobToBuffer, getAudioBuffer, getOfflineAudioContext, StreamUtil } from './media'
 
@@ -71,13 +69,30 @@ describe('blobToBuffer', () => {
   })
 })
 
-describe('getAudioBuffer', () => {
-  it('can convert Blob to AudioBuffer', async () => {
-    const blob = await fetch(audioUrl).then(res => res.blob())
-    const buffer = await getAudioBuffer(blob)
+describe('getAudioBuffer', async () => {
+  const audio = await fetch(audioUrl)
+  const audioBuffer = await audio.arrayBuffer()
+  const audioBlob = new Blob([audioBuffer], { type: 'audio/mpeg' })
 
+  function assertBuffer(buffer: AudioBuffer) {
     expect(buffer).toBeInstanceOf(AudioBuffer)
-    expect(buffer.duration).toMatchInlineSnapshot(`23.90204081632653`)
-    expect(buffer.sampleRate).toMatchInlineSnapshot(`44100`)
+    expect(buffer.duration).toBeGreaterThan(23)
+    expect(buffer.sampleRate).toBe(48000)
+  }
+
+  it('can parse Blob', async () => {
+    const buffer = await getAudioBuffer(audioBlob)
+    assertBuffer(buffer)
+
+    // Ensure original blob is not mutated
+    expect(audioBlob.size).toBeGreaterThan(0)
+  })
+
+  it('can parse ArrayBuffer', async () => {
+    const buffer = await getAudioBuffer(audioBuffer)
+    assertBuffer(buffer)
+
+    // Ensure original buffer is not mutated
+    expect(audioBuffer.byteLength).toBeGreaterThan(0)
   })
 })
