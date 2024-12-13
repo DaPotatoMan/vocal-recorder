@@ -4,7 +4,7 @@ import { useRecorder } from './recorder.context'
 function RecordingList(props: {
   list: string[]
 }) {
-  const list = () => props.list.toReversed()
+  const list = () => Array.from(props.list).reverse()
 
   return (
     <div class="p-6 gap-4 flex-(~ col) overflow-y-auto" style={{ 'scrollbar-gutter': 'stable both-edges' }}>
