@@ -1,9 +1,6 @@
 import audioUrl from '~/tests/assets/audio-sample.mp3?url'
 import { AudioBlob, Duration } from './models'
 
-function toFixedPeaks(peaks: number[], digits = 6) {
-  return peaks.map(e => +e.toFixed(digits))
-}
 
 describe('class: Duration', () => {
   const duration = new Duration(3600 * 1000)
@@ -43,6 +40,6 @@ describe('class: AudioBlob', async () => {
     expect(parsed.blob.size).toEqual(input.blob.size)
 
     // Peaks are similar up to 6 decimal places
-    expect(toFixedPeaks(parsed.peaks)).toEqual(toFixedPeaks(input.peaks))
+    expect(parsed.peaks.toFixed(6)).toEqual(input.peaks.toFixed(6))
   })
 })
