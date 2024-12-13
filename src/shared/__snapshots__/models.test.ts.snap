@@ -7,13 +7,7 @@ exports[`class: AudioBlob > serializes properly 1`] = `
     Symbol(kLength): 0,
     Symbol(kType): "",
   },
-  "codec": {
-    "extension": "mp3",
-    "mimeType": "audio/mpeg",
-    "name": "mp3",
-  },
   "duration": 0,
-  "id": "test-id",
   "peaks": [
     NaN,
     NaN,
@@ -118,3 +112,5 @@ exports[`class: AudioBlob > serializes properly 1`] = `
   ],
 }
 `;
+
+exports[`class: Duration > serializes properly 1`] = `3600000`;

@@ -43,26 +43,14 @@ export function getGlobalThis() {
   }
 }
 
-export function useExpandedBuffer<T extends Uint8ArrayConstructor | Float32ArrayConstructor>(Ref: T, initialSize = 1024 * 1024) {
-  let outBuffer = new Ref(initialSize)
-  let offset = 0
+export function useAsyncQueue() {
+  let promise: Promise<unknown> = Promise.resolve()
 
-  function append(data: InstanceType<T>) {
-    if (data.length + offset > outBuffer.length) {
-      console.debug('(useExpandedBuffer) resizing buffer size')
+  return {
+    get promise() { return promise },
 
-      const newBuffer = new Ref(data.length + offset)
-      newBuffer.set(outBuffer)
-      outBuffer = newBuffer
+    run<T>(task: () => T | Promise<T>) {
+      return promise = promise.then(task)
     }
-
-    outBuffer.set(data, offset)
-    offset += data.length
   }
-
-  function getBuffer() {
-    return new Ref(outBuffer.buffer, 0, offset) as InstanceType<T>
-  }
-
-  return { append, getBuffer }
 }
