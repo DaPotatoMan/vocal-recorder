@@ -8,6 +8,7 @@ export class Encoder {
   constructor(
     readonly recorder: MediaRecorder,
     readonly timeslice = 1500,
+    readonly config = new Encoder.Config(recorder.stream),
     readonly worker = Encoder.createEmitter(
       new Worker(new URL('./worker.ts', import.meta.url), { name: 'Vocal Encoder', type: 'module' })
     )
@@ -15,10 +16,7 @@ export class Encoder {
     const queue = useAsyncQueue()
 
     // Init
-    worker.send(
-      Encoder.Event.INIT,
-      new Encoder.Config(recorder.stream)
-    )
+    worker.send(Encoder.Event.INIT, config)
 
     // Worker is ready for encoding
     worker.on(Encoder.Event.READY, this.ready.resolve)
@@ -49,7 +47,13 @@ export class Encoder {
   async #encode(blob: Blob) {
     const inputBlob = this.#headerBlob ? new Blob([this.#headerBlob, blob]) : blob
 
-    const audioBuffer = await getAudioBuffer(inputBlob)
+    const sampleRate = this.config.sampleRate
+    const audioBuffer = await getAudioBuffer(inputBlob, {
+      sampleRate,
+      length: sampleRate * this.timeslice / 1000,
+      numberOfChannels: this.config.channels
+    })
+
     const data = audioBuffer.getChannelData(0).slice(this.#headerBufferStart)
 
     if (!this.#headerBlob) {
