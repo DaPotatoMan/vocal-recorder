@@ -37,7 +37,7 @@ export const Logger = {
 }
 
 export namespace Events {
-  export const use = mitt<{
+  export type Map = object & {
     /** Recorder is ready to be used */
     init: void
 
@@ -48,5 +48,8 @@ export namespace Events {
 
     error: Error | RecorderError
     result: AudioBlob
-  }>
+  }
+
+  export type Keys = keyof Map
+  export const use = mitt<Map>
 }
