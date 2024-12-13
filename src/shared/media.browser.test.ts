@@ -28,6 +28,16 @@ describe('class: StreamUtil', () => {
     expect(isActive).toBe(false)
     expect(StreamUtil.isValid(stream)).toBe(false)
   })
+
+  it('should throw error when getUserMedia is unavailable', () => {
+    const ref = navigator.mediaDevices.getUserMedia
+    navigator.mediaDevices.getUserMedia = undefined as any
+
+    expect(StreamUtil.get).rejects.toThrowError(RecorderError.NO_GETUSERMEDIA)
+
+    // Restore
+    navigator.mediaDevices.getUserMedia = ref
+  })
 })
 
 describe('getOfflineAudioContext', () => {
