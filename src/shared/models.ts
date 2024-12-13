@@ -36,8 +36,8 @@ export class AudioBlob extends Blob {
 
   /** Create AudioBlob from {@link Blob} or {@link ArrayBuffer} */
   static async parse(input: Blob | ArrayBuffer) {
-    const { peaks, duration } = await getAudioInfo(input)
     const blob = input instanceof Blob ? input : new Blob([input], { type: 'audio/mpeg' })
+    const { peaks, duration } = await getAudioInfo(blob)
 
     return new AudioBlob(blob, new Duration(duration), new AudioPeaks(peaks))
   }

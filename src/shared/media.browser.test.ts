@@ -33,7 +33,7 @@ describe('class: StreamUtil', () => {
 describe('getOfflineAudioContext', () => {
   const octx = globalThis.OfflineAudioContext
   const ctx = globalThis.AudioContext
-  const getContext = () => getOfflineAudioContext({ length: 44100, sampleRate: 44100, numberOfChannels: 1 })
+  const getContext = () => getOfflineAudioContext({ length: 48000, sampleRate: 48000, numberOfChannels: 1 })
 
   afterEach(() => {
     globalThis.OfflineAudioContext = octx

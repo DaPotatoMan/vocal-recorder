@@ -47,7 +47,11 @@ export class Encoder {
   async #encode(blob: Blob) {
     const inputBlob = this.#headerBlob ? new Blob([this.#headerBlob, blob]) : blob
 
-    const sampleRate = this.config.sampleRate
+    /**
+     * Decoding must use correct sampleRate.
+     * Otherwise it will produce a bad pitch/tone since Shine encoder uses sampleRate from config
+     */
+    const { sampleRate } = this.config
     const audioBuffer = await getAudioBuffer(inputBlob, {
       sampleRate,
       length: sampleRate * this.timeslice / 1000,
@@ -85,7 +89,7 @@ export namespace Encoder {
       readonly channels = settings.channelCount || 1,
       readonly bitRate = 128,
       readonly audioBitsPerSecond = bitRate * 1000
-    ) {}
+    ) { }
   }
 
   export enum Event {
