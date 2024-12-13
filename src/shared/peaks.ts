@@ -132,4 +132,9 @@ export class AudioPeaks extends Array {
   getToRange(min: number, max: number) {
     return getArrayInRange(this, min, max)
   }
+
+  /** Returns array of numbers in given {@link digits} decimal places */
+  toFixed(digits: number) {
+    return Array.from<number>(this).map(e => +e.toFixed(digits))
+  }
 }
