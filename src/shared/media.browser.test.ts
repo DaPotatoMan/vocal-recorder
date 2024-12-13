@@ -71,11 +71,20 @@ describe('getOfflineAudioContext', () => {
   })
 })
 
-describe('blobToBuffer', () => {
-  it('should convert Blob to ArrayBuffer', async () => {
-    const blob = await fetch(audioUrl).then(res => res.blob())
-    const buffer = await blobToBuffer(blob)
-    expect(buffer).toBeInstanceOf(ArrayBuffer)
+describe('blobToBuffer', async () => {
+  const blob = await fetch(audioUrl).then(res => res.blob())
+
+  it('should convert Blob to ArrayBuffer', () => {
+    expect(blobToBuffer(blob)).resolves.toBeInstanceOf(ArrayBuffer)
+  })
+
+  it('shoulw use FileReader if blob.arrayBuffer() not supported', () => {
+    blob.arrayBuffer = undefined as any
+    expect(blobToBuffer(blob)).resolves.toBeInstanceOf(ArrayBuffer)
+  })
+
+  it('should throw error for unknown type', () => {
+    expect(() => blobToBuffer(null as any)).rejects.toThrow()
   })
 })
 

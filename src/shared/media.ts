@@ -46,7 +46,7 @@ export function getOfflineAudioContext(options: OfflineAudioContextOptions) {
 
 /** Converts Blob to ArrayBuffer */
 export function blobToBuffer(blob: Blob): Promise<ArrayBuffer> {
-  if (blob.arrayBuffer)
+  if (blob instanceof Blob && blob.arrayBuffer)
     return blob.arrayBuffer()
 
   return new Promise<ArrayBuffer>((resolve, reject) => {
