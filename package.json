@@ -40,7 +40,7 @@
     "wasm-media-encoders": "^0.7.0"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^2.24.1",
+    "@antfu/eslint-config": "^3.12.0",
     "@antfu/utils": "^0.7.10",
     "@types/node": "^22.1.0",
     "@vitest/browser": "^1.6.0",
