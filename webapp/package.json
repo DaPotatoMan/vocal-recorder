@@ -1,21 +1,23 @@
 {
-  "name": "@vocal-recorder/webapp",
+  "name": "webapp",
   "type": "module",
-  "version": "0.0.0",
-  "private": true,
+  "version": "0.0.1",
   "scripts": {
-    "dev": "vite --host",
-    "build": "vite build",
-    "preview": "vite preview --host"
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
   },
   "dependencies": {
-    "@vitejs/plugin-basic-ssl": "^1.1.0",
-    "pinia": "^2.2.0",
-    "vue": "^3.5.13"
+    "astro": "^5.0.5",
+    "solid-js": "^1.9.3"
   },
   "devDependencies": {
-    "@vitejs/plugin-legacy": "^6.0.0",
-    "@vitejs/plugin-vue": "^5.2.1",
-    "unocss": "^0.61.0"
+    "@astrojs/solid-js": "^5.0.0",
+    "@iconify/json": "^2.2.282",
+    "@unocss/astro": "^0.65.1",
+    "@unocss/reset": "^0.65.1",
+    "sass": "^1.83.0",
+    "unocss": "^0.65.1"
   }
 }
