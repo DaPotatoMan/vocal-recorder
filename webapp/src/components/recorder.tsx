@@ -1,4 +1,4 @@
-import { For, Show } from 'solid-js'
+import { createSignal, For, onCleanup, Show } from 'solid-js'
 import { useRecorder } from './recorder.context'
 
 function RecordingList(props: {
@@ -28,6 +28,25 @@ function Button(props: {
   )
 }
 
+function Timer() {
+  const date = new Date(0)
+  const [time, setTime] = createSignal(0)
+  const id = setInterval(() => setTime(time => time + 1), 1000)
+
+  const formatted = () => {
+    date.setSeconds(time())
+    return date.toISOString().substring(11, 19)
+  }
+
+  onCleanup(() => {
+    clearInterval(id)
+  })
+
+  return (
+    <span>{formatted()}</span>
+  )
+}
+
 export function Recorder() {
   const { state, list, start, stop } = useRecorder()
 
@@ -37,7 +56,10 @@ export function Recorder() {
 
       <footer class="p-6 gap-4 h-full flex items-center border-t-(1 solid black/5)">
         {state().inactive && <Button icon="i-mdi-record" onClick={start}>Record</Button>}
-        {state().recording && <Button icon="i-mdi-stop" onClick={stop}>Stop</Button>}
+        {state().recording && <>
+          <Timer />
+          <Button icon="i-mdi-stop" onClick={stop}>Stop</Button>
+        </>}
       </footer>
     </div>
   )
