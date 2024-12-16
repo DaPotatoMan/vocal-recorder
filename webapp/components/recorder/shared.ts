@@ -31,9 +31,9 @@ export const useRecorder = createSharedComposable(() => {
     Object.assign(state, recorder.state)
   })
 
-  async function start() {
+  async function start(config?: AudioRecorder.Config) {
     timer.start()
-    await recorder.init()
+    await recorder.init(config)
     await recorder.start()
   }
 
@@ -44,6 +44,8 @@ export const useRecorder = createSharedComposable(() => {
     const url = URL.createObjectURL(result)
 
     list.value = [...list.value, url]
+
+    return { result, url }
   }
 
   return { state, list, start, stop, timer }
