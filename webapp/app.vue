@@ -6,11 +6,14 @@
 </template>
 
 <style scoped lang="sass">
+:global(body)
+  @apply bg-black text-white
+
 #container
   @apply font-[Inter,Roboto] min-h-full
 
 #background
-  @apply absolute top-0 left-0 size-full -z-1 blur-100px
+  @apply absolute top-0 left-0 size-full opacity-60 -z-1 blur-100px
 
 //;
 </style>

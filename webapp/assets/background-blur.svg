@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="1024" fill="none">
+  <g filter="url(#blur)">
+    <path fill="url(#a)" fill-rule="evenodd" d="M-218 476c92-72 226-30 342-45s248-116 343-46c103 76 45 247 90 366 30 78 91 136 130 210 57 110 169 209 155 332-13 121-103 265-224 282-142 20-232-221-374-197-152 25-173 330-326 315-128-12-111-230-128-358-12-91 66-177 44-265-26-107-167-163-176-273a376 376 0 0 1 124-321Z" clip-rule="evenodd" style="opacity:.154"/>
+    <path fill="url(#b)" fill-rule="evenodd" d="M1103 115c147-19 276-155 414-103 188 71 409 212 407 414-2 201-259 278-415 406-130 106-240 294-406 265-163-29-162-274-284-387-135-124-436-101-446-284-9-181 248-247 414-317 101-43 208 21 316 6Z" clip-rule="evenodd" style="opacity:.154"/>
+  </g>
+  
+  <defs>
+    <filter id="blur" x="0" y="0" xmlns="http://www.w3.org/2000/svg">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="100" />
+    </filter>
+
+    <linearGradient id="b" x1="373" x2="1995.4" y1="1100" y2="118" gradientUnits="userSpaceOnUse" filter="url(#f1)">
+      <stop stop-color="#D83333"/>
+      <stop offset="1" stop-color="#F041FF"/>
+    </linearGradient>
+    <linearGradient id="a" x1="107.4" x2="1130.7" y1="1993.3" y2="1026.3" gradientUnits="userSpaceOnUse" filter="url(#f1)">
+      <stop stop-color="#3245FF"/>
+      <stop offset="1" stop-color="#BC52EE"/>
+    </linearGradient>
+  </defs>
+</svg>
