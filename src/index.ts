@@ -3,6 +3,7 @@ import { Events, RecorderError, StreamUtil } from './shared'
 
 export * from './shared'
 
+
 export class AudioRecorder {
   events = Events.use()
 
@@ -76,8 +77,10 @@ export class AudioRecorder {
     }
   }
 
-  // Proxy
-  start() { this.#instance.start(3500) }
+  start() {
+    this.#encoder?.start()
+  }
+
   pause() { this.#instance.pause() }
   resume() { this.#instance.resume() }
 

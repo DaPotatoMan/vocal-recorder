@@ -7,7 +7,7 @@ export class Encoder {
 
   constructor(
     readonly recorder: MediaRecorder,
-    readonly timeslice = 1500,
+    readonly timeslice = 2000,
     readonly config = new Encoder.Config(recorder.stream),
     readonly worker = Encoder.createEmitter(
       new Worker(new URL('./worker.ts', import.meta.url), { name: 'Vocal Encoder', type: 'module' })
@@ -42,10 +42,16 @@ export class Encoder {
   }
 
   #headerBlob?: Blob
-  #headerBufferStart = 0
+  #lastChunk?: Blob
+  #headerBufferLength = 0
+  #lastChunkLength = 0
+
+  async start() {
+    this.recorder.start(this.timeslice)
+  }
 
   async #encode(blob: Blob) {
-    const inputBlob = this.#headerBlob ? new Blob([this.#headerBlob, blob]) : blob
+    const inputBlob = new Blob([this.#lastChunk ?? this.#headerBlob, blob].filter(e => !!e), { type: blob.type })
 
     /**
      * Decoding must use correct sampleRate.
@@ -58,11 +64,17 @@ export class Encoder {
       numberOfChannels: this.config.channels
     })
 
-    const data = audioBuffer.getChannelData(0).slice(this.#headerBufferStart)
+    const data = audioBuffer.getChannelData(0).slice(this.#headerBufferLength + this.#lastChunkLength)
 
     if (!this.#headerBlob) {
       this.#headerBlob = blob
-      this.#headerBufferStart = data.length
+      this.#headerBufferLength = data.length
+    }
+
+    /** From 2nd chunk onwards header + last chunk is used to avoid tick sounds between timeslice */
+    else {
+      this.#lastChunk = new Blob([this.#headerBlob, blob], { type: blob.type })
+      this.#lastChunkLength = data.length
     }
 
     this.worker.send(Encoder.Event.ENCODE, data, [data.buffer])
@@ -70,11 +82,15 @@ export class Encoder {
 
   dispose() {
     this.worker.terminate()
+
     this.#headerBlob = undefined
-    this.#headerBufferStart = 0
+    this.#lastChunk = undefined
+    this.#headerBufferLength = 0
+    this.#lastChunkLength = 0
   }
 
   stop() {
+    this.recorder.requestData()
     this.recorder.stop()
     return this.result.finally(() => this.dispose())
   }
