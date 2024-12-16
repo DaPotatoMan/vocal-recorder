@@ -3,7 +3,6 @@ import { Events, RecorderError, StreamUtil } from './shared'
 
 export * from './shared'
 
-
 export class AudioRecorder {
   events = Events.use()
 
@@ -32,11 +31,15 @@ export class AudioRecorder {
     return this.#recorder?.stream
   }
 
-  async init(streamConstraints?: Exclude<MediaTrackConstraints, 'sampleRate' | 'channelCount'>) {
+  async init(config: AudioRecorder.Config = {}) {
     // Dispose active recorder
     this.dispose()
 
-    const stream = await StreamUtil.get(streamConstraints)
+    // Get stream
+    const stream = config.stream instanceof MediaStream
+      ? config.stream
+      : await StreamUtil.get(config.stream)
+
     this.#recorder = this.#createRecorder(stream)
     this.#encoder = new Encoder(this.#recorder)
 
@@ -92,5 +95,11 @@ export class AudioRecorder {
 
     this.events.emit('result', result)
     return result
+  }
+}
+
+export namespace AudioRecorder {
+  export interface Config {
+    stream?: MediaStream | MediaTrackConstraints
   }
 }
