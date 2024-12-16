@@ -103,8 +103,7 @@ export namespace Encoder {
       settings = StreamUtil.getSettings(stream),
       readonly sampleRate = settings.sampleRate || 48_000,
       readonly channels = settings.channelCount || 1,
-      readonly bitRate = 128,
-      readonly audioBitsPerSecond = bitRate * 1000
+      readonly bitRate = 128
     ) { }
   }
 
