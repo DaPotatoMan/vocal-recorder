@@ -37,13 +37,12 @@ jobs:
       - name: Install and Build 🔧 # This example project is built using npm and outputs the result to the 'build' folder. Replace with the commands required to build your project, or remove this step entirely if your site is pre-built.
         run: |
           pnpm i --no-frozen-lockfile
-          pnpm -F webapp run build
-          cp -r webapp/dist docs
+          NUXT_APP_BASE_URL=/vocal-recorder/ pnpm -F webapp build --preset github_pages
 
       - name: Update pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: docs/
+          path: ./webapp/.output/public
 
   deploy:
     needs: build
