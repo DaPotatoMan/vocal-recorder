@@ -70,5 +70,7 @@ export async function getAudioBuffer(buffer: Blob | ArrayBuffer, config: Offline
     // Clone buffer to prevent mutation
     : buffer.slice(0)
 
-  return getOfflineAudioContext(config).decodeAudioData(input)
+  return new Promise((resolve, reject) =>
+    getOfflineAudioContext(config).decodeAudioData(input, resolve, reject)
+  )
 }
