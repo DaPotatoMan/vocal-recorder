@@ -1,4 +1,4 @@
-import { RecorderError } from './core'
+import { RuntimeError } from './core'
 import { getGlobalThis } from './utils'
 
 export class StreamUtil {
@@ -8,7 +8,7 @@ export class StreamUtil {
       || ctx.webkitGetUserMedia || ctx.mozGetUserMedia || ctx.msGetUserMedia)
 
     if (!getMedia)
-      throw new RecorderError('NO_GETUSERMEDIA')
+      throw new RuntimeError('GETUSERMEDIA_UNSUPPORTED')
 
     const stream = await getMedia.call(ctx, { audio: options || true, video: false })
     return new MediaStream(stream)
@@ -40,7 +40,7 @@ export function getOfflineAudioContext(options: OfflineAudioContextOptions) {
     return new Ref(options)
   }
   catch (error) {
-    throw new RecorderError('NO_AUDIO_CONTEXT', error)
+    throw new RuntimeError('AUDIO_CONTEXT_UNSUPPORTED', error)
   }
 }
 

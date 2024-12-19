@@ -1,7 +1,7 @@
 import type { AudioBlob } from './shared'
 import mitt from 'mitt'
 import { Encoder } from './encoder'
-import { RecorderError, StreamUtil } from './shared'
+import { RuntimeError, StreamUtil } from './shared'
 
 export * from './shared'
 
@@ -15,7 +15,7 @@ export class AudioRecorder {
     if (this.#recorder)
       return this.#recorder
 
-    throw new RecorderError('NOT_INIT')
+    throw new RuntimeError('RECORDER_NOT_INIT')
   }
 
   get state() {
@@ -93,7 +93,7 @@ export class AudioRecorder {
     const result = await this.#encoder?.stop()
 
     if (!result)
-      throw new RecorderError('NO_RESULT')
+      throw new RuntimeError('RECORDER_NO_RESULT')
 
     this.events.emit('result', result)
     return result
@@ -115,7 +115,7 @@ export namespace AudioRecorder {
       pause: Event
       resume: Event
 
-      error: Error | RecorderError
+      error: Error | RuntimeError
       result: AudioBlob
     }
 

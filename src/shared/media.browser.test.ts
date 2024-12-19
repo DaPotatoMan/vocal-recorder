@@ -1,5 +1,5 @@
 import audioUrl from '~/tests/assets/audio-sample.mp3?url'
-import { RecorderError } from '..'
+import { RuntimeError } from '..'
 import { blobToBuffer, getAudioBuffer, getOfflineAudioContext, StreamUtil } from './media'
 
 describe('class: StreamUtil', () => {
@@ -33,7 +33,7 @@ describe('class: StreamUtil', () => {
     const ref = navigator.mediaDevices.getUserMedia
     navigator.mediaDevices.getUserMedia = undefined as any
 
-    expect(StreamUtil.get).rejects.toThrowError(RecorderError.NO_GETUSERMEDIA)
+    expect(StreamUtil.get).rejects.toThrowError(RuntimeError.GETUSERMEDIA_UNSUPPORTED)
 
     // Restore
     navigator.mediaDevices.getUserMedia = ref
@@ -67,7 +67,7 @@ describe('getOfflineAudioContext', () => {
     // @ts-expect-error - Testing fallback
     globalThis.AudioContext = undefined
 
-    expect(getContext).toThrowError(RecorderError.NO_AUDIO_CONTEXT)
+    expect(getContext).toThrowError(RuntimeError.AUDIO_CONTEXT_UNSUPPORTED)
   })
 })
 

@@ -1,4 +1,4 @@
-import { blobToBuffer, getGlobalThis, RecorderError } from '../shared'
+import { blobToBuffer, getGlobalThis, RuntimeError } from '../shared'
 import { Encoder } from './index'
 import { ShineEncoder } from './worker.shine'
 
@@ -14,7 +14,7 @@ worker.on(Encoder.Event.INIT, async (config) => {
 // Encode
 worker.on(Encoder.Event.ENCODE, (data) => {
   if (data instanceof Float32Array === false)
-    throw new RecorderError('ENCODER_INVALID_INPUT_DATA')
+    throw new RuntimeError('ENCODER_INVALID_INPUT_DATA')
 
   encoder.encode(data)
 })
@@ -24,7 +24,7 @@ worker.on(Encoder.Event.STOP, async () => {
   const blob = encoder.stop()
 
   if (blob instanceof Blob === false || blob.type !== 'audio/mpeg')
-    throw new RecorderError('ENCODER_INVALID_RESULT')
+    throw new RuntimeError('ENCODER_INVALID_RESULT')
 
   const buffer = await blobToBuffer(blob)
   worker.send(Encoder.Event.RESULT, buffer, [buffer])
