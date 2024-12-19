@@ -1,6 +1,3 @@
-import type { AudioBlob } from './models'
-import mitt from 'mitt'
-
 export class RecorderError extends Error {
   // Recorder related
   static NOT_INIT = 'Recorder has not been initialized. Call init() method first'
@@ -34,22 +31,4 @@ export type RecorderErrorKey = Exclude<keyof typeof RecorderError, keyof typeof 
 export const Logger = {
   log: console.debug.bind(console, '🎤 @vocal/core:'),
   warn: console.warn.bind(console, '🎤 @vocal/core:')
-}
-
-export namespace Events {
-  export type Map = object & {
-    /** Recorder is ready to be used */
-    init: void
-
-    start: Event
-    stop: Event
-    pause: Event
-    resume: Event
-
-    error: Error | RecorderError
-    result: AudioBlob
-  }
-
-  export type Keys = keyof Map
-  export const use = mitt<Map>
 }

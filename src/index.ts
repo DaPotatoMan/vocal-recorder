@@ -1,10 +1,12 @@
+import type { AudioBlob } from './shared'
+import mitt from 'mitt'
 import { Encoder } from './encoder'
-import { Events, RecorderError, StreamUtil } from './shared'
+import { RecorderError, StreamUtil } from './shared'
 
 export * from './shared'
 
 export class AudioRecorder {
-  events = Events.use()
+  events = AudioRecorder.Events.use()
 
   #recorder?: MediaRecorder
   #encoder?: Encoder
@@ -101,5 +103,23 @@ export class AudioRecorder {
 export namespace AudioRecorder {
   export interface Config {
     stream?: MediaStream | MediaTrackConstraints
+  }
+
+  export namespace Events {
+    export type Map = object & {
+      /** Recorder is ready to be used */
+      init: void
+
+      start: Event
+      stop: Event
+      pause: Event
+      resume: Event
+
+      error: Error | RecorderError
+      result: AudioBlob
+    }
+
+    export type Keys = keyof Map
+    export const use = mitt<Map>
   }
 }
