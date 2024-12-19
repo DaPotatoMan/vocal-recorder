@@ -1,15 +1,15 @@
 import type { Encoder } from '.'
 import { Shine, StereoMode } from '@toots/shine.js'
 
-function useExpandedBuffer<T extends Uint8ArrayConstructor | Float32ArrayConstructor>(Ref: T, initialSize = 1024 * 1024) {
-  let outBuffer = new Ref(initialSize)
+function useExpandedBuffer(initialSize = 1024 * 1024) {
+  let outBuffer = new Uint8Array(initialSize)
   let offset = 0
 
-  function append(data: InstanceType<T>) {
+  function append(data: Uint8Array) {
     if (data.length + offset > outBuffer.length) {
       console.debug('(useExpandedBuffer) resizing buffer size')
 
-      const newBuffer = new Ref(data.length + offset)
+      const newBuffer = new Uint8Array(data.length + offset)
       newBuffer.set(outBuffer)
       outBuffer = newBuffer
     }
@@ -19,15 +19,20 @@ function useExpandedBuffer<T extends Uint8ArrayConstructor | Float32ArrayConstru
   }
 
   function getBuffer() {
-    return new Ref(outBuffer.buffer, 0, offset) as InstanceType<T>
+    return new Uint8Array(outBuffer.buffer, 0, offset)
   }
 
-  return { append, getBuffer }
+  function reset() {
+    outBuffer = new Uint8Array(initialSize)
+    offset = 0
+  }
+
+  return { append, getBuffer, reset }
 }
 
 export class ShineEncoder {
   shine?: Shine
-  chunks = useExpandedBuffer(Uint8Array)
+  chunks = useExpandedBuffer()
   isDone = false
 
   async init(config: Encoder.Config) {
@@ -46,7 +51,7 @@ export class ShineEncoder {
   dispose() {
     this.shine = undefined
     this.isDone = false
-    this.chunks = useExpandedBuffer(Uint8Array)
+    this.chunks.reset()
   }
 
   encode(data: Float32Array) {
