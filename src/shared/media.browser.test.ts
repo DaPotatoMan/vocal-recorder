@@ -29,11 +29,11 @@ describe('class: StreamUtil', () => {
     expect(StreamUtil.isValid(stream)).toBe(false)
   })
 
-  it('should throw error when getUserMedia is unavailable', () => {
+  it('should throw error when getUserMedia is unavailable', async () => {
     const ref = navigator.mediaDevices.getUserMedia
     navigator.mediaDevices.getUserMedia = undefined as any
 
-    expect(StreamUtil.get).rejects.toThrowError(RuntimeError.GETUSERMEDIA_UNSUPPORTED)
+    await expect(StreamUtil.get).rejects.toThrowError(RuntimeError.GETUSERMEDIA_UNSUPPORTED)
 
     // Restore
     navigator.mediaDevices.getUserMedia = ref
@@ -74,18 +74,16 @@ describe('getOfflineAudioContext', () => {
 describe('blobToBuffer', async () => {
   const blob = await fetch(audioUrl).then(res => res.blob())
 
-  it('should convert Blob to ArrayBuffer', () => {
-    expect(blobToBuffer(blob)).resolves.toBeInstanceOf(ArrayBuffer)
-  })
+  it('should convert Blob to ArrayBuffer', () =>
+    expect(blobToBuffer(blob)).resolves.toBeInstanceOf(ArrayBuffer))
 
   it('shoulw use FileReader if blob.arrayBuffer() not supported', () => {
     blob.arrayBuffer = undefined as any
-    expect(blobToBuffer(blob)).resolves.toBeInstanceOf(ArrayBuffer)
+    return expect(blobToBuffer(blob)).resolves.toBeInstanceOf(ArrayBuffer)
   })
 
-  it('should throw error for unknown type', () => {
-    expect(() => blobToBuffer(null as any)).rejects.toThrow()
-  })
+  it('should throw error for unknown type', () =>
+    expect(() => blobToBuffer(null as any)).rejects.toThrow())
 })
 
 describe('getAudioBuffer', async () => {
