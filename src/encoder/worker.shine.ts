@@ -1,5 +1,6 @@
 import type { Encoder } from '.'
 import { Shine, StereoMode } from '@toots/shine.js'
+import { RuntimeError } from '../shared'
 
 function useExpandedBuffer(initialSize = 1024 * 1024) {
   let outBuffer = new Uint8Array(initialSize)
@@ -7,8 +8,6 @@ function useExpandedBuffer(initialSize = 1024 * 1024) {
 
   function append(data: Uint8Array) {
     if (data.length + offset > outBuffer.length) {
-      console.debug('(useExpandedBuffer) resizing buffer size')
-
       const newBuffer = new Uint8Array(data.length + offset)
       newBuffer.set(outBuffer)
       outBuffer = newBuffer
@@ -31,46 +30,49 @@ function useExpandedBuffer(initialSize = 1024 * 1024) {
 }
 
 export class ShineEncoder {
-  shine?: Shine
-  chunks = useExpandedBuffer()
   isDone = false
+  chunks = useExpandedBuffer()
+
+  #shine?: Shine
+
+  get shine() {
+    if (!this.#shine)
+      throw new RuntimeError('ENCODER_SHINE_NOT_INIT')
+
+    return this.#shine
+  }
 
   async init(config: Encoder.Config) {
     await Shine.initialized
 
-    console.log('Got shine config ', config)
-
-    this.shine = new Shine({
+    this.#shine = new Shine({
       samplerate: config.sampleRate,
       bitrate: config.bitRate,
       channels: config.channels,
       stereoMode: StereoMode.MONO
     })
+
+    console.debug('ShineEncoder: initialized', config)
   }
 
   dispose() {
-    this.shine = undefined
+    this.#shine = undefined
     this.isDone = false
     this.chunks.reset()
   }
 
   encode(data: Float32Array) {
-    if (!this.shine)
-      throw new Error('Shine encoder not initialized')
-
     if (this.isDone)
       return
 
-    this.chunks.append(this.shine.encode([data]))
+    this.chunks.append(
+      this.shine.encode([data])
+    )
   }
 
   stop() {
-    if (!this.shine)
-      throw new Error('Shine encoder not initialized')
-
     this.isDone = true
     this.chunks.append(this.shine.close())
-
     return new Blob([this.chunks.getBuffer()], { type: 'audio/mpeg' })
   }
 }

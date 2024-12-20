@@ -1,8 +1,3 @@
-export const Logger = {
-  log: console.debug.bind(console, '🎤 @vocal/core:'),
-  warn: console.warn.bind(console, '🎤 @vocal/core:')
-}
-
 /** Custom error class for vocal-recorder module */
 export class RuntimeError extends Error {
   // Global
@@ -15,6 +10,7 @@ export class RuntimeError extends Error {
   static RECORDER_NO_RESULT = 'Recorder produced no blob result'
 
   // Encoder related
+  static ENCODER_SHINE_NOT_INIT = 'Shine encoder has not been initialized'
   static ENCODER_INVALID_INPUT_DATA = 'Provided data is not a Float32Array'
   static ENCODER_INVALID_RESULT = 'Invalid encoder result. Output was not a blob'
 
