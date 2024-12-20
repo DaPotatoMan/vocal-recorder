@@ -29,10 +29,10 @@ importers:
         version: 22.10.2
       '@vitest/browser':
         specifier: ^2.1.8
-        version: 2.1.8(@types/node@22.10.2)(playwright@1.49.1)(typescript@5.7.2)(vite@6.0.4(@types/node@22.10.2)(jiti@2.4.2)(sass@1.83.0)(terser@5.37.0)(tsx@4.19.2)(yaml@2.6.1))(vitest@2.1.8)
+        version: 2.1.8(@types/node@22.10.2)(playwright@1.49.1)(typescript@5.7.2)(vite@5.4.11(@types/node@22.10.2)(sass@1.83.0)(terser@5.37.0))(vitest@2.1.8)
       '@vitest/coverage-v8':
         specifier: 2.1.8
-        version: 2.1.8(@vitest/browser@2.1.8(@types/node@22.10.2)(playwright@1.49.1)(typescript@5.7.2)(vite@6.0.4(@types/node@22.10.2)(jiti@2.4.2)(sass@1.83.0)(terser@5.37.0)(tsx@4.19.2)(yaml@2.6.1))(vitest@2.1.8))(vitest@2.1.8(@types/node@22.10.2)(@vitest/browser@2.1.8)(msw@2.6.8(@types/node@22.10.2)(typescript@5.7.2))(sass@1.83.0)(terser@5.37.0))
+        version: 2.1.8(@vitest/browser@2.1.8(@types/node@22.10.2)(playwright@1.49.1)(typescript@5.7.2)(vite@5.4.11(@types/node@22.10.2)(sass@1.83.0)(terser@5.37.0))(vitest@2.1.8))(vitest@2.1.8(@types/node@22.10.2)(@vitest/browser@2.1.8)(msw@2.6.8(@types/node@22.10.2)(typescript@5.7.2))(sass@1.83.0)(terser@5.37.0))
       changelogen:
         specifier: ^0.5.7
         version: 0.5.7(magicast@0.3.5)
@@ -46,11 +46,11 @@ importers:
         specifier: ^5.7.2
         version: 5.7.2
       vite:
-        specifier: ^6.0.4
-        version: 6.0.4(@types/node@22.10.2)(jiti@2.4.2)(sass@1.83.0)(terser@5.37.0)(tsx@4.19.2)(yaml@2.6.1)
+        specifier: ^5.4.11
+        version: 5.4.11(@types/node@22.10.2)(sass@1.83.0)(terser@5.37.0)
       vite-plugin-dts:
         specifier: ^4.4.0
-        version: 4.4.0(@types/node@22.10.2)(rollup@4.28.1)(typescript@5.7.2)(vite@6.0.4(@types/node@22.10.2)(jiti@2.4.2)(sass@1.83.0)(terser@5.37.0)(tsx@4.19.2)(yaml@2.6.1))
+        version: 4.4.0(@types/node@22.10.2)(rollup@4.28.1)(typescript@5.7.2)(vite@5.4.11(@types/node@22.10.2)(sass@1.83.0)(terser@5.37.0))
       vitest:
         specifier: ^2.1.8
         version: 2.1.8(@types/node@22.10.2)(@vitest/browser@2.1.8)(msw@2.6.8(@types/node@22.10.2)(typescript@5.7.2))(sass@1.83.0)(terser@5.37.0)
@@ -81,7 +81,7 @@ importers:
         version: 0.10.3(ioredis@5.4.1)(magicast@0.3.5)(rollup@4.28.1)(vite@5.4.11(@types/node@22.10.2)(sass@1.83.0)(terser@5.37.0))
       '@unocss/nuxt':
         specifier: 0.65.2
-        version: 0.65.2(magicast@0.3.5)(postcss@8.4.49)(rollup@4.28.1)(vite@5.4.11(@types/node@22.10.2)(sass@1.83.0)(terser@5.37.0))(vue@3.5.13(typescript@5.7.2))(webpack@5.97.1(esbuild@0.24.0))
+        version: 0.65.2(magicast@0.3.5)(postcss@8.4.49)(rollup@4.28.1)(vite@5.4.11(@types/node@22.10.2)(sass@1.83.0)(terser@5.37.0))(vue@3.5.13(typescript@5.7.2))(webpack@5.97.1(esbuild@0.24.1))
       '@unocss/reset':
         specifier: ^0.65.2
         version: 0.65.2
@@ -99,7 +99,7 @@ importers:
         version: 1.83.0
       unocss:
         specifier: ^0.65.2
-        version: 0.65.2(@unocss/webpack@0.65.2(rollup@4.28.1)(webpack@5.97.1(esbuild@0.24.0)))(postcss@8.4.49)(rollup@4.28.1)(vite@5.4.11(@types/node@22.10.2)(sass@1.83.0)(terser@5.37.0))(vue@3.5.13(typescript@5.7.2))
+        version: 0.65.2(@unocss/webpack@0.65.2(rollup@4.28.1)(webpack@5.97.1(esbuild@0.24.1)))(postcss@8.4.49)(rollup@4.28.1)(vite@5.4.11(@types/node@22.10.2)(sass@1.83.0)(terser@5.37.0))(vue@3.5.13(typescript@5.7.2))
 
 packages:
 
@@ -5348,46 +5348,6 @@ packages:
       terser:
         optional: true
 
-  vite@6.0.4:
-    resolution: {integrity: sha512-zwlH6ar+6o6b4Wp+ydhtIKLrGM/LoqZzcdVmkGAFun0KHTzIzjh+h0kungEx7KJg/PYnC80I4TII9WkjciSR6Q==}
-    engines: {node: ^18.0.0 || ^20.0.0 || >=22.0.0}
-    hasBin: true
-    peerDependencies:
-      '@types/node': ^18.0.0 || ^20.0.0 || >=22.0.0
-      jiti: '>=1.21.0'
-      less: '*'
-      lightningcss: ^1.21.0
-      sass: '*'
-      sass-embedded: '*'
-      stylus: '*'
-      sugarss: '*'
-      terser: ^5.16.0
-      tsx: ^4.8.1
-      yaml: ^2.4.2
-    peerDependenciesMeta:
-      '@types/node':
-        optional: true
-      jiti:
-        optional: true
-      less:
-        optional: true
-      lightningcss:
-        optional: true
-      sass:
-        optional: true
-      sass-embedded:
-        optional: true
-      stylus:
-        optional: true
-      sugarss:
-        optional: true
-      terser:
-        optional: true
-      tsx:
-        optional: true
-      yaml:
-        optional: true
-
   vitest@2.1.8:
     resolution: {integrity: sha512-1vBKTZskHw/aosXqQUlVWWlGUxSJR8YtiyZDJAFeW2kPAeX6S3Sool0mjspO+kXLuxVWlEDDowBAeqeAQefqLQ==}
     engines: {node: ^18.0.0 || >=20.0.0}
@@ -7446,7 +7406,7 @@ snapshots:
     transitivePeerDependencies:
       - vue
 
-  '@unocss/nuxt@0.65.2(magicast@0.3.5)(postcss@8.4.49)(rollup@4.28.1)(vite@5.4.11(@types/node@22.10.2)(sass@1.83.0)(terser@5.37.0))(vue@3.5.13(typescript@5.7.2))(webpack@5.97.1(esbuild@0.24.0))':
+  '@unocss/nuxt@0.65.2(magicast@0.3.5)(postcss@8.4.49)(rollup@4.28.1)(vite@5.4.11(@types/node@22.10.2)(sass@1.83.0)(terser@5.37.0))(vue@3.5.13(typescript@5.7.2))(webpack@5.97.1(esbuild@0.24.1))':
     dependencies:
       '@nuxt/kit': 3.14.1592(magicast@0.3.5)(rollup@4.28.1)
       '@unocss/config': 0.65.2
@@ -7460,8 +7420,8 @@ snapshots:
       '@unocss/preset-wind': 0.65.2
       '@unocss/reset': 0.65.2
       '@unocss/vite': 0.65.2(rollup@4.28.1)(vite@5.4.11(@types/node@22.10.2)(sass@1.83.0)(terser@5.37.0))(vue@3.5.13(typescript@5.7.2))
-      '@unocss/webpack': 0.65.2(rollup@4.28.1)(webpack@5.97.1(esbuild@0.24.0))
-      unocss: 0.65.2(@unocss/webpack@0.65.2(rollup@4.28.1)(webpack@5.97.1(esbuild@0.24.0)))(postcss@8.4.49)(rollup@4.28.1)(vite@5.4.11(@types/node@22.10.2)(sass@1.83.0)(terser@5.37.0))(vue@3.5.13(typescript@5.7.2))
+      '@unocss/webpack': 0.65.2(rollup@4.28.1)(webpack@5.97.1(esbuild@0.24.1))
+      unocss: 0.65.2(@unocss/webpack@0.65.2(rollup@4.28.1)(webpack@5.97.1(esbuild@0.24.1)))(postcss@8.4.49)(rollup@4.28.1)(vite@5.4.11(@types/node@22.10.2)(sass@1.83.0)(terser@5.37.0))(vue@3.5.13(typescript@5.7.2))
     transitivePeerDependencies:
       - magicast
       - postcss
@@ -7568,7 +7528,7 @@ snapshots:
       - supports-color
       - vue
 
-  '@unocss/webpack@0.65.2(rollup@4.28.1)(webpack@5.97.1(esbuild@0.24.0))':
+  '@unocss/webpack@0.65.2(rollup@4.28.1)(webpack@5.97.1(esbuild@0.24.1))':
     dependencies:
       '@ampproject/remapping': 2.3.0
       '@rollup/pluginutils': 5.1.4(rollup@4.28.1)
@@ -7578,7 +7538,7 @@ snapshots:
       magic-string: 0.30.17
       tinyglobby: 0.2.10
       unplugin: 1.16.0
-      webpack: 5.97.1(esbuild@0.24.0)
+      webpack: 5.97.1(esbuild@0.24.1)
       webpack-sources: 3.2.3
     transitivePeerDependencies:
       - rollup
@@ -7618,11 +7578,11 @@ snapshots:
       vite: 5.4.11(@types/node@22.10.2)(sass@1.83.0)(terser@5.37.0)
       vue: 3.5.13(typescript@5.7.2)
 
-  '@vitest/browser@2.1.8(@types/node@22.10.2)(playwright@1.49.1)(typescript@5.7.2)(vite@6.0.4(@types/node@22.10.2)(jiti@2.4.2)(sass@1.83.0)(terser@5.37.0)(tsx@4.19.2)(yaml@2.6.1))(vitest@2.1.8)':
+  '@vitest/browser@2.1.8(@types/node@22.10.2)(playwright@1.49.1)(typescript@5.7.2)(vite@5.4.11(@types/node@22.10.2)(sass@1.83.0)(terser@5.37.0))(vitest@2.1.8)':
     dependencies:
       '@testing-library/dom': 10.4.0
       '@testing-library/user-event': 14.5.2(@testing-library/dom@10.4.0)
-      '@vitest/mocker': 2.1.8(msw@2.6.8(@types/node@22.10.2)(typescript@5.7.2))(vite@6.0.4(@types/node@22.10.2)(jiti@2.4.2)(sass@1.83.0)(terser@5.37.0)(tsx@4.19.2)(yaml@2.6.1))
+      '@vitest/mocker': 2.1.8(msw@2.6.8(@types/node@22.10.2)(typescript@5.7.2))(vite@5.4.11(@types/node@22.10.2)(sass@1.83.0)(terser@5.37.0))
       '@vitest/utils': 2.1.8
       magic-string: 0.30.15
       msw: 2.6.8(@types/node@22.10.2)(typescript@5.7.2)
@@ -7639,7 +7599,7 @@ snapshots:
       - utf-8-validate
       - vite
 
-  '@vitest/coverage-v8@2.1.8(@vitest/browser@2.1.8(@types/node@22.10.2)(playwright@1.49.1)(typescript@5.7.2)(vite@6.0.4(@types/node@22.10.2)(jiti@2.4.2)(sass@1.83.0)(terser@5.37.0)(tsx@4.19.2)(yaml@2.6.1))(vitest@2.1.8))(vitest@2.1.8(@types/node@22.10.2)(@vitest/browser@2.1.8)(msw@2.6.8(@types/node@22.10.2)(typescript@5.7.2))(sass@1.83.0)(terser@5.37.0))':
+  '@vitest/coverage-v8@2.1.8(@vitest/browser@2.1.8(@types/node@22.10.2)(playwright@1.49.1)(typescript@5.7.2)(vite@5.4.11(@types/node@22.10.2)(sass@1.83.0)(terser@5.37.0))(vitest@2.1.8))(vitest@2.1.8(@types/node@22.10.2)(@vitest/browser@2.1.8)(msw@2.6.8(@types/node@22.10.2)(typescript@5.7.2))(sass@1.83.0)(terser@5.37.0))':
     dependencies:
       '@ampproject/remapping': 2.3.0
       '@bcoe/v8-coverage': 0.2.3
@@ -7655,7 +7615,7 @@ snapshots:
       tinyrainbow: 1.2.0
       vitest: 2.1.8(@types/node@22.10.2)(@vitest/browser@2.1.8)(msw@2.6.8(@types/node@22.10.2)(typescript@5.7.2))(sass@1.83.0)(terser@5.37.0)
     optionalDependencies:
-      '@vitest/browser': 2.1.8(@types/node@22.10.2)(playwright@1.49.1)(typescript@5.7.2)(vite@6.0.4(@types/node@22.10.2)(jiti@2.4.2)(sass@1.83.0)(terser@5.37.0)(tsx@4.19.2)(yaml@2.6.1))(vitest@2.1.8)
+      '@vitest/browser': 2.1.8(@types/node@22.10.2)(playwright@1.49.1)(typescript@5.7.2)(vite@5.4.11(@types/node@22.10.2)(sass@1.83.0)(terser@5.37.0))(vitest@2.1.8)
     transitivePeerDependencies:
       - supports-color
 
@@ -7682,15 +7642,6 @@ snapshots:
     optionalDependencies:
       msw: 2.6.8(@types/node@22.10.2)(typescript@5.7.2)
       vite: 5.4.11(@types/node@22.10.2)(sass@1.83.0)(terser@5.37.0)
-
-  '@vitest/mocker@2.1.8(msw@2.6.8(@types/node@22.10.2)(typescript@5.7.2))(vite@6.0.4(@types/node@22.10.2)(jiti@2.4.2)(sass@1.83.0)(terser@5.37.0)(tsx@4.19.2)(yaml@2.6.1))':
-    dependencies:
-      '@vitest/spy': 2.1.8
-      estree-walker: 3.0.3
-      magic-string: 0.30.15
-    optionalDependencies:
-      msw: 2.6.8(@types/node@22.10.2)(typescript@5.7.2)
-      vite: 6.0.4(@types/node@22.10.2)(jiti@2.4.2)(sass@1.83.0)(terser@5.37.0)(tsx@4.19.2)(yaml@2.6.1)
 
   '@vitest/pretty-format@2.1.8':
     dependencies:
@@ -7798,7 +7749,7 @@ snapshots:
       '@vue/compiler-ssr': 3.5.13
       '@vue/shared': 3.5.13
       estree-walker: 2.0.2
-      magic-string: 0.30.15
+      magic-string: 0.30.17
       postcss: 8.4.49
       source-map-js: 1.2.1
 
@@ -11357,16 +11308,16 @@ snapshots:
       mkdirp: 3.0.1
       yallist: 5.0.0
 
-  terser-webpack-plugin@5.3.11(esbuild@0.24.0)(webpack@5.97.1(esbuild@0.24.0)):
+  terser-webpack-plugin@5.3.11(esbuild@0.24.1)(webpack@5.97.1(esbuild@0.24.1)):
     dependencies:
       '@jridgewell/trace-mapping': 0.3.25
       jest-worker: 27.5.1
       schema-utils: 4.3.0
       serialize-javascript: 6.0.2
       terser: 5.37.0
-      webpack: 5.97.1(esbuild@0.24.0)
+      webpack: 5.97.1(esbuild@0.24.1)
     optionalDependencies:
-      esbuild: 0.24.0
+      esbuild: 0.24.1
 
   terser@5.37.0:
     dependencies:
@@ -11559,7 +11510,7 @@ snapshots:
 
   universalify@2.0.1: {}
 
-  unocss@0.65.2(@unocss/webpack@0.65.2(rollup@4.28.1)(webpack@5.97.1(esbuild@0.24.0)))(postcss@8.4.49)(rollup@4.28.1)(vite@5.4.11(@types/node@22.10.2)(sass@1.83.0)(terser@5.37.0))(vue@3.5.13(typescript@5.7.2)):
+  unocss@0.65.2(@unocss/webpack@0.65.2(rollup@4.28.1)(webpack@5.97.1(esbuild@0.24.1)))(postcss@8.4.49)(rollup@4.28.1)(vite@5.4.11(@types/node@22.10.2)(sass@1.83.0)(terser@5.37.0))(vue@3.5.13(typescript@5.7.2)):
     dependencies:
       '@unocss/astro': 0.65.2(rollup@4.28.1)(vite@5.4.11(@types/node@22.10.2)(sass@1.83.0)(terser@5.37.0))(vue@3.5.13(typescript@5.7.2))
       '@unocss/cli': 0.65.2(rollup@4.28.1)
@@ -11579,7 +11530,7 @@ snapshots:
       '@unocss/transformer-variant-group': 0.65.2
       '@unocss/vite': 0.65.2(rollup@4.28.1)(vite@5.4.11(@types/node@22.10.2)(sass@1.83.0)(terser@5.37.0))(vue@3.5.13(typescript@5.7.2))
     optionalDependencies:
-      '@unocss/webpack': 0.65.2(rollup@4.28.1)(webpack@5.97.1(esbuild@0.24.0))
+      '@unocss/webpack': 0.65.2(rollup@4.28.1)(webpack@5.97.1(esbuild@0.24.1))
       vite: 5.4.11(@types/node@22.10.2)(sass@1.83.0)(terser@5.37.0)
     transitivePeerDependencies:
       - postcss
@@ -11744,7 +11695,7 @@ snapshots:
       optionator: 0.9.4
       typescript: 5.7.2
 
-  vite-plugin-dts@4.4.0(@types/node@22.10.2)(rollup@4.28.1)(typescript@5.7.2)(vite@6.0.4(@types/node@22.10.2)(jiti@2.4.2)(sass@1.83.0)(terser@5.37.0)(tsx@4.19.2)(yaml@2.6.1)):
+  vite-plugin-dts@4.4.0(@types/node@22.10.2)(rollup@4.28.1)(typescript@5.7.2)(vite@5.4.11(@types/node@22.10.2)(sass@1.83.0)(terser@5.37.0)):
     dependencies:
       '@microsoft/api-extractor': 7.48.1(@types/node@22.10.2)
       '@rollup/pluginutils': 5.1.4(rollup@4.28.1)
@@ -11757,7 +11708,7 @@ snapshots:
       magic-string: 0.30.17
       typescript: 5.7.2
     optionalDependencies:
-      vite: 6.0.4(@types/node@22.10.2)(jiti@2.4.2)(sass@1.83.0)(terser@5.37.0)(tsx@4.19.2)(yaml@2.6.1)
+      vite: 5.4.11(@types/node@22.10.2)(sass@1.83.0)(terser@5.37.0)
     transitivePeerDependencies:
       - '@types/node'
       - rollup
@@ -11807,20 +11758,6 @@ snapshots:
       sass: 1.83.0
       terser: 5.37.0
 
-  vite@6.0.4(@types/node@22.10.2)(jiti@2.4.2)(sass@1.83.0)(terser@5.37.0)(tsx@4.19.2)(yaml@2.6.1):
-    dependencies:
-      esbuild: 0.24.1
-      postcss: 8.4.49
-      rollup: 4.28.1
-    optionalDependencies:
-      '@types/node': 22.10.2
-      fsevents: 2.3.3
-      jiti: 2.4.2
-      sass: 1.83.0
-      terser: 5.37.0
-      tsx: 4.19.2
-      yaml: 2.6.1
-
   vitest@2.1.8(@types/node@22.10.2)(@vitest/browser@2.1.8)(msw@2.6.8(@types/node@22.10.2)(typescript@5.7.2))(sass@1.83.0)(terser@5.37.0):
     dependencies:
       '@vitest/expect': 2.1.8
@@ -11845,7 +11782,7 @@ snapshots:
       why-is-node-running: 2.3.0
     optionalDependencies:
       '@types/node': 22.10.2
-      '@vitest/browser': 2.1.8(@types/node@22.10.2)(playwright@1.49.1)(typescript@5.7.2)(vite@6.0.4(@types/node@22.10.2)(jiti@2.4.2)(sass@1.83.0)(terser@5.37.0)(tsx@4.19.2)(yaml@2.6.1))(vitest@2.1.8)
+      '@vitest/browser': 2.1.8(@types/node@22.10.2)(playwright@1.49.1)(typescript@5.7.2)(vite@5.4.11(@types/node@22.10.2)(sass@1.83.0)(terser@5.37.0))(vitest@2.1.8)
     transitivePeerDependencies:
       - less
       - lightningcss
@@ -11933,7 +11870,7 @@ snapshots:
 
   webpack-virtual-modules@0.6.2: {}
 
-  webpack@5.97.1(esbuild@0.24.0):
+  webpack@5.97.1(esbuild@0.24.1):
     dependencies:
       '@types/eslint-scope': 3.7.7
       '@types/estree': 1.0.6
@@ -11955,7 +11892,7 @@ snapshots:
       neo-async: 2.6.2
       schema-utils: 3.3.0
       tapable: 2.2.1
-      terser-webpack-plugin: 5.3.11(esbuild@0.24.0)(webpack@5.97.1(esbuild@0.24.0))
+      terser-webpack-plugin: 5.3.11(esbuild@0.24.1)(webpack@5.97.1(esbuild@0.24.1))
       watchpack: 2.4.2
       webpack-sources: 3.2.3
     transitivePeerDependencies:
