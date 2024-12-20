@@ -29,7 +29,6 @@
     "release": "npm run lint && npm run test -- --run && npm run prepack && changelogen --release --patch && npm publish && git push --follow-tags"
   },
   "dependencies": {
-    "@shiguredo/rnnoise-wasm": "^2022.2.0",
     "@toots/shine.js": "^1.0.3",
     "mitt": "^3.0.1"
   },
