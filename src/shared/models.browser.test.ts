@@ -1,7 +1,6 @@
 import audioUrl from '~/tests/assets/audio-sample.mp3?url'
 import { AudioBlob, Duration } from './models'
 
-
 describe('class: Duration', () => {
   const duration = new Duration(3600 * 1000)
 
