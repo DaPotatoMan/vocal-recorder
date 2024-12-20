@@ -1,6 +1,62 @@
 # Changelog
 
 
+## v2.0.0-0
+
+[compare changes](https://github.com/dapotatoman/vocal-recorder/compare/v1.3.5...v2.0.0-0)
+
+### 🚀 Enhancements
+
+- Implement new encoding logic ([9fdf60d](https://github.com/dapotatoman/vocal-recorder/commit/9fdf60d))
+- Add tests ([56757d5](https://github.com/dapotatoman/vocal-recorder/commit/56757d5))
+- Improve vitest config ([9d06d77](https://github.com/dapotatoman/vocal-recorder/commit/9d06d77))
+- Expose Events Map/Keys types ([cd9ef8a](https://github.com/dapotatoman/vocal-recorder/commit/cd9ef8a))
+- Improve webapp ([1a98fb0](https://github.com/dapotatoman/vocal-recorder/commit/1a98fb0))
+- Improve blobToBuffer utility logic ([b9d063f](https://github.com/dapotatoman/vocal-recorder/commit/b9d063f))
+- Add `toFixed(digits)` method in AudioPeaks class ([000e470](https://github.com/dapotatoman/vocal-recorder/commit/000e470))
+- Add tests for AudioPeaks model ([1773c6e](https://github.com/dapotatoman/vocal-recorder/commit/1773c6e))
+- **webapp:** Update ([7081bdf](https://github.com/dapotatoman/vocal-recorder/commit/7081bdf))
+- **webapp:** Migrate to nuxt ([0ca4722](https://github.com/dapotatoman/vocal-recorder/commit/0ca4722))
+- **webapp:** Improve ui ([2c5c97a](https://github.com/dapotatoman/vocal-recorder/commit/2c5c97a))
+- **recorder:** Only allow single channel encoding ([71cfd5f](https://github.com/dapotatoman/vocal-recorder/commit/71cfd5f))
+- **recorder:** Allow custom stream to be used by AudioRecorder ([e52da71](https://github.com/dapotatoman/vocal-recorder/commit/e52da71))
+- **webapp:** Add `/record/from-stream` page ([cb2590b](https://github.com/dapotatoman/vocal-recorder/commit/cb2590b))
+
+### 🩹 Fixes
+
+- Lint issues ([a371810](https://github.com/dapotatoman/vocal-recorder/commit/a371810))
+- **recorder:** Use proper sampleRate to decode audio data - Fixes bad pitch tone in recording ([e2e94d2](https://github.com/dapotatoman/vocal-recorder/commit/e2e94d2))
+- `getAudioBuffer` mutates original buffer ([ffccf61](https://github.com/dapotatoman/vocal-recorder/commit/ffccf61))
+- **webapp:** `toReversed()` api breaks build ([90c7de5](https://github.com/dapotatoman/vocal-recorder/commit/90c7de5))
+- **recorder:** Tick sound between timeslice chunks ([0c5f997](https://github.com/dapotatoman/vocal-recorder/commit/0c5f997))
+- **recorder:** Use legacy `decodeAudioData` function expression ([0b34439](https://github.com/dapotatoman/vocal-recorder/commit/0b34439))
+- **tests:** Hanging await assertions ([d863df0](https://github.com/dapotatoman/vocal-recorder/commit/d863df0))
+- Vite build not working Downgraded vite to v5 ([23864d5](https://github.com/dapotatoman/vocal-recorder/commit/23864d5))
+- Lint issues ([c5cb5b6](https://github.com/dapotatoman/vocal-recorder/commit/c5cb5b6))
+
+### 💅 Refactors
+
+- **recorder:** Update code ([6d9bed1](https://github.com/dapotatoman/vocal-recorder/commit/6d9bed1))
+- Remove `audioBitsPerSecond` variable in Encoder.Config ([8457125](https://github.com/dapotatoman/vocal-recorder/commit/8457125))
+- **recorder/encoder:** UseExpandedBuffer code ([1b4c115](https://github.com/dapotatoman/vocal-recorder/commit/1b4c115))
+- `AudioRecorder.Events` ([b62720f](https://github.com/dapotatoman/vocal-recorder/commit/b62720f))
+- Shine encoder worker ([98ed4b4](https://github.com/dapotatoman/vocal-recorder/commit/98ed4b4))
+
+### 🏡 Chore
+
+- Upgrade deps ([0e85700](https://github.com/dapotatoman/vocal-recorder/commit/0e85700))
+- Remove unused deps ([bd271a8](https://github.com/dapotatoman/vocal-recorder/commit/bd271a8))
+- Update esling config/deps ([b8cce00](https://github.com/dapotatoman/vocal-recorder/commit/b8cce00))
+- Include sourcemaps in build ([a8d2f2a](https://github.com/dapotatoman/vocal-recorder/commit/a8d2f2a))
+- Update package.json ([95b9fd5](https://github.com/dapotatoman/vocal-recorder/commit/95b9fd5))
+- Update tests ([bb44b03](https://github.com/dapotatoman/vocal-recorder/commit/bb44b03))
+- Update tests ([d4d0ace](https://github.com/dapotatoman/vocal-recorder/commit/d4d0ace))
+- Update release script ([89d7555](https://github.com/dapotatoman/vocal-recorder/commit/89d7555))
+
+### ❤️ Contributors
+
+- Fahad ([@DaPotatoMan](http://github.com/DaPotatoMan))
+
 ## v1.3.5
 
 [compare changes](https://github.com/dapotatoman/vocal-recorder/compare/v1.3.4...v1.3.5)
