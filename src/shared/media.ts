@@ -33,14 +33,22 @@ export class StreamUtil {
   }
 }
 
-export function getOfflineAudioContext(options: OfflineAudioContextOptions) {
+export function getAudioContext(options?: AudioContextOptions) {
   try {
-    const ctx = getGlobalThis()
-    const Ref = ctx.OfflineAudioContext || ctx.AudioContext || (ctx as any).webkitAudioContext
-    return new Ref(options)
+    const window = getGlobalThis()
+    return new (window.AudioContext || (window as any).webkitAudioContext)(options)
   }
   catch (error) {
     throw new RuntimeError('AUDIO_CONTEXT_UNSUPPORTED', error)
+  }
+}
+
+export function getOfflineAudioContext(options: OfflineAudioContextOptions) {
+  try {
+    return new OfflineAudioContext(options)
+  }
+  catch {
+    return getAudioContext(options)
   }
 }
 

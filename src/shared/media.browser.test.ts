@@ -1,6 +1,6 @@
 import audioUrl from '~/tests/assets/audio-sample.mp3?url'
 import { RuntimeError } from '..'
-import { blobToBuffer, getAudioBuffer, getOfflineAudioContext, StreamUtil } from './media'
+import { blobToBuffer, getAudioBuffer, getAudioContext, getOfflineAudioContext, StreamUtil } from './media'
 
 describe('class: StreamUtil', () => {
   let stream: MediaStream
@@ -40,34 +40,38 @@ describe('class: StreamUtil', () => {
   })
 })
 
-describe('getOfflineAudioContext', () => {
-  const octx = globalThis.OfflineAudioContext
-  const ctx = globalThis.AudioContext
-  const getContext = () => getOfflineAudioContext({ length: 48000, sampleRate: 48000, numberOfChannels: 1 })
-
+describe('dom audio context', () => {
   afterEach(() => {
-    globalThis.OfflineAudioContext = octx
-    globalThis.AudioContext = ctx
+    vi.unstubAllGlobals()
   })
 
-  it('should create OfflineAudioContext', () => {
-    expect(getContext()).toBeInstanceOf(OfflineAudioContext)
+  describe('getOfflineAudioContext', () => {
+    const getContext = () => getOfflineAudioContext({ length: 48000, sampleRate: 48000, numberOfChannels: 1 })
+
+    it('should create OfflineAudioContext', () => {
+      expect(getContext()).toBeInstanceOf(OfflineAudioContext)
+    })
+
+    it('should use fallback AudioContext when OfflineAudioContext is not defined', () => {
+      vi.stubGlobal('OfflineAudioContext', undefined)
+
+      const instance = getContext()
+
+      vi.unstubAllGlobals()
+      expect(instance).not.toBeInstanceOf(OfflineAudioContext)
+      expect(instance).toBeInstanceOf(AudioContext)
+    })
   })
 
-  it('should use fallback AudioContext when OfflineAudioContext is not defined', () => {
-    // @ts-expect-error - Testing fallback
-    globalThis.OfflineAudioContext = undefined
+  describe('getAudioContext', () => {
+    it('should create AudioContext', () => {
+      expect(getAudioContext()).toBeInstanceOf(AudioContext)
+    })
 
-    expect(getContext()).toBeInstanceOf(AudioContext)
-  })
-
-  it('should throw error when AudioContext is unavailable', () => {
-    // @ts-expect-error - Testing fallback
-    globalThis.OfflineAudioContext = undefined
-    // @ts-expect-error - Testing fallback
-    globalThis.AudioContext = undefined
-
-    expect(getContext).toThrowError(RuntimeError.AUDIO_CONTEXT_UNSUPPORTED)
+    it('should throw error when AudioContext is unavailable', () => {
+      vi.stubGlobal('AudioContext', undefined)
+      expect(() => getAudioContext()).toThrowError(RuntimeError.AUDIO_CONTEXT_UNSUPPORTED)
+    })
   })
 })
 
