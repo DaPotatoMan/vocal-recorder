@@ -1,9 +1,9 @@
-import { blobToBuffer, getGlobalThis, RuntimeError } from '../shared'
+import { blobToBuffer, getWindow, RuntimeError } from '../shared'
 import { Encoder } from './index'
 import { ShineEncoder } from './worker.shine'
 
 const encoder = new ShineEncoder()
-const worker = Encoder.createEmitter(getGlobalThis())
+const worker = Encoder.createEmitter(getWindow())
 
 // Init
 worker.on(Encoder.Event.INIT, async (config) => {

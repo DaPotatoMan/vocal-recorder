@@ -1,5 +1,5 @@
 import { RuntimeError } from './core'
-import { getGlobalThis } from './utils'
+import { getWindow } from './utils'
 
 export class StreamUtil {
   static async get(options?: MediaTrackConstraints) {
@@ -35,8 +35,8 @@ export class StreamUtil {
 
 export function getAudioContext(options?: AudioContextOptions) {
   try {
-    const window = getGlobalThis()
-    return new (window.AudioContext || (window as any).webkitAudioContext)(options)
+    const window = getWindow()
+    return new (window.AudioContext || window.webkitAudioContext)(options)
   }
   catch (error) {
     throw new RuntimeError('AUDIO_CONTEXT_UNSUPPORTED', error)

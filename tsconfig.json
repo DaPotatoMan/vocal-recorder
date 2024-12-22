@@ -2,7 +2,7 @@
   "compilerOptions": {
     "target": "es2018",
     "jsx": "preserve",
-    "lib": ["ESNext", "DOM"],
+    "lib": ["ESNext", "DOM", "DOM.Iterable"],
     "useDefineForClassFields": true,
     "module": "ESNext",
     "moduleResolution": "Node",

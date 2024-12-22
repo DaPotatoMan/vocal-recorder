@@ -33,14 +33,9 @@ export class DeferredPromise<T> extends Promise<T> {
   }
 }
 
-export function getGlobalThis() {
-  try {
-    return globalThis
-  }
-  catch (error) {
-    console.error(error)
-    return window
-  }
+export function getWindow() {
+  // eslint-disable-next-line no-restricted-globals
+  return self
 }
 
 export function useAsyncQueue() {

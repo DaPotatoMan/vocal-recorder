@@ -1,3 +1,3 @@
-declare namespace globalThis {
-  const webkitAudioContext: typeof AudioContext
+interface Window {
+  webkitAudioContext?: typeof AudioContext
 }
