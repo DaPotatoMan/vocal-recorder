@@ -46,7 +46,7 @@ export class AudioRecorder {
     this.#encoder = new Encoder(this.#recorder)
 
     await this.#encoder.ready
-    this.events.emit('init')
+    this.events.emit('init', { stream })
   }
 
   #createRecorder(stream: MediaStream) {
@@ -108,7 +108,9 @@ export namespace AudioRecorder {
   export namespace Events {
     export type Map = object & {
       /** Recorder is ready to be used */
-      init: void
+      init: {
+        stream: MediaStream
+      }
 
       start: Event
       stop: Event
