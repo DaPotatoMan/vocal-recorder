@@ -31,7 +31,7 @@ export default defineConfig({
       providerOptions: {
         launch: {
           devtools: true,
-          args: ['--use-fake-ui-for-media-stream']
+          args: ['--use-fake-ui-for-media-stream', '--autoplay-policy=no-user-gesture-required']
         },
 
         page: {
