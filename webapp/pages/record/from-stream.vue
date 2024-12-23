@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 import { useRecorder } from '~/components/recorder/shared'
+import { getAudioContext } from '../../../src'
 
-// @ts-expect-error missig type
-const context = new (window.AudioContext || window.webkitAudioContext)()
+const context = getAudioContext()
 const { list, state, start: startRecord, stop } = useRecorder()
 
 const audioSrc = 'https://raw.githubusercontent.com/voxserv/audio_quality_testing_samples/refs/heads/master/orig/156550__acclivity__a-dream-within-a-dream.wav'
