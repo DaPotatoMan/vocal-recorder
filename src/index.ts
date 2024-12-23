@@ -3,6 +3,7 @@ import mitt from 'mitt'
 import { Encoder } from './encoder'
 import { RuntimeError, StreamUtil } from './shared'
 
+export * from './analyser'
 export * from './shared'
 
 export class AudioRecorder {

@@ -1,4 +1,4 @@
-import { AudioRecorder } from '../../../src'
+import { AudioRecorder, useAudioRecorderAnalyser } from '../../../src'
 
 export const useRecorderTimer = createSharedComposable(() => {
   const date = new Date(0)
@@ -21,6 +21,8 @@ export const useRecorderTimer = createSharedComposable(() => {
 
 export const useRecorder = createSharedComposable(() => {
   const recorder = new AudioRecorder()
+  const analyser = useAudioRecorderAnalyser(recorder)
+
   const state = reactive(recorder.state)
   const timer = useRecorderTimer()
 
@@ -48,5 +50,10 @@ export const useRecorder = createSharedComposable(() => {
     return { result, url }
   }
 
-  return { state, list, start, stop, timer }
+  onUnmounted(() => {
+    recorder.dispose()
+    analyser.dispose()
+  })
+
+  return { analyser, state, list, start, stop, timer }
 })

@@ -24,6 +24,8 @@ const { start, stop, state, list, timer } = useRecorder()
         <Button icon="i-mdi-stop text-red animate-bounce" class="bg-white/15 hover:bg-white/20" label="Stop" @click="stop" />
         {{ timer.formatted }}
       </template>
+
+      <RecorderAnalyser v-if="state.recording" class="ml-auto" />
     </footer>
   </Card>
 </template>
