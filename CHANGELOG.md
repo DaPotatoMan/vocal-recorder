@@ -1,6 +1,30 @@
 # Changelog
 
 
+## v2.0.1-0
+
+[compare changes](https://github.com/dapotatoman/vocal-recorder/compare/v2.0.0-0...v2.0.1-0)
+
+### 🚀 Enhancements
+
+- Expose MediaStream `stream` variable in AudioRecorder `init` event ([a0bccad](https://github.com/dapotatoman/vocal-recorder/commit/a0bccad))
+- **recorder/utils:** Add `getAudioContext` utility ([4ea181c](https://github.com/dapotatoman/vocal-recorder/commit/4ea181c))
+- **tests:** Enable playwright browser autoplay without user gesture ([73dfa0d](https://github.com/dapotatoman/vocal-recorder/commit/73dfa0d))
+- Add `useAudioRecorderAnalyser` utility ([cc1ec45](https://github.com/dapotatoman/vocal-recorder/commit/cc1ec45))
+
+### 💅 Refactors
+
+- `getWindow()` usage and global types ([1b95b72](https://github.com/dapotatoman/vocal-recorder/commit/1b95b72))
+- **webapp:** Use `getAudioContext()` ([d20ddad](https://github.com/dapotatoman/vocal-recorder/commit/d20ddad))
+
+### 🏡 Chore
+
+- Update release script ([07e20b6](https://github.com/dapotatoman/vocal-recorder/commit/07e20b6))
+
+### ❤️ Contributors
+
+- Fahad ([@DaPotatoMan](http://github.com/DaPotatoMan))
+
 ## v2.0.0-0
 
 [compare changes](https://github.com/dapotatoman/vocal-recorder/compare/v1.3.5...v2.0.0-0)
