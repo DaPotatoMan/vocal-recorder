@@ -26,7 +26,7 @@
     "lint:fix": "eslint . --fix",
     "test": "vitest",
     "prepack": "vite build",
-    "release": "npm run lint && npm run test -- --run && changelogen --release --premajor && npm publish && git push --follow-tags"
+    "release": "npm run lint && npm run test -- --run && changelogen --release --prepatch && npm publish && git push --follow-tags"
   },
   "dependencies": {
     "@toots/shine.js": "^1.0.3",
