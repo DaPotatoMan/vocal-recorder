@@ -1,3 +1,5 @@
+import mitt from 'mitt'
+
 export class DeferredPromise<T> extends Promise<T> {
   resolve: (value: T | PromiseLike<T>) => void
   reject: (reason: any) => void
@@ -48,4 +50,12 @@ export function useAsyncQueue() {
       return promise = promise.then(task)
     }
   }
+}
+
+/**
+ * Wrapper for mitt package
+ * @private
+ */
+export function useEvents<T extends Record<any, any>>() {
+  return mitt<T>()
 }

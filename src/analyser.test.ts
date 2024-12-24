@@ -1,5 +1,5 @@
 import audioUrl from '~/tests/assets/audio-sample.mp3?url'
-import { AudioRecorder, getAudioBuffer, getAudioContext, useAudioRecorderAnalyser } from '.'
+import { AudioRecorder, AudioRecorderAnalyser, getAudioBuffer, getAudioContext } from '.'
 
 async function sleep(ms: number) {
   return new Promise(resolve => setTimeout(resolve, ms))
@@ -7,7 +7,7 @@ async function sleep(ms: number) {
 
 async function prepareRecorder() {
   const recorder = new AudioRecorder()
-  const analyser = useAudioRecorderAnalyser(recorder)
+  const analyser = AudioRecorderAnalyser.create(recorder)
 
   const context = getAudioContext()
   const destination = context.createMediaStreamDestination()
@@ -41,25 +41,22 @@ async function prepareRecorder() {
   return { analyser, record, setVolume }
 }
 
-describe.concurrent('useAudioRecorderAnalyser', async () => {
+describe.concurrent('class: AudioRecorderAnalyser', async () => {
   const { record, analyser, setVolume } = await prepareRecorder()
 
   const onVolumeEvent = vi.fn()
   const onSilentEvent = vi.fn()
-  const onChangeEvent = vi.fn()
 
   analyser.events.on('volume', onVolumeEvent)
   analyser.events.on('silent', onSilentEvent)
-  analyser.events.on('change', onChangeEvent)
 
   const recorded = record(9000)
-  const options = { timeout: 11000, concurrent: true }
 
   beforeEach(() => {
     vi.clearAllMocks()
   })
 
-  it('emits silent event properly', async () => {
+  it('emits silent event properly', { timeout: 11000, concurrent: true }, async () => {
     await sleep(2500)
     expect(onSilentEvent).not.toHaveBeenCalled()
 
@@ -75,14 +72,12 @@ describe.concurrent('useAudioRecorderAnalyser', async () => {
 
     await recorded
     expect(onSilentEvent).not.toHaveBeenCalled()
-  }, options)
+  })
 
-  it('emits events properly', async () => {
+  it('emits volume properly', async () => {
     await recorded
-
     expect(onVolumeEvent).toHaveBeenCalled()
-    expect(onChangeEvent).toHaveBeenCalled()
-  }, options)
+  })
 
   it('disposes properly', async () => {
     await recorded

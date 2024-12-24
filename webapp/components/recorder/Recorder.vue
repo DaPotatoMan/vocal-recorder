@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { useRecorder } from './shared'
 
-const { start, stop, state, list, timer } = useRecorder()
+const { start, stop, togglePause, state, list, timer } = useRecorder()
 </script>
 
 <template>
@@ -20,12 +20,12 @@ const { start, stop, state, list, timer } = useRecorder()
     <footer class="p-6 gap-4 h-full flex items-center border-t-(1 solid white/5)">
       <Button v-if="state.inactive" icon="i-mdi-record text-red" class="bg-white/15 hover:bg-white/20" label="Record" @click="start" />
 
-      <template v-else-if="state.recording">
+      <template v-else-if="!state.inactive">
+        <Button :icon="state.recording ? 'i-mdi-pause' : 'i-mdi-play'" class="bg-white/15 hover:bg-white/20" @click="togglePause" />
         <Button icon="i-mdi-stop text-red animate-bounce" class="bg-white/15 hover:bg-white/20" label="Stop" @click="stop" />
         {{ timer.formatted }}
+        <RecorderAnalyser class="ml-auto" />
       </template>
-
-      <RecorderAnalyser v-if="state.recording" class="ml-auto" />
     </footer>
   </Card>
 </template>
