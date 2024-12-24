@@ -1,12 +1,13 @@
 import { AudioRecorder, AudioRecorderAnalyser } from '../../../src'
 
 export const useRecorderTimer = createSharedComposable(() => {
-  const date = new Date(0)
-
   const timer = useInterval(1000, { controls: true, immediate: false })
   const formatted = computed(() => {
-    date.setSeconds(timer.counter.value)
-    return date.toISOString().substring(14, 19)
+    const elapsed = timer.counter.value
+    const minutes = Math.floor(elapsed / 60).toString()
+    const seconds = (elapsed % 60).toString()
+
+    return `${minutes.padStart(2, '0')}:${seconds.padStart(2, '0')}`
   })
 
   return toReactive({
