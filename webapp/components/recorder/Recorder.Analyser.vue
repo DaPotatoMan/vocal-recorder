@@ -9,7 +9,7 @@ const state = reactive({
 })
 
 onMounted(() => {
-  analyser.on('change', data => Object.assign(state, data))
+  analyser.events.on('change', data => Object.assign(state, data))
 })
 </script>
 

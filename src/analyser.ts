@@ -92,12 +92,15 @@ export function useAudioRecorderAnalyser(recorder: AudioRecorder, {
       context.suspend()
   }
 
-  /** Resets audio nodes */
+  /** Resets audio nodes. But analyser is still usable */
   function reset() {
     if (audioSource) {
       audioSource.disconnect()
       audioSource = null
     }
+
+    if (context.state === 'running')
+      context.suspend()
   }
 
   /** Disposes current instance permanently */
@@ -118,8 +121,8 @@ export function useAudioRecorderAnalyser(recorder: AudioRecorder, {
   recorder.events.on('*', onRecorderStateChange)
 
   return {
-    on: events.on,
-    off: events.off,
+    events,
+    reset,
     dispose
   }
 }

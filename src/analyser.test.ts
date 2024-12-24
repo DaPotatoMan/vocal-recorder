@@ -48,9 +48,9 @@ describe.concurrent('useAudioRecorderAnalyser', async () => {
   const onSilentEvent = vi.fn()
   const onChangeEvent = vi.fn()
 
-  analyser.on('volume', onVolumeEvent)
-  analyser.on('silent', onSilentEvent)
-  analyser.on('change', onChangeEvent)
+  analyser.events.on('volume', onVolumeEvent)
+  analyser.events.on('silent', onSilentEvent)
+  analyser.events.on('change', onChangeEvent)
 
   const recorded = record(9000)
   const options = { timeout: 11000, concurrent: true }
