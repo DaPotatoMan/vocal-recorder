@@ -190,7 +190,14 @@ export namespace Encoder {
 
     function send<Key extends Event>(type: Key, data?: EventData[Key], transfer?: Transferable[]) {
       console.debug('Sending encoder event', type)
-      scope.postMessage({ type, data }, { transfer })
+
+      try {
+        scope.postMessage({ type, data }, { transfer })
+      }
+      catch (error) {
+        console.error('postMessage failed', error)
+        scope.postMessage({ type, data })
+      }
     }
 
     return Object.assign(scope, { send, on })
