@@ -1,5 +1,5 @@
 import type { AudioBlob } from '../shared'
-import { EncoderWorker } from '../encoder'
+import { Encoder } from '../encoder'
 import { getAudioContext, StreamUtil, useEvents } from '../shared'
 import PCMWorkletUrl from './processor.worker?worker&url'
 
@@ -74,11 +74,11 @@ export class RawBufferNode extends GainNode {
 }
 
 function useProcessor(context: AudioContext) {
-  let encoder: EncoderWorker
+  let encoder: Encoder
   const bufferNode = new RawBufferNode(context, data => encoder.encode(data))
 
   async function init(stream: MediaStream) {
-    encoder = new EncoderWorker(stream)
+    encoder = new Encoder(stream)
 
     await Promise.all([
       encoder.ready,
