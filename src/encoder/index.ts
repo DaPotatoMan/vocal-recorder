@@ -178,26 +178,19 @@ export namespace Encoder {
     data: EventData[T]
   }
 
-  interface WorkerLike {
-    postMessage: Worker['postMessage'] | Window['postMessage']
-    addEventListener: Worker['addEventListener']
-  }
-
-  export function createEmitter<T extends WorkerLike>(scope: T) {
+  export function createEmitter<T extends Worker | DedicatedWorkerGlobalScope>(scope: T) {
     const { emit, on } = mitt<EventData>()
 
-    scope.addEventListener('message', ({ data }) => emit(data.type, data.data))
+    scope.onmessage = ({ data }) => emit(data.type, data.data)
 
     function send<Key extends Event>(type: Key, data?: EventData[Key], transfer?: Transferable[]) {
-      console.debug('Sending encoder event', type)
+      const args: Parameters<Worker['postMessage']> = [{ type, data }]
 
-      try {
-        scope.postMessage({ type, data }, { transfer })
-      }
-      catch (error) {
-        console.error('postMessage failed', error)
-        scope.postMessage({ type, data })
-      }
+      if (transfer)
+        args.push(transfer)
+
+      console.debug('Sending encoder event', type, { args })
+      scope.postMessage(...args)
     }
 
     return Object.assign(scope, { send, on })

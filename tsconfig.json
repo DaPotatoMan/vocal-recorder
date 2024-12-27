@@ -2,7 +2,7 @@
   "compilerOptions": {
     "target": "es2018",
     "jsx": "preserve",
-    "lib": ["es2018", "DOM", "DOM.Iterable"],
+    "lib": ["es2018", "DOM", "DOM.Iterable", "WebWorker"],
     "useDefineForClassFields": true,
     "module": "ESNext",
     "moduleResolution": "Node",

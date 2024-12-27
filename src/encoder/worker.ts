@@ -3,7 +3,7 @@ import { Encoder } from './index'
 import { ShineEncoder } from './worker.shine'
 
 const encoder = new ShineEncoder()
-const worker = Encoder.createEmitter(getWindow())
+const worker = Encoder.createEmitter(getWindow() as DedicatedWorkerGlobalScope)
 
 // Init
 worker.on(Encoder.Event.INIT, async (config) => {
@@ -15,6 +15,11 @@ worker.on(Encoder.Event.INIT, async (config) => {
 worker.on(Encoder.Event.ENCODE, (data) => {
   if (data instanceof Float32Array === false)
     throw new RuntimeError('ENCODER_INVALID_INPUT_DATA')
+
+  // Create a new array if not properly transferred
+  if (data.byteLength === 0 && data.buffer.byteLength !== 0) {
+    data = new Float32Array(data.buffer, 0, data.buffer.byteLength / Float32Array.BYTES_PER_ELEMENT)
+  }
 
   encoder.encode(data)
 })
