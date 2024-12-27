@@ -6,7 +6,7 @@
     "dev": "nuxt dev --host",
     "build": "nuxt build",
     "generate": "nuxt generate",
-    "preview": "nuxt preview",
+    "preview": "pnpx serve .output/public",
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
@@ -24,6 +24,7 @@
     "@vueuse/nuxt": "12.0.0",
     "eslint": "^9.17.0",
     "nuxt": "^3.14.1592",
+    "nuxt-vite-legacy": "^2.0.0",
     "sass": "^1.83.0",
     "unocss": "^0.65.2"
   }
