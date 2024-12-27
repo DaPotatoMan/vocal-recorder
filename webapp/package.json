@@ -6,7 +6,7 @@
     "dev": "nuxt dev --host",
     "build": "nuxt build",
     "generate": "nuxt generate",
-    "preview": "pnpx serve .output/public",
+    "preview": "pnpx serve .output/public --ssl-cert ./localhost.pem --ssl-key ./localhost-key.pem",
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
