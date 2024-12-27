@@ -31,7 +31,11 @@ describe('class: AudioRecorder', () => {
     expect(result.duration).greaterThanOrEqual(4500)
   }, 10_000)
 
-  it('disposes properly', () => {
-    expect(recorder.stream?.active).toBe(false)
+  it('disposes properly', async () => {
+    expect(recorder.context.state).toBe<AudioContext['state']>('suspended')
+
+    await recorder.dispose()
+    expect(recorder.context.state).toBe<AudioContext['state']>('closed')
+    expect(recorder.state.inactive).toBe(true)
   })
 })

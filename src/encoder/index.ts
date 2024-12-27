@@ -1,6 +1,47 @@
 import mitt from 'mitt'
 import { AudioBlob, DeferredPromise, getAudioBuffer, StreamUtil, useAsyncQueue } from '../shared'
 
+export class EncoderWorker {
+  result = new DeferredPromise<AudioBlob>()
+  ready = new DeferredPromise<void>()
+  #queue = useAsyncQueue()
+
+  constructor(
+    readonly stream: MediaStream,
+    readonly config = new Encoder.Config(stream),
+    readonly worker = Encoder.createEmitter(
+      new Worker(new URL('./worker.ts', import.meta.url), { name: 'vocal-recorder/encoder', type: 'module' })
+    )
+  ) {
+    // Init
+    worker.send(Encoder.Event.INIT, config)
+
+    // Worker is ready for encoding
+    worker.on(Encoder.Event.READY, this.ready.resolve)
+
+    // Resolve audio result from worker
+    worker.on(Encoder.Event.RESULT, (buffer) => {
+      this.result.resolve(AudioBlob.parse(buffer))
+    })
+  }
+
+  encode(data: Float32Array) {
+    this.#queue.run(
+      () => this.worker.send(Encoder.Event.ENCODE, data, [data.buffer])
+    )
+  }
+
+  #dispose() {
+    this.worker.terminate()
+  }
+
+  async stop() {
+    await this.#queue.promise
+    this.worker.send(Encoder.Event.STOP)
+    return this.result.finally(() => this.#dispose())
+  }
+}
+
 export class Encoder {
   result = new DeferredPromise<AudioBlob>()
   ready = new DeferredPromise<void>()

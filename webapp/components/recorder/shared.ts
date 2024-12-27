@@ -1,4 +1,4 @@
-import { AudioRecorder, AudioRecorderAnalyser } from '../../../src'
+import { AudioRecorder, AudioRecorderAnalyser } from '../../../src/recorder'
 
 export const useRecorderTimer = createSharedComposable(() => {
   const timer = useInterval(1000, { controls: true, immediate: false })
