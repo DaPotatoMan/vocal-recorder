@@ -73,36 +73,29 @@ export class RawBufferNode extends GainNode {
   }
 }
 
-function useProcessor(context: AudioContext) {
-  let encoder: Encoder
-  const bufferNode = new RawBufferNode(context, data => encoder.encode(data))
+class AudioProcessor extends RawBufferNode {
+  encoder?: Encoder
 
-  async function init(stream: MediaStream) {
-    encoder = new Encoder(stream)
-
-    await Promise.all([
-      encoder.ready,
-      bufferNode.init(stream)
-    ])
+  constructor(context: AudioContext) {
+    super(context, data => this.encoder?.encode(data))
   }
 
-  async function stop() {
-    const blob = await encoder.stop()
-    dispose()
+  override async init(stream: MediaStream) {
+    this.encoder = new Encoder(stream)
+    await Promise.all([this.encoder.ready, super.init(stream)])
+  }
+
+  async stop() {
+    const blob = await this.encoder!.stop()
+    this.flush()
     return blob
   }
-
-  function dispose() {
-    bufferNode.flush()
-  }
-
-  return { init, stop, dispose, bufferNode }
 }
 
 export class AudioRecorder {
   events = AudioRecorder.Events.use()
   context = getAudioContext({ latencyHint: 'playback' })
-  processor = useProcessor(this.context)
+  processor = new AudioProcessor(this.context)
 
   #state = {
     current: AudioRecorder.State.Inactive,
@@ -163,7 +156,7 @@ export class AudioRecorder {
   }
 
   async dispose() {
-    this.processor.dispose()
+    this.processor.flush()
     await this.context.close()
   }
 }

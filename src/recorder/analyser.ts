@@ -71,8 +71,7 @@ export namespace AudioRecorderAnalyser {
   export function create(recorder: AudioRecorder, config?: Config) {
     const events = useEvents<Events>()
 
-    const { context } = recorder
-    const { bufferNode } = recorder.processor
+    const { context, processor } = recorder
     const analyser = context.createAnalyser()
 
     const getVolume = useVolumeMeter(analyser)
@@ -100,7 +99,7 @@ export namespace AudioRecorderAnalyser {
     })
 
     function init() {
-      bufferNode.connect(analyser)
+      processor.connect(analyser)
       processAudio()
       initialized = true
     }
@@ -110,7 +109,7 @@ export namespace AudioRecorderAnalyser {
       cancelAnimationFrame(processFrame)
 
       if (initialized)
-        bufferNode.disconnect(analyser)
+        processor.disconnect(analyser)
 
       initialized = false
     }
