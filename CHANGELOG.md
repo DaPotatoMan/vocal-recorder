@@ -1,6 +1,39 @@
 # Changelog
 
 
+## v2.0.2-0
+
+[compare changes](https://github.com/dapotatoman/vocal-recorder/compare/v2.0.1-0...v2.0.2-0)
+
+### 🚀 Enhancements
+
+- Improve `AudioRecorderAnalyser` api ([9230e31](https://github.com/dapotatoman/vocal-recorder/commit/9230e31))
+- Implement worklet based recorder ([a61183f](https://github.com/dapotatoman/vocal-recorder/commit/a61183f))
+- **webapp:** Add legacy polyfills ([610acda](https://github.com/dapotatoman/vocal-recorder/commit/610acda))
+- **webapp:** Add eruda console ([d3d237a](https://github.com/dapotatoman/vocal-recorder/commit/d3d237a))
+- **webapp:** Update preview script ([566df38](https://github.com/dapotatoman/vocal-recorder/commit/566df38))
+- **recorder:** Improve `postMessage` transfer data logic ([0932900](https://github.com/dapotatoman/vocal-recorder/commit/0932900))
+
+### 🩹 Fixes
+
+- **webapp:** UseRecorderTimer wrong formatting ([467177d](https://github.com/dapotatoman/vocal-recorder/commit/467177d))
+- **recorder:** AudioWorklet being inlined in build ([264a73b](https://github.com/dapotatoman/vocal-recorder/commit/264a73b))
+- **recorder:** Legacy `postMessage` api support ([b6354b7](https://github.com/dapotatoman/vocal-recorder/commit/b6354b7))
+
+### 💅 Refactors
+
+- UseAudioRecorderAnalyser() - Expose `reset()` method - Expose `events` variable ([da97ac5](https://github.com/dapotatoman/vocal-recorder/commit/da97ac5))
+- Remove MediaRecorder based encoder ([5177b0f](https://github.com/dapotatoman/vocal-recorder/commit/5177b0f))
+- **recorder:** AudioProcessor class ([ea1a912](https://github.com/dapotatoman/vocal-recorder/commit/ea1a912))
+
+### 🏡 Chore
+
+- Update eslint config ([e8ead4a](https://github.com/dapotatoman/vocal-recorder/commit/e8ead4a))
+
+### ❤️ Contributors
+
+- Fahad ([@DaPotatoMan](http://github.com/DaPotatoMan))
+
 ## v2.0.1-0
 
 [compare changes](https://github.com/dapotatoman/vocal-recorder/compare/v2.0.0-0...v2.0.1-0)
