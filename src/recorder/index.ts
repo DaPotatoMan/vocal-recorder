@@ -1,7 +1,6 @@
 import type { AudioBlob } from '../shared'
 import { Encoder } from '../encoder'
 import { getAudioContext, StreamUtil, useEvents } from '../shared'
-import PCMWorkletUrl from './processor.worker?worker&url'
 
 export * from './analyser'
 
@@ -53,9 +52,21 @@ export class RawBufferNode extends GainNode {
     const { context } = this
 
     if (!RawBufferNode.hasWorkletLoaded) {
-      const url = new URL(PCMWorkletUrl, import.meta.url)
-      console.debug('Loading worklet from', url.href)
+      const url = await new Promise<string>((resolve, reject) => {
+        const worker = new Worker(new URL('./processor.worker.ts', import.meta.url), { name: 'vocal-recorder/worklet', type: 'module' })
+        worker.onmessage = (event) => {
+          if (event.data.url) {
+            worker.terminate()
+            resolve(event.data.url)
+          }
 
+          else {
+            reject(event.data.error || 'Failed to get worklet url')
+          }
+        }
+      })
+
+      console.debug('Loading worklet from', url)
       await context.audioWorklet.addModule(url)
       RawBufferNode.hasWorkletLoaded = true
     }

@@ -6,6 +6,9 @@ useHead({
       async: true,
       defer: true,
       onload() {
+        if (import.meta.env.DEV)
+          return
+
         const appendConsole = confirm('Enable ui based console?')
 
         if (appendConsole)
