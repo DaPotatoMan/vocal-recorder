@@ -30,7 +30,8 @@
   },
   "dependencies": {
     "@toots/shine.js": "^1.0.3",
-    "mitt": "^3.0.1"
+    "mitt": "^3.0.1",
+    "wasm-media-encoders": "^0.7.0"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^3.12.0",
