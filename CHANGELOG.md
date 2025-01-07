@@ -1,6 +1,27 @@
 # Changelog
 
 
+## v2.0.4-0
+
+[compare changes](https://github.com/dapotatoman/vocal-recorder/compare/v2.0.2-0...v2.0.4-0)
+
+### 🚀 Enhancements
+
+- **recorder:** Improve audio worklet loading logic in bundled package ([86949af](https://github.com/dapotatoman/vocal-recorder/commit/86949af))
+- Add optional `LameEncoder` ([b5b0909](https://github.com/dapotatoman/vocal-recorder/commit/b5b0909))
+
+### 🩹 Fixes
+
+- Set minimum sample rate of `44100` ([ec74dae](https://github.com/dapotatoman/vocal-recorder/commit/ec74dae))
+
+### 🏡 Chore
+
+- Bump version ([52aaf85](https://github.com/dapotatoman/vocal-recorder/commit/52aaf85))
+
+### ❤️ Contributors
+
+- Fahad ([@DaPotatoMan](http://github.com/DaPotatoMan))
+
 ## v2.0.3-0
 
 [compare changes](https://github.com/dapotatoman/vocal-recorder/compare/v2.0.2-0...v2.0.3-0)
