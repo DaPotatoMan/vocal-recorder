@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v2.0.3-0
+
+[compare changes](https://github.com/dapotatoman/vocal-recorder/compare/v2.0.2-0...v2.0.3-0)
+
+### 🚀 Enhancements
+
+- **recorder:** Improve audio worklet loading logic in bundled package ([86949af](https://github.com/dapotatoman/vocal-recorder/commit/86949af))
+
+### ❤️ Contributors
+
+- Fahad ([@DaPotatoMan](http://github.com/DaPotatoMan))
+
 ## v2.0.2-0
 
 [compare changes](https://github.com/dapotatoman/vocal-recorder/compare/v2.0.1-0...v2.0.2-0)
