@@ -127,7 +127,12 @@ export class AudioRecorder {
     // Get stream
     const stream = config.stream instanceof MediaStream
       ? config.stream
-      : await StreamUtil.get(config.stream)
+      : await StreamUtil.get(config.stream ?? {
+        sampleRate: {
+          min: 44100,
+          ideal: 48000
+        }
+      })
 
     await this.processor.init(stream)
     this.events.emit('init', { stream })
