@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v2.0.5-0
+
+[compare changes](https://github.com/dapotatoman/vocal-recorder/compare/v2.0.4-0...v2.0.5-0)
+
+### 🩹 Fixes
+
+- Ssr issue caused by extending dom api in global scope ([4cebfa9](https://github.com/dapotatoman/vocal-recorder/commit/4cebfa9))
+
+### ❤️ Contributors
+
+- Fahad ([@DaPotatoMan](http://github.com/DaPotatoMan))
+
 ## v2.0.4-0
 
 [compare changes](https://github.com/dapotatoman/vocal-recorder/compare/v2.0.2-0...v2.0.4-0)
