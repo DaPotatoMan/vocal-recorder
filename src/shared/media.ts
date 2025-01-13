@@ -18,18 +18,28 @@ export class StreamUtil {
     return stream.getAudioTracks()[0].getSettings()
   }
 
+  static getCapabilities(stream: MediaStream) {
+    return stream.getAudioTracks()[0].getCapabilities()
+  }
+
   static isValid(stream: MediaStream) {
     const tracks = stream.getAudioTracks()
     return stream.active && tracks.length > 0 && tracks.some(e => e.enabled)
   }
 
   static dispose(stream: MediaStream) {
-    stream.getTracks().forEach((entry) => {
-      entry.stop()
-      stream.removeTrack(entry)
-    })
+    for (const track of stream.getTracks()) {
+      track.stop()
+      stream.removeTrack(track)
+    }
 
+    stream.dispatchEvent(new Event('dispose'))
     return stream.active
+  }
+
+  /** Fires when `StreamUtil.dispose` is called on the given stream */
+  static onDispose(stream: MediaStream, callback: EventListener) {
+    stream.addEventListener('dispose', callback)
   }
 }
 

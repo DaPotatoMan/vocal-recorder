@@ -6,7 +6,7 @@ export * from './analyser'
 
 export class AudioRecorder {
   events = AudioRecorder.Events.use()
-  context = getAudioContext({ latencyHint: 'playback' })
+  context = getAudioContext({ latencyHint: 'playback', sampleRate: 48000 })
   processor = createAudioProcessor(this.context)
 
   #state = {
@@ -28,12 +28,7 @@ export class AudioRecorder {
     // Get stream
     const stream = config.stream instanceof MediaStream
       ? config.stream
-      : await StreamUtil.get(config.stream ?? {
-        sampleRate: {
-          min: 44100,
-          ideal: 48000
-        }
-      })
+      : await StreamUtil.get(config.stream)
 
     await this.processor.init(stream)
     this.events.emit('init', { stream })

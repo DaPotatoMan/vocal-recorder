@@ -36,9 +36,15 @@ export const useRecorder = createSharedComposable(() => {
     Object.assign(state, recorder.state)
   })
 
-  async function start(config?: AudioRecorder.Config) {
+  async function start() {
     timer.start()
-    await recorder.init(config)
+
+    await recorder.init({
+      stream: {
+        sampleRate: 16000
+      }
+    })
+
     await recorder.start()
   }
 

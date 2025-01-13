@@ -1,6 +1,25 @@
 import { Encoder } from '../encoder'
 import { StreamUtil } from '../shared'
 
+export function resampleStream(context: AudioContext, stream: MediaStream) {
+  let destination = context.createMediaStreamDestination()
+  const output = destination.stream
+
+  let source = context.createMediaStreamSource(stream)
+  source.connect(destination)
+
+  StreamUtil.onDispose(output, () => {
+    StreamUtil.dispose(stream)
+    source.disconnect()
+    destination.disconnect()
+
+    // @ts-expect-error dispose
+    source = destination = undefined
+  })
+
+  return output
+}
+
 export function createAudioProcessor(context: AudioContext) {
   /** Provides PCM data in {@link Float32Array} format */
   class RawBufferNode extends GainNode {
@@ -89,7 +108,8 @@ export function createAudioProcessor(context: AudioContext) {
       super(context, data => this.encoder?.encode(data))
     }
 
-    override async init(stream: MediaStream) {
+    override async init(input: MediaStream) {
+      const stream = resampleStream(context, input)
       this.encoder = new Encoder(stream)
       await Promise.all([this.encoder.ready, super.init(stream)])
     }
