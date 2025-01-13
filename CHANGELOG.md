@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v2.0.6-0
+
+[compare changes](https://github.com/dapotatoman/vocal-recorder/compare/v2.0.5-0...v2.0.6-0)
+
+### 🚀 Enhancements
+
+- **recorder:** Auto resample source stream ([25ecf99](https://github.com/dapotatoman/vocal-recorder/commit/25ecf99))
+
+### ❤️ Contributors
+
+- Fahad ([@DaPotatoMan](http://github.com/DaPotatoMan))
+
 ## v2.0.5-0
 
 [compare changes](https://github.com/dapotatoman/vocal-recorder/compare/v2.0.4-0...v2.0.5-0)
