@@ -19,12 +19,12 @@
     "@iconify/json": "^2.2.294",
     "@nuxt/eslint": "0.7.5",
     "@nuxt/fonts": "0.10.3",
-    "@unocss/nuxt": "0.65.4",
-    "@unocss/reset": "^0.65.4",
+    "@unocss/nuxt": "65.4.2",
+    "@unocss/reset": "^65.4.2",
     "@vueuse/nuxt": "12.4.0",
     "eslint": "^9.18.0",
     "nuxt": "^3.15.1",
     "sass": "^1.83.1",
-    "unocss": "^0.65.4"
+    "unocss": "^65.4.2"
   }
 }
