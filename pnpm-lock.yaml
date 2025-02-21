@@ -58,8 +58,8 @@ importers:
         specifier: ^12.6.1
         version: 12.6.1(typescript@5.7.3)
       reka-ui:
-        specifier: 1.0.0-alpha.10
-        version: 1.0.0-alpha.10(typescript@5.7.3)(vue@3.5.13(typescript@5.7.3))
+        specifier: 2.0.0
+        version: 2.0.0(typescript@5.7.3)(vue@3.5.13(typescript@5.7.3))
       vue:
         specifier: latest
         version: 3.5.13(typescript@5.7.3)
@@ -2081,9 +2081,6 @@ packages:
     resolution: {integrity: sha512-QGLha38pMT8LQMlqMFzdtNMtGT3BNJQcb/tvufEdfvhy7nxoRV8m9mGE2cqrsV6xHQ3yo+mbaGKFe7OxG0w88w==}
     peerDependencies:
       nuxt: ^3.0.0
-
-  '@vueuse/shared@12.5.0':
-    resolution: {integrity: sha512-vMpcL1lStUU6O+kdj6YdHDixh0odjPAUM15uJ9f7MY781jcYkIwFA4iv2EfoIPO6vBmvutI1HxxAwmf0cx5ISQ==}
 
   '@vueuse/shared@12.6.1':
     resolution: {integrity: sha512-ukTb2na19KT1/YVjj4CYBDOgiV/xmsSJRL6TcKeiz2db+P5bT3I0OJxy38eRR3WSN8CmSnt7MdVJ16vX6VZFxg==}
@@ -4671,8 +4668,8 @@ packages:
     resolution: {integrity: sha512-qx+xQGZVsy55CH0a1hiVwHmqjLryfh7wQyF5HO07XJ9f7dQMY/gPQHhlyDkIzJKC+x2fUCpCcUODUUUFrm7SHA==}
     hasBin: true
 
-  reka-ui@1.0.0-alpha.10:
-    resolution: {integrity: sha512-fQ+7LLKlZ9dTFOMsSmefRBDLEnFdOcstWW3ZIaV7000d8YYsteYZOY86WWRi7k64FuWn8pMIE8Ya3Aq0pkc7lw==}
+  reka-ui@2.0.0:
+    resolution: {integrity: sha512-/1amDDvTnDIkSFbTZnUkiFWkxlc/UEe0pZsgvz3nDI15R9+yspQv/gIbM62Mo9LALK6A76NsgMNlXie04kv7PA==}
     peerDependencies:
       vue: '>= 3.2.0'
 
@@ -8208,12 +8205,6 @@ snapshots:
       - supports-color
       - typescript
 
-  '@vueuse/shared@12.5.0(typescript@5.7.3)':
-    dependencies:
-      vue: 3.5.13(typescript@5.7.3)
-    transitivePeerDependencies:
-      - typescript
-
   '@vueuse/shared@12.6.1(typescript@5.7.3)':
     dependencies:
       vue: 3.5.13(typescript@5.7.3)
@@ -11341,7 +11332,7 @@ snapshots:
     dependencies:
       jsesc: 0.5.0
 
-  reka-ui@1.0.0-alpha.10(typescript@5.7.3)(vue@3.5.13(typescript@5.7.3)):
+  reka-ui@2.0.0(typescript@5.7.3)(vue@3.5.13(typescript@5.7.3)):
     dependencies:
       '@floating-ui/dom': 1.6.13
       '@floating-ui/vue': 1.1.6(vue@3.5.13(typescript@5.7.3))
@@ -11349,7 +11340,7 @@ snapshots:
       '@internationalized/number': 3.6.0
       '@tanstack/vue-virtual': 3.13.0(vue@3.5.13(typescript@5.7.3))
       '@vueuse/core': 12.6.1(typescript@5.7.3)
-      '@vueuse/shared': 12.5.0(typescript@5.7.3)
+      '@vueuse/shared': 12.6.1(typescript@5.7.3)
       aria-hidden: 1.2.4
       defu: 6.1.4
       ohash: 1.1.4
