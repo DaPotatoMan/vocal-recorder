@@ -26,7 +26,7 @@ importers:
         version: 22.13.4
       '@vitest/browser':
         specifier: ^2.1.9
-        version: 2.1.9(@types/node@22.13.4)(playwright@1.50.1)(typescript@5.7.3)(vite@5.4.14(@types/node@22.13.4)(sass@1.85.0)(terser@5.38.1))(vitest@2.1.9)
+        version: 2.1.9(@types/node@22.13.4)(playwright@1.50.1)(typescript@5.7.3)(vite@6.0.11(@types/node@22.13.4)(jiti@2.4.2)(sass@1.85.0)(terser@5.38.1)(tsx@4.19.2)(yaml@2.7.0))(vitest@2.1.9)
       '@vitest/coverage-v8':
         specifier: 2.1.9
         version: 2.1.9(@vitest/browser@2.1.9)(vitest@2.1.9)
@@ -43,11 +43,11 @@ importers:
         specifier: ^5.7.3
         version: 5.7.3
       vite:
-        specifier: ^5.4.14
-        version: 5.4.14(@types/node@22.13.4)(sass@1.85.0)(terser@5.38.1)
+        specifier: ^6.0.0
+        version: 6.0.11(@types/node@22.13.4)(jiti@2.4.2)(sass@1.85.0)(terser@5.38.1)(tsx@4.19.2)(yaml@2.7.0)
       vite-plugin-dts:
         specifier: ^4.5.0
-        version: 4.5.0(@types/node@22.13.4)(rollup@4.34.0)(typescript@5.7.3)(vite@5.4.14(@types/node@22.13.4)(sass@1.85.0)(terser@5.38.1))
+        version: 4.5.0(@types/node@22.13.4)(rollup@4.34.0)(typescript@5.7.3)(vite@6.0.11(@types/node@22.13.4)(jiti@2.4.2)(sass@1.85.0)(terser@5.38.1)(tsx@4.19.2)(yaml@2.7.0))
       vitest:
         specifier: ^2.1.9
         version: 2.1.9(@types/node@22.13.4)(@vitest/browser@2.1.9)(msw@2.7.0(@types/node@22.13.4)(typescript@5.7.3))(sass@1.85.0)(terser@5.38.1)
@@ -7119,7 +7119,7 @@ snapshots:
       unenv: 1.10.0
       unplugin: 2.1.2
       vite: 6.0.11(@types/node@22.13.4)(jiti@2.4.2)(sass@1.85.0)(terser@5.38.1)(tsx@4.19.2)(yaml@2.7.0)
-      vite-node: 3.0.4(@types/node@22.13.4)(sass@1.85.0)(terser@5.38.1)
+      vite-node: 3.0.4(@types/node@22.13.4)(jiti@2.4.2)(sass@1.85.0)(terser@5.38.1)(tsx@4.19.2)(yaml@2.7.0)
       vite-plugin-checker: 0.8.0(eslint@9.20.1(jiti@2.4.2))(optionator@0.9.4)(typescript@5.7.3)(vite@6.0.11(@types/node@22.13.4)(jiti@2.4.2)(sass@1.85.0)(terser@5.38.1)(tsx@4.19.2)(yaml@2.7.0))
       vue: 3.5.13(typescript@5.7.3)
       vue-bundle-renderer: 2.1.1
@@ -7940,11 +7940,11 @@ snapshots:
       vite: 6.0.11(@types/node@22.13.4)(jiti@2.4.2)(sass@1.85.0)(terser@5.38.1)(tsx@4.19.2)(yaml@2.7.0)
       vue: 3.5.13(typescript@5.7.3)
 
-  '@vitest/browser@2.1.9(@types/node@22.13.4)(playwright@1.50.1)(typescript@5.7.3)(vite@5.4.14(@types/node@22.13.4)(sass@1.85.0)(terser@5.38.1))(vitest@2.1.9)':
+  '@vitest/browser@2.1.9(@types/node@22.13.4)(playwright@1.50.1)(typescript@5.7.3)(vite@6.0.11(@types/node@22.13.4)(jiti@2.4.2)(sass@1.85.0)(terser@5.38.1)(tsx@4.19.2)(yaml@2.7.0))(vitest@2.1.9)':
     dependencies:
       '@testing-library/dom': 10.4.0
       '@testing-library/user-event': 14.6.1(@testing-library/dom@10.4.0)
-      '@vitest/mocker': 2.1.9(msw@2.7.0(@types/node@22.13.4)(typescript@5.7.3))(vite@5.4.14(@types/node@22.13.4)(sass@1.85.0)(terser@5.38.1))
+      '@vitest/mocker': 2.1.9(msw@2.7.0(@types/node@22.13.4)(typescript@5.7.3))(vite@6.0.11(@types/node@22.13.4)(jiti@2.4.2)(sass@1.85.0)(terser@5.38.1)(tsx@4.19.2)(yaml@2.7.0))
       '@vitest/utils': 2.1.9
       magic-string: 0.30.17
       msw: 2.7.0(@types/node@22.13.4)(typescript@5.7.3)
@@ -7977,7 +7977,7 @@ snapshots:
       tinyrainbow: 1.2.0
       vitest: 2.1.9(@types/node@22.13.4)(@vitest/browser@2.1.9)(msw@2.7.0(@types/node@22.13.4)(typescript@5.7.3))(sass@1.85.0)(terser@5.38.1)
     optionalDependencies:
-      '@vitest/browser': 2.1.9(@types/node@22.13.4)(playwright@1.50.1)(typescript@5.7.3)(vite@5.4.14(@types/node@22.13.4)(sass@1.85.0)(terser@5.38.1))(vitest@2.1.9)
+      '@vitest/browser': 2.1.9(@types/node@22.13.4)(playwright@1.50.1)(typescript@5.7.3)(vite@6.0.11(@types/node@22.13.4)(jiti@2.4.2)(sass@1.85.0)(terser@5.38.1)(tsx@4.19.2)(yaml@2.7.0))(vitest@2.1.9)
     transitivePeerDependencies:
       - supports-color
 
@@ -8004,6 +8004,15 @@ snapshots:
     optionalDependencies:
       msw: 2.7.0(@types/node@22.13.4)(typescript@5.7.3)
       vite: 5.4.14(@types/node@22.13.4)(sass@1.85.0)(terser@5.38.1)
+
+  '@vitest/mocker@2.1.9(msw@2.7.0(@types/node@22.13.4)(typescript@5.7.3))(vite@6.0.11(@types/node@22.13.4)(jiti@2.4.2)(sass@1.85.0)(terser@5.38.1)(tsx@4.19.2)(yaml@2.7.0))':
+    dependencies:
+      '@vitest/spy': 2.1.9
+      estree-walker: 3.0.3
+      magic-string: 0.30.17
+    optionalDependencies:
+      msw: 2.7.0(@types/node@22.13.4)(typescript@5.7.3)
+      vite: 6.0.11(@types/node@22.13.4)(jiti@2.4.2)(sass@1.85.0)(terser@5.38.1)(tsx@4.19.2)(yaml@2.7.0)
 
   '@vitest/pretty-format@2.1.9':
     dependencies:
@@ -12141,15 +12150,16 @@ snapshots:
       - supports-color
       - terser
 
-  vite-node@3.0.4(@types/node@22.13.4)(sass@1.85.0)(terser@5.38.1):
+  vite-node@3.0.4(@types/node@22.13.4)(jiti@2.4.2)(sass@1.85.0)(terser@5.38.1)(tsx@4.19.2)(yaml@2.7.0):
     dependencies:
       cac: 6.7.14
       debug: 4.4.0(supports-color@9.4.0)
       es-module-lexer: 1.6.0
       pathe: 2.0.2
-      vite: 5.4.14(@types/node@22.13.4)(sass@1.85.0)(terser@5.38.1)
+      vite: 6.0.11(@types/node@22.13.4)(jiti@2.4.2)(sass@1.85.0)(terser@5.38.1)(tsx@4.19.2)(yaml@2.7.0)
     transitivePeerDependencies:
       - '@types/node'
+      - jiti
       - less
       - lightningcss
       - sass
@@ -12158,6 +12168,8 @@ snapshots:
       - sugarss
       - supports-color
       - terser
+      - tsx
+      - yaml
 
   vite-plugin-checker@0.8.0(eslint@9.20.1(jiti@2.4.2))(optionator@0.9.4)(typescript@5.7.3)(vite@6.0.11(@types/node@22.13.4)(jiti@2.4.2)(sass@1.85.0)(terser@5.38.1)(tsx@4.19.2)(yaml@2.7.0)):
     dependencies:
@@ -12181,7 +12193,7 @@ snapshots:
       optionator: 0.9.4
       typescript: 5.7.3
 
-  vite-plugin-dts@4.5.0(@types/node@22.13.4)(rollup@4.34.0)(typescript@5.7.3)(vite@5.4.14(@types/node@22.13.4)(sass@1.85.0)(terser@5.38.1)):
+  vite-plugin-dts@4.5.0(@types/node@22.13.4)(rollup@4.34.0)(typescript@5.7.3)(vite@6.0.11(@types/node@22.13.4)(jiti@2.4.2)(sass@1.85.0)(terser@5.38.1)(tsx@4.19.2)(yaml@2.7.0)):
     dependencies:
       '@microsoft/api-extractor': 7.49.1(@types/node@22.13.4)
       '@rollup/pluginutils': 5.1.4(rollup@4.34.0)
@@ -12194,7 +12206,7 @@ snapshots:
       magic-string: 0.30.17
       typescript: 5.7.3
     optionalDependencies:
-      vite: 5.4.14(@types/node@22.13.4)(sass@1.85.0)(terser@5.38.1)
+      vite: 6.0.11(@types/node@22.13.4)(jiti@2.4.2)(sass@1.85.0)(terser@5.38.1)(tsx@4.19.2)(yaml@2.7.0)
     transitivePeerDependencies:
       - '@types/node'
       - rollup
@@ -12282,7 +12294,7 @@ snapshots:
       why-is-node-running: 2.3.0
     optionalDependencies:
       '@types/node': 22.13.4
-      '@vitest/browser': 2.1.9(@types/node@22.13.4)(playwright@1.50.1)(typescript@5.7.3)(vite@5.4.14(@types/node@22.13.4)(sass@1.85.0)(terser@5.38.1))(vitest@2.1.9)
+      '@vitest/browser': 2.1.9(@types/node@22.13.4)(playwright@1.50.1)(typescript@5.7.3)(vite@6.0.11(@types/node@22.13.4)(jiti@2.4.2)(sass@1.85.0)(terser@5.38.1)(tsx@4.19.2)(yaml@2.7.0))(vitest@2.1.9)
     transitivePeerDependencies:
       - less
       - lightningcss
