@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@vueuse/core": "^12.6.1",
-    "reka-ui": "1.0.0-alpha.10",
+    "reka-ui": "2.2.1",
     "vue": "latest",
     "vue-router": "latest"
   },
