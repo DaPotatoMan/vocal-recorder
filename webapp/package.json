@@ -10,7 +10,7 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
-    "@vueuse/core": "^12.6.1",
+    "@vueuse/core": "^13.2.0",
     "reka-ui": "1.0.0-alpha.10",
     "vue": "latest",
     "vue-router": "latest"
@@ -21,7 +21,7 @@
     "@nuxt/fonts": "0.10.3",
     "@unocss/nuxt": "0.65.4",
     "@unocss/reset": "^0.65.4",
-    "@vueuse/nuxt": "12.6.1",
+    "@vueuse/nuxt": "13.2.0",
     "eslint": "^9.20.1",
     "nuxt": "^3.15.4",
     "sass": "^1.85.0",
