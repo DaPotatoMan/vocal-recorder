@@ -94,7 +94,9 @@ export namespace Encoder {
       if (transfer)
         args.push(transfer)
 
-      console.debug('Sending encoder event', type, { args })
+      if (import.meta.env.MODE !== 'test')
+        console.debug('Sending encoder event', type, { args })
+
       scope.postMessage(...args)
     }
 
