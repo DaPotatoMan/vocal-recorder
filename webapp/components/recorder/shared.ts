@@ -1,4 +1,4 @@
-import { AudioRecorder, AudioRecorderAnalyser } from '../../../src'
+import { AudioRecorder, AudioRecorderAnalyser } from '../../../src/recorder'
 
 export const useRecorderTimer = createSharedComposable(() => {
   const timer = useInterval(1000, { controls: true, immediate: false })
@@ -23,7 +23,7 @@ export const useRecorderTimer = createSharedComposable(() => {
 })
 
 export const useRecorder = createSharedComposable(() => {
-  const recorder = new AudioRecorder()
+  const recorder = new AudioRecorder({ beep: true })
   const analyser = AudioRecorderAnalyser.create(recorder)
 
   const state = reactive(recorder.state)
@@ -36,9 +36,15 @@ export const useRecorder = createSharedComposable(() => {
     Object.assign(state, recorder.state)
   })
 
-  async function start(config?: AudioRecorder.Config) {
+  async function start() {
     timer.start()
-    await recorder.init(config)
+
+    await recorder.init({
+      stream: {
+        sampleRate: 16000
+      }
+    })
+
     await recorder.start()
   }
 

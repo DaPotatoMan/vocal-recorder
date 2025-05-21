@@ -14,14 +14,6 @@ export default defineConfig({
       entry: 'src/index.ts',
       name: 'VocalRecorder',
       fileName: 'index'
-    },
-    rollupOptions: {
-      external: ['vue'],
-      output: {
-        globals: {
-          vue: 'Vue'
-        }
-      }
     }
   },
 

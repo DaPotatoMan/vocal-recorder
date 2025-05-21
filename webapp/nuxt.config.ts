@@ -10,7 +10,8 @@ export default defineNuxtConfig({
     '@nuxt/fonts',
     '@vueuse/nuxt',
     '@unocss/nuxt',
-    'reka-ui/nuxt'
+    'reka-ui/nuxt',
+    'nuxt-vite-legacy'
   ],
 
   css: ['@unocss/reset/tailwind.css'],
@@ -19,5 +20,10 @@ export default defineNuxtConfig({
     config: {
       standalone: false
     }
+  },
+
+  legacy: {
+    targets: ['chrome >= 49', 'edge >= 79', 'safari >= 11.1', 'firefox >= 67'],
+    modernPolyfills: true
   }
 })

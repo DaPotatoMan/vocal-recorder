@@ -1,9 +1,13 @@
 import audioUrl from '~/tests/assets/audio-sample.mp3?url'
 import { RuntimeError } from '..'
-import { blobToBuffer, getAudioBuffer, getAudioContext, getOfflineAudioContext, StreamUtil } from './media'
+import { blobToBuffer, getAudioBuffer, getAudioContext, getOfflineAudioContext, playBeep, StreamUtil } from './media'
 
 describe('class: StreamUtil', () => {
   let stream: MediaStream
+
+  afterEach(() => {
+    vi.unstubAllGlobals()
+  })
 
   it('can get media stream', async () => {
     stream = await StreamUtil.get()
@@ -12,10 +16,14 @@ describe('class: StreamUtil', () => {
 
   it('can get settings from media stream', () => {
     const settings = StreamUtil.getSettings(stream)
+    const capabilites = StreamUtil.getCapabilities(stream)
 
     expect(settings.deviceId).not.toBeFalsy()
     expect(settings.groupId).not.toBeFalsy()
     expect(settings.sampleRate).toBeGreaterThan(44100)
+
+    expect(Object.keys(settings)).toMatchSnapshot()
+    expect(Object.keys(capabilites)).toMatchSnapshot()
   })
 
   it('can validate active media stream', () => {
@@ -29,14 +37,22 @@ describe('class: StreamUtil', () => {
     expect(StreamUtil.isValid(stream)).toBe(false)
   })
 
+  it('can listen to dispose event', () => {
+    const callback = vi.fn()
+    StreamUtil.onDispose(stream, callback)
+
+    StreamUtil.dispose(stream)
+    expect(callback).toHaveBeenCalled()
+  })
+
   it('should throw error when getUserMedia is unavailable', async () => {
-    const ref = navigator.mediaDevices.getUserMedia
-    navigator.mediaDevices.getUserMedia = undefined as any
+    vi.stubGlobal('navigator', {
+      mediaDevices: {
+        getUserMedia: undefined
+      }
+    })
 
     await expect(StreamUtil.get).rejects.toThrowError(RuntimeError.GETUSERMEDIA_UNSUPPORTED)
-
-    // Restore
-    navigator.mediaDevices.getUserMedia = ref
   })
 })
 
@@ -115,5 +131,11 @@ describe('getAudioBuffer', async () => {
 
     // Ensure original buffer is not mutated
     expect(audioBuffer.byteLength).toBeGreaterThan(0)
+  })
+})
+
+describe('playBeep', () => {
+  it('can play beep', { timeout: 3000 }, () => {
+    expect(playBeep()).resolves.not.toThrow()
   })
 })

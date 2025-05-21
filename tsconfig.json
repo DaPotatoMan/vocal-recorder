@@ -2,14 +2,16 @@
   "compilerOptions": {
     "target": "es2018",
     "jsx": "preserve",
-    "lib": ["ESNext", "DOM", "DOM.Iterable"],
+    "lib": ["es2018", "DOM", "DOM.Iterable", "WebWorker"],
     "useDefineForClassFields": true,
     "module": "ESNext",
     "moduleResolution": "Node",
     "resolveJsonModule": true,
     "types": [
       "vite/client",
-      "vitest/globals"
+      "vitest/globals",
+      "vitest/importMeta",
+      "audioworklet"
     ],
     "strict": true,
     "declaration": true,

@@ -7,6 +7,7 @@ export default antfu(
     vue: true,
     rules: {
       'no-console': 'off',
+      'no-alert': 'warn',
       'style/comma-dangle': ['error', 'never'],
       'ts/no-namespace': 'off'
     }

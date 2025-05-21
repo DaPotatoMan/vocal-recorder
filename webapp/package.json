@@ -3,28 +3,29 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "dev": "nuxt dev",
+    "dev": "nuxt dev --host",
     "build": "nuxt build",
     "generate": "nuxt generate",
-    "preview": "nuxt preview",
+    "preview": "pnpx serve .output/public --ssl-cert ./localhost.pem --ssl-key ./localhost-key.pem",
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
-    "@vueuse/core": "^12.6.1",
-    "reka-ui": "1.0.0-alpha.10",
-    "vue": "latest",
-    "vue-router": "latest"
+    "@vueuse/core": "^13.2.0",
+    "reka-ui": "2.2.1",
+    "vue": "^3.5.14",
+    "vue-router": "^4.5.1"
   },
   "devDependencies": {
-    "@iconify/json": "^2.2.306",
-    "@nuxt/eslint": "0.7.6",
-    "@nuxt/fonts": "0.10.3",
-    "@unocss/nuxt": "0.65.4",
-    "@unocss/reset": "^0.65.4",
-    "@vueuse/nuxt": "12.6.1",
-    "eslint": "^9.20.1",
-    "nuxt": "^3.15.4",
-    "sass": "^1.85.0",
-    "unocss": "^0.65.4"
+    "@iconify/json": "^2.2.340",
+    "@nuxt/eslint": "1.4.1",
+    "@nuxt/fonts": "0.11.4",
+    "@unocss/nuxt": "0.65.2",
+    "@unocss/reset": "^0.65.2",
+    "@vueuse/nuxt": "13.2.0",
+    "eslint": "^9.27.0",
+    "nuxt": "^3.17.4",
+    "nuxt-vite-legacy": "^2.0.0",
+    "sass": "^1.89.0",
+    "unocss": "^0.65.2"
   }
 }

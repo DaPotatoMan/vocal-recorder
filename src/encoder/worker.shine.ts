@@ -2,7 +2,7 @@ import type { Encoder } from '.'
 import { Shine, StereoMode } from '@toots/shine.js'
 import { RuntimeError } from '../shared'
 
-function useExpandedBuffer(initialSize = 1024 * 1024) {
+export function useExpandedBuffer(initialSize = 1024 * 1024) {
   let outBuffer = new Uint8Array(initialSize)
   let offset = 0
 

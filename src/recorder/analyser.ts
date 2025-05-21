@@ -1,5 +1,5 @@
 import type { AudioRecorder } from '.'
-import { getAudioContext, useEvents } from './shared'
+import { useEvents } from '../shared'
 
 function useVolumeMeter(analyser: AnalyserNode) {
   const analyserData = new Uint8Array(analyser.fftSize)
@@ -70,14 +70,15 @@ export namespace AudioRecorderAnalyser {
   /** Creates analyser for {@link AudioRecorder} */
   export function create(recorder: AudioRecorder, config?: Config) {
     const events = useEvents<Events>()
-    const context = getAudioContext()
+
+    const { context, processor } = recorder
     const analyser = context.createAnalyser()
 
     const getVolume = useVolumeMeter(analyser)
     const detectSilence = useSilenceDetector(config)
 
-    let audioSource: MediaStreamAudioSourceNode | null = null
     let processFrame: number
+    let initialized = false
 
     function processAudio() {
       // Request next frame
@@ -93,57 +94,34 @@ export namespace AudioRecorderAnalyser {
         events.emit('silent', silence.silent)
     }
 
-    function onRecorderStateChange(event: AudioRecorder.Events.Keys) {
-      const isRecording = recorder.state.recording
+    context.addEventListener('statechange', () => {
+      context.state === 'running' ? init() : reset()
+    })
 
-      // Init audio source
-      if (event === 'init') {
-        audioSource = context.createMediaStreamSource(recorder.stream!)
-        audioSource.connect(analyser)
-      }
-
-      else if (event === 'stop') {
-        reset()
-      }
-
-      // Resume audio context when recording
-      if (isRecording && context.state === 'suspended') {
-        context.resume()
-        processAudio()
-      }
-
-      // Pause audio context when not recording
-      else if (!isRecording && context.state === 'running') {
-        cancelAnimationFrame(processFrame)
-        context.suspend()
-      }
+    function init() {
+      processor.connect(analyser)
+      processAudio()
+      initialized = true
     }
 
     /** Resets audio nodes. But analyser is still usable */
     function reset() {
       cancelAnimationFrame(processFrame)
 
-      if (audioSource) {
-        audioSource.disconnect()
-        audioSource = null
-      }
+      if (initialized)
+        processor.disconnect(analyser)
 
-      if (context.state === 'running')
-        context.suspend()
+      initialized = false
     }
 
     /** Disposes current instance permanently */
     function dispose() {
       reset()
       analyser.disconnect()
-      context.close()
 
       // Remove all events
       events.all.clear()
-      recorder.events.off('*', onRecorderStateChange)
     }
-
-    recorder.events.on('*', onRecorderStateChange)
 
     return {
       events,

@@ -1,3 +1,24 @@
+<script lang="ts" setup>
+useHead({
+  script: [
+    {
+      src: 'https://cdn.jsdelivr.net/npm/eruda',
+      async: true,
+      defer: true,
+      onload() {
+        if (import.meta.env.DEV)
+          return
+
+        const appendConsole = confirm('Enable ui based console?')
+
+        if (appendConsole)
+          window.eruda.init()
+      }
+    }
+  ]
+})
+</script>
+
 <template>
   <div id="container">
     <img id="background" src="@/assets/background.svg" alt="" fetchpriority="high">

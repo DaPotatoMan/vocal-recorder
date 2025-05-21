@@ -1,5 +1,6 @@
 import audioUrl from '~/tests/assets/audio-sample.mp3?url'
-import { AudioRecorder, AudioRecorderAnalyser, getAudioBuffer, getAudioContext } from '.'
+import { AudioRecorder, AudioRecorderAnalyser } from '.'
+import { getAudioBuffer, getAudioContext } from '../shared'
 
 async function sleep(ms: number) {
   return new Promise(resolve => setTimeout(resolve, ms))

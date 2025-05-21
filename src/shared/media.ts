@@ -18,18 +18,28 @@ export class StreamUtil {
     return stream.getAudioTracks()[0].getSettings()
   }
 
+  static getCapabilities(stream: MediaStream) {
+    return stream.getAudioTracks()[0].getCapabilities()
+  }
+
   static isValid(stream: MediaStream) {
     const tracks = stream.getAudioTracks()
     return stream.active && tracks.length > 0 && tracks.some(e => e.enabled)
   }
 
   static dispose(stream: MediaStream) {
-    stream.getTracks().forEach((entry) => {
-      entry.stop()
-      stream.removeTrack(entry)
-    })
+    for (const track of stream.getTracks()) {
+      track.stop()
+      stream.removeTrack(track)
+    }
 
+    stream.dispatchEvent(new Event('dispose'))
     return stream.active
+  }
+
+  /** Fires when `StreamUtil.dispose` is called on the given stream */
+  static onDispose(stream: MediaStream, callback: EventListener) {
+    stream.addEventListener('dispose', callback)
   }
 }
 
@@ -81,4 +91,38 @@ export async function getAudioBuffer(buffer: Blob | ArrayBuffer, config: Offline
   return new Promise((resolve, reject) =>
     getOfflineAudioContext(config).decodeAudioData(input, resolve, reject)
   )
+}
+
+export function playBeep({
+  frequency = 440,
+  rampValue = 0.00001,
+  rampDuration = 1
+} = {}) {
+  const context = getAudioContext({ latencyHint: 'playback' })
+  const currentTime = context.currentTime
+  const osc = context.createOscillator()
+  const gain = context.createGain()
+
+  osc.connect(gain)
+  gain.connect(context.destination)
+
+  gain.gain.value = 0.4
+  gain.gain.setValueAtTime(gain.gain.value, currentTime)
+  gain.gain.exponentialRampToValueAtTime(rampValue, currentTime + rampDuration)
+
+  return new Promise<void>((resolve) => {
+    // Cleanup
+    osc.onended = () => {
+      gain.disconnect(context.destination)
+      osc.disconnect(gain)
+      context.close()
+
+      resolve()
+    }
+
+    osc.type = 'sine'
+    osc.frequency.value = frequency
+    osc.start(currentTime)
+    osc.stop(currentTime + rampDuration)
+  })
 }
