@@ -2,7 +2,9 @@ import { sleep } from '@antfu/utils'
 import { AudioRecorder } from '../src'
 
 describe('class: AudioRecorder', () => {
-  const recorder = new AudioRecorder()
+  const recorder = new AudioRecorder({
+    beep: true
+  })
 
   it('can record', async () => {
     await recorder.init()

@@ -92,3 +92,37 @@ export async function getAudioBuffer(buffer: Blob | ArrayBuffer, config: Offline
     getOfflineAudioContext(config).decodeAudioData(input, resolve, reject)
   )
 }
+
+export function playBeep({
+  frequency = 440,
+  rampValue = 0.00001,
+  rampDuration = 1
+} = {}) {
+  const context = getAudioContext({ latencyHint: 'playback' })
+  const currentTime = context.currentTime
+  const osc = context.createOscillator()
+  const gain = context.createGain()
+
+  osc.connect(gain)
+  gain.connect(context.destination)
+
+  gain.gain.value = 0.4
+  gain.gain.setValueAtTime(gain.gain.value, currentTime)
+  gain.gain.exponentialRampToValueAtTime(rampValue, currentTime + rampDuration)
+
+  return new Promise<void>((resolve) => {
+    // Cleanup
+    osc.onended = () => {
+      gain.disconnect(context.destination)
+      osc.disconnect(gain)
+      context.close()
+
+      resolve()
+    }
+
+    osc.type = 'sine'
+    osc.frequency.value = frequency
+    osc.start(currentTime)
+    osc.stop(currentTime + rampDuration)
+  })
+}

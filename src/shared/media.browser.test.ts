@@ -1,6 +1,6 @@
 import audioUrl from '~/tests/assets/audio-sample.mp3?url'
 import { RuntimeError } from '..'
-import { blobToBuffer, getAudioBuffer, getAudioContext, getOfflineAudioContext, StreamUtil } from './media'
+import { blobToBuffer, getAudioBuffer, getAudioContext, getOfflineAudioContext, playBeep, StreamUtil } from './media'
 
 describe('class: StreamUtil', () => {
   let stream: MediaStream
@@ -115,5 +115,11 @@ describe('getAudioBuffer', async () => {
 
     // Ensure original buffer is not mutated
     expect(audioBuffer.byteLength).toBeGreaterThan(0)
+  })
+})
+
+describe('playBeep', () => {
+  it('can play beep', () => {
+    expect(playBeep()).resolves.not.toThrow()
   })
 })

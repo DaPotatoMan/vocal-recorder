@@ -1,5 +1,5 @@
 import type { AudioBlob } from '../shared'
-import { getAudioContext, StreamUtil, useEvents } from '../shared'
+import { getAudioContext, playBeep, StreamUtil, useEvents } from '../shared'
 import { createAudioProcessor } from './processor'
 
 export * from './analyser'
@@ -20,11 +20,23 @@ export class AudioRecorder {
     return { ...this.#state }
   }
 
-  constructor() {
+  constructor(private config: AudioRecorder.Config = {}) {
     this.context.suspend()
+
+    // Play a beep when recorder starts/stops
+    this.events.on('*', async (key) => {
+      const started = ['start', 'resume'].includes(key)
+      const stopped = ['stop', 'pause'].includes(key)
+
+      if (this.config.beep && (started || stopped))
+        playBeep({ frequency: started ? 440 : 700 })
+    })
   }
 
-  async init(config: AudioRecorder.Config = {}) {
+  async init(config: AudioRecorder.InitConfig = {}) {
+    // Update config
+    Object.assign(this.config, config)
+
     // Get stream
     const stream = config.stream instanceof MediaStream
       ? config.stream
@@ -80,7 +92,14 @@ export namespace AudioRecorder {
     Paused = 'paused'
   }
 
+  /** Global config for AudioRecorder */
   export interface Config {
+    /** Play a beep when recorder starts/stops */
+    beep?: boolean
+  }
+
+  /** Config for init process */
+  export interface InitConfig extends Config {
     stream?: MediaStream | MediaTrackConstraints
   }
 

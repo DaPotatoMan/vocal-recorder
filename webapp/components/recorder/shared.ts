@@ -23,7 +23,7 @@ export const useRecorderTimer = createSharedComposable(() => {
 })
 
 export const useRecorder = createSharedComposable(() => {
-  const recorder = new AudioRecorder()
+  const recorder = new AudioRecorder({ beep: true })
   const analyser = AudioRecorderAnalyser.create(recorder)
 
   const state = reactive(recorder.state)
