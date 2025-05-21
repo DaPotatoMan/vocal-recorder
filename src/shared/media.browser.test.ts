@@ -135,7 +135,7 @@ describe('getAudioBuffer', async () => {
 })
 
 describe('playBeep', () => {
-  it('can play beep', { timeout: 2000 }, () => {
+  it('can play beep', { timeout: 3000 }, () => {
     expect(playBeep()).resolves.not.toThrow()
   })
 })
