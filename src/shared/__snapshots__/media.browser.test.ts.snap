@@ -1,0 +1,31 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`class: StreamUtil > can get settings from media stream 1`] = `
+[
+  "autoGainControl",
+  "channelCount",
+  "deviceId",
+  "echoCancellation",
+  "groupId",
+  "latency",
+  "noiseSuppression",
+  "sampleRate",
+  "sampleSize",
+  "voiceIsolation",
+]
+`;
+
+exports[`class: StreamUtil > can get settings from media stream 2`] = `
+[
+  "autoGainControl",
+  "channelCount",
+  "deviceId",
+  "echoCancellation",
+  "groupId",
+  "latency",
+  "noiseSuppression",
+  "sampleRate",
+  "sampleSize",
+  "voiceIsolation",
+]
+`;
