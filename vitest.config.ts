@@ -1,10 +1,4 @@
-import type { Browser, LaunchOptions } from 'playwright'
 import { defineConfig } from 'vitest/config'
-
-interface BrowserProviderOptions {
-  launch?: LaunchOptions
-  page?: Parameters<Browser['newPage']>[0]
-}
 
 export default defineConfig({
   resolve: {
@@ -26,18 +20,22 @@ export default defineConfig({
     browser: {
       // headless: true,
       enabled: true,
-      name: 'chromium',
       provider: 'playwright',
-      providerOptions: {
-        launch: {
-          devtools: true,
-          args: ['--use-fake-ui-for-media-stream', '--autoplay-policy=no-user-gesture-required']
-        },
 
-        page: {
-          permissions: ['microphone']
+      instances: [
+        {
+          browser: 'chromium',
+
+          launch: {
+            devtools: true,
+            args: ['--use-fake-ui-for-media-stream', '--autoplay-policy=no-user-gesture-required']
+          },
+
+          context: {
+            permissions: ['microphone']
+          }
         }
-      } satisfies BrowserProviderOptions
+      ]
     }
   }
 })
