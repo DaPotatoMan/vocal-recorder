@@ -1,5 +1,6 @@
+import type { WasmMediaEncoder } from 'wasm-media-encoders/esnext'
 import type { Encoder } from '.'
-import { createEncoder, type WasmMediaEncoder } from 'wasm-media-encoders/esnext'
+import { createEncoder } from 'wasm-media-encoders/esnext'
 import wasm from 'wasm-media-encoders/wasm/mp3?url'
 import { RuntimeError } from '../shared'
 import { useExpandedBuffer } from './worker.shine'
