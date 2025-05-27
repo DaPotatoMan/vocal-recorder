@@ -1,6 +1,31 @@
 # Changelog
 
 
+## v2.0.7-0
+
+[compare changes](https://github.com/dapotatoman/vocal-recorder/compare/v2.0.6-0...v2.0.7-0)
+
+### 🚀 Enhancements
+
+- Add beep sfx support ([dea398f](https://github.com/dapotatoman/vocal-recorder/commit/dea398f))
+- Improve tests ([4911c1d](https://github.com/dapotatoman/vocal-recorder/commit/4911c1d))
+- Hide verbose logs during test ([9683175](https://github.com/dapotatoman/vocal-recorder/commit/9683175))
+- Update vitest config ([51013c2](https://github.com/dapotatoman/vocal-recorder/commit/51013c2))
+- Add `Transcoder` API ([3f6f817](https://github.com/dapotatoman/vocal-recorder/commit/3f6f817))
+
+### 🩹 Fixes
+
+- Lint issue ([63e8969](https://github.com/dapotatoman/vocal-recorder/commit/63e8969))
+
+### 🏡 Chore
+
+- Upgrade deps ([21101fa](https://github.com/dapotatoman/vocal-recorder/commit/21101fa))
+- Update tests ([97a43b4](https://github.com/dapotatoman/vocal-recorder/commit/97a43b4))
+
+### ❤️ Contributors
+
+- Fahad ([@DaPotatoMan](https://github.com/DaPotatoMan))
+
 ## v2.0.6-0
 
 [compare changes](https://github.com/dapotatoman/vocal-recorder/compare/v2.0.5-0...v2.0.6-0)
