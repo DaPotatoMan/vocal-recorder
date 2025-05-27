@@ -1,6 +1,6 @@
 import audioUrl from '~/tests/assets/audio-sample.mp3?url'
 import { RuntimeError } from '..'
-import { blobToBuffer, getAudioBuffer, getAudioContext, getOfflineAudioContext, playBeep, StreamUtil } from './media'
+import { blobToBuffer, getAudioBuffer, getAudioContext, getAudioMetadata, getOfflineAudioContext, playBeep, StreamUtil } from './media'
 
 describe('class: StreamUtil', () => {
   let stream: MediaStream
@@ -131,6 +131,29 @@ describe('getAudioBuffer', async () => {
 
     // Ensure original buffer is not mutated
     expect(audioBuffer.byteLength).toBeGreaterThan(0)
+  })
+})
+
+describe('getAudioMetadata', async () => {
+  it('can parse blob', async () => {
+    const result = await getAudioMetadata(
+      await fetch(audioUrl).then(i => i.blob())
+    )
+
+    expect(result).toMatchInlineSnapshot(`
+      {
+        "bitRate": 128,
+        "duration": 23.902,
+      }
+    `)
+  })
+
+  it('should throw error for invalid input', () => {
+    expect(
+      getAudioMetadata(new Blob())
+    )
+      .rejects
+      .toThrow(MediaError)
   })
 })
 

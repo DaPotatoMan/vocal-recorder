@@ -1,0 +1,61 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`class: Transcoder > m4a -> mp3 1`] = `
+{
+  "blob": Blob {},
+  "metadata": {
+    "bitRate": 80,
+    "duration": 23.92526,
+  },
+}
+`;
+
+exports[`class: Transcoder > mp3 -> mp3 1`] = `
+{
+  "blob": Blob {},
+  "metadata": {
+    "bitRate": 128,
+    "duration": 23.902,
+  },
+}
+`;
+
+exports[`class: Transcoder > ogg (large) -> mp3 1`] = `
+{
+  "blob": Blob {},
+  "metadata": {
+    "bitRate": 112,
+    "duration": 1690.867667,
+  },
+}
+`;
+
+exports[`class: Transcoder > wav -> mp3 1`] = `
+{
+  "blob": Blob {},
+  "metadata": {
+    "bitRate": 320,
+    "duration": 23.902041,
+  },
+}
+`;
+
+exports[`class: Transcoder > webm (large) -> mp3 1`] = `
+{
+  "blob": Blob {},
+  "metadata": {
+    "bitRate": 112,
+    "duration": 1690.867667,
+  },
+}
+`;
+
+exports[`class: Transcoder > webm -> mp3 1`] = `
+{
+  "blob": Blob {},
+  "metadata": {
+    "bitRate": 80,
+    "duration": 23.91,
+  },
+}
+`;

@@ -93,6 +93,41 @@ export async function getAudioBuffer(buffer: Blob | ArrayBuffer, config: Offline
   )
 }
 
+/**
+ * Parses basic audio metadata
+ * Requires Audio element in browser to work
+ */
+export async function getAudioMetadata(file: Blob) {
+  const url = URL.createObjectURL(file)
+
+  function getDuration() {
+    return new Promise<number>((resolve, reject) => {
+      const audio = new Audio()
+
+      audio.onerror = () => reject(audio.error)
+      audio.onloadedmetadata = () => resolve(audio.duration)
+      audio.src = url
+    })
+  }
+
+  function getBitrate(duration: number, size: number) {
+    const kbit = size * 8 / 1000 // Calculate kbit in kbps
+    let bitRate = Math.ceil(Math.round(kbit / duration) / 16) * 16
+
+    // Ensure bitrate is a standard MP3 bitrate between 48-320 kbps
+    const standardBitRates = [48, 56, 64, 80, 96, 112, 128, 160, 192, 224, 256, 320]
+    bitRate = standardBitRates.reduce((prev, curr) => Math.abs(curr - bitRate) < Math.abs(prev - bitRate) ? curr : prev)
+
+    return bitRate
+  }
+
+  const duration = await getDuration()
+  const bitRate = getBitrate(duration, file.size)
+  URL.revokeObjectURL(url)
+
+  return { duration, bitRate }
+}
+
 export function playBeep({
   frequency = 440,
   rampValue = 0.00001,
