@@ -2,7 +2,7 @@
   "name": "vocal-recorder",
   "type": "module",
   "version": "2.0.6-0",
-  "packageManager": "pnpm@10.11.0+sha512.6540583f41cc5f628eb3d9773ecee802f4f9ef9923cc45b69890fb47991d4b092964694ec3a4f738a420c918a333062c8b925d312f42e4f0c263eb603551f977",
+  "packageManager": "pnpm@10.11.1+sha512.e519b9f7639869dc8d5c3c5dfef73b3f091094b0a006d7317353c72b124e80e1afd429732e28705ad6bfa1ee879c1fce46c128ccebd3192101f43dd67c667912",
   "description": "MP3 audio recorder for the web",
   "author": "Fahadul Islam @dapotatoman",
   "license": "MIT",
@@ -38,14 +38,14 @@
     "@antfu/utils": "^9.2.0",
     "@types/audioworklet": "^0.0.75",
     "@types/node": "^22.15.29",
-    "@vitest/browser": "^3.1.4",
-    "@vitest/coverage-v8": "3.1.4",
+    "@vitest/browser": "^3.2.1",
+    "@vitest/coverage-v8": "3.2.1",
     "changelogen": "^0.6.1",
     "eslint": "^9.28.0",
     "playwright": "^1.52.0",
     "typescript": "^5.8.3",
     "vite": "^6.3.5",
     "vite-plugin-dts": "^4.5.4",
-    "vitest": "^3.1.4"
+    "vitest": "^3.2.1"
   }
 }
