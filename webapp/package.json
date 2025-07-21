@@ -16,8 +16,8 @@
     "vue-router": "^4.5.1"
   },
   "devDependencies": {
-    "@iconify/json": "^2.2.359",
-    "@nuxt/eslint": "1.5.2",
+    "@iconify/json": "^2.2.360",
+    "@nuxt/eslint": "1.6.0",
     "@nuxt/fonts": "0.11.4",
     "@unocss/nuxt": "0.65.4",
     "@unocss/reset": "^0.65.4",
