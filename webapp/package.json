@@ -19,13 +19,13 @@
     "@iconify/json": "^2.2.363",
     "@nuxt/eslint": "1.7.1",
     "@nuxt/fonts": "0.11.4",
-    "@unocss/nuxt": "0.65.4",
-    "@unocss/reset": "^0.65.4",
+    "@unocss/nuxt": "66.5.0",
+    "@unocss/reset": "^66.5.0",
     "@vueuse/nuxt": "13.5.0",
     "eslint": "^9.32.0",
     "nuxt": "^3.17.7",
     "nuxt-vite-legacy": "^2.0.1",
     "sass": "^1.89.2",
-    "unocss": "^0.65.4"
+    "unocss": "^66.5.0"
   }
 }
