@@ -10,22 +10,22 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
-    "@vueuse/core": "^13.5.0",
-    "reka-ui": "2.4.0",
-    "vue": "^3.5.18",
+    "@vueuse/core": "^13.9.0",
+    "reka-ui": "2.5.0",
+    "vue": "^3.5.21",
     "vue-router": "^4.5.1"
   },
   "devDependencies": {
-    "@iconify/json": "^2.2.363",
-    "@nuxt/eslint": "1.7.1",
+    "@iconify/json": "^2.2.385",
+    "@nuxt/eslint": "1.9.0",
     "@nuxt/fonts": "0.11.4",
     "@unocss/nuxt": "0.65.4",
     "@unocss/reset": "^0.65.4",
-    "@vueuse/nuxt": "13.5.0",
-    "eslint": "^9.32.0",
+    "@vueuse/nuxt": "13.9.0",
+    "eslint": "^9.35.0",
     "nuxt": "^3.17.7",
     "nuxt-vite-legacy": "^2.0.1",
-    "sass": "^1.89.2",
+    "sass": "^1.92.1",
     "unocss": "^0.65.4"
   }
 }
