@@ -40,7 +40,7 @@ jobs:
           NUXT_APP_BASE_URL=/vocal-recorder/ pnpm -F webapp build --preset github_pages
 
       - name: Update pages artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v4
         with:
           path: ./webapp/.output/public
 
