@@ -34,7 +34,7 @@
     "wasm-media-encoders": "^0.7.0"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^4.19.0",
+    "@antfu/eslint-config": "^5.4.1",
     "@antfu/utils": "^9.2.1",
     "@types/audioworklet": "^0.0.85",
     "@types/node": "^22.18.8",
