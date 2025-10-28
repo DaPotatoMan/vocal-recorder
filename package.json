@@ -2,7 +2,7 @@
   "name": "vocal-recorder",
   "type": "module",
   "version": "2.0.6-0",
-  "packageManager": "pnpm@10.18.3+sha512.bbd16e6d7286fd7e01f6b3c0b3c932cda2965c06a908328f74663f10a9aea51f1129eea615134bf992831b009eabe167ecb7008b597f40ff9bc75946aadfb08d",
+  "packageManager": "pnpm@10.20.0+sha512.cf9998222162dd85864d0a8102e7892e7ba4ceadebbf5a31f9c2fce48dfce317a9c53b9f6464d1ef9042cba2e02ae02a9f7c143a2b438cd93c91840f0192b9dd",
   "description": "MP3 audio recorder for the web",
   "author": "Fahadul Islam @dapotatoman",
   "license": "MIT",
@@ -36,15 +36,15 @@
   "devDependencies": {
     "@antfu/eslint-config": "^4.19.0",
     "@antfu/utils": "^9.3.0",
-    "@types/audioworklet": "^0.0.87",
-    "@types/node": "^22.18.11",
+    "@types/audioworklet": "^0.0.88",
+    "@types/node": "^22.18.13",
     "@vitest/browser": "^3.2.4",
     "@vitest/coverage-v8": "3.2.4",
     "changelogen": "^0.6.2",
     "eslint": "^9.38.0",
     "playwright": "^1.56.1",
     "typescript": "^5.9.3",
-    "vite": "^6.4.0",
+    "vite": "^6.4.1",
     "vite-plugin-dts": "^4.5.4",
     "vitest": "^3.2.4"
   }
