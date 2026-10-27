@@ -23,7 +23,7 @@
     "@unocss/reset": "^0.65.4",
     "@vueuse/nuxt": "13.9.0",
     "eslint": "^9.38.0",
-    "nuxt": "^3.17.7",
+    "nuxt": "^4.0.0",
     "nuxt-vite-legacy": "^2.0.1",
     "sass": "^1.93.2",
     "unocss": "^0.65.4"
